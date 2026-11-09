@@ -1,0 +1,2793 @@
+[
+ {
+  "id": "jet-li-wushu-champion",
+  "who": "Jet Li",
+  "title": "Five-time national wushu champion",
+  "event": "China, 1974-79",
+  "year": 1974,
+  "age": 11,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Won his first national all-around title at eleven and did not lose it for five years, training eight hours a day. Retired undefeated at seventeen and went into films.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "5 national titles",
+  "source": "extra3"
+ },
+ {
+  "id": "donnie-yen-wushu-team",
+  "who": "Donnie Yen",
+  "title": "Beijing Wushu Team, then everything else",
+  "event": "1980s-",
+  "year": 1982,
+  "age": 19,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Trained with the Beijing team alongside Jet Li, then added boxing, taekwondo, judo, jiu-jitsu and muay thai. Choreographs his own fights in his sixties.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "Beijing team",
+  "source": "extra3"
+ },
+ {
+  "id": "tony-jaa-muay-thai",
+  "who": "Tony Jaa",
+  "title": "Muay Thai without wires or CGI",
+  "event": "Ong-Bak · 2003",
+  "year": 2003,
+  "age": 27,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Fifteen years of muay boran under Panna Rittikrai before the film that made him, and a policy of no wires, no doubles and no digital assistance.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "martial-arts",
+   "stunts"
+  ],
+  "display": "No wires",
+  "source": "extra3"
+ },
+ {
+  "id": "iko-uwais-silat",
+  "who": "Iko Uwais",
+  "title": "National silat champion, then The Raid",
+  "event": "Indonesia, 2005",
+  "year": 2005,
+  "age": 22,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Was working as a delivery driver for a phone company and competing in pencak silat when a documentary crew filmed his gym. Choreographs the fight scenes he stars in.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "National champion",
+  "source": "extra3"
+ },
+ {
+  "id": "akshay-kumar-martial-arts",
+  "who": "Akshay Kumar",
+  "title": "Black belt, and his own stunts for thirty years",
+  "event": "1990s-",
+  "year": 2000,
+  "age": 33,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Trained in Bangkok, taught martial arts before acting, and has done his own stunts across 150 films. Also runs on the roof of moving trains, which the insurers have opinions about.",
+  "confidence": "reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "martial-arts",
+   "stunts"
+  ],
+  "display": "Taekwondo black belt",
+  "source": "extra3"
+ },
+ {
+  "id": "vidyut-jammwal-kalaripayattu",
+  "who": "Vidyut Jammwal",
+  "title": "Kalaripayattu from the age of three",
+  "event": "India",
+  "year": 2011,
+  "age": 31,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Trained in one of the oldest surviving martial arts from early childhood in Kerala, and is one of very few actors ranked among the world's top martial artists by outlets that count such things.",
+  "confidence": "reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "Lifelong",
+  "source": "extra3"
+ },
+ {
+  "id": "zlatan-ibrahimovic-taekwondo",
+  "who": "Zlatan Ibrahimović",
+  "title": "Taekwondo black belt",
+  "event": "Sweden, 1990s",
+  "year": 1995,
+  "age": 14,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Earned the belt as a teenager in Malmö before football took over, which explains a career's worth of kicks that no coaching manual would sanction.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "Black belt",
+  "source": "extra3"
+ },
+ {
+  "id": "jocko-willink-bjj-black-belt",
+  "who": "Jocko Willink",
+  "title": "SEAL Team Three, then a BJJ black belt",
+  "event": "1990s-2000s",
+  "year": 2006,
+  "age": 35,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Twenty years in the Navy including Ramadi, then a black belt under Dean Lister and a second career telling people to get up at 4:30. He does get up at 4:30.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "bjj",
+   "military"
+  ],
+  "display": "Black belt",
+  "source": "extra3"
+ },
+ {
+  "id": "vladimir-putin-judo",
+  "who": "Vladimir Putin",
+  "title": "Judo black belt, later revoked",
+  "event": "1970s-2022",
+  "year": 1975,
+  "age": 22,
+  "discipline": "combat",
+  "category": "Politics & power",
+  "note": "Trained from his teens in Leningrad, won city championships, co-wrote a judo book and held an honorary eighth dan — until the International Judo Federation withdrew his status in 2022.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "martial-arts"
+  ],
+  "display": "Black belt, withdrawn",
+  "source": "extra3"
+ },
+ {
+  "id": "justin-trudeau-boxing-2012",
+  "who": "Justin Trudeau",
+  "flag": "CAN",
+  "title": "Won a charity boxing match nobody thought he would",
+  "event": "Ottawa, 2012",
+  "year": 2012,
+  "age": 40,
+  "discipline": "combat",
+  "category": "Politics & power",
+  "note": "A three-round fight against a Conservative senator and former reservist who was a 3-to-1 favourite. Trudeau won by TKO in the third and the political career changed shape that night.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "boxing"
+  ],
+  "display": "TKO, round 3",
+  "source": "extra3"
+ },
+ {
+  "id": "nelson-mandela-boxing",
+  "who": "Nelson Mandela",
+  "title": "Boxer, then a cell-sized training regime",
+  "event": "1940s-1980s",
+  "year": 1950,
+  "age": 32,
+  "discipline": "combat",
+  "category": "Politics & power",
+  "note": "Boxed as a young lawyer in Johannesburg, and on Robben Island ran on the spot for forty-five minutes, then press-ups, sit-ups and knee-bends, Monday to Thursday, for years.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "boxing",
+   "discipline"
+  ],
+  "display": "4 days a week, in a cell",
+  "source": "extra3"
+ },
+ {
+  "id": "jimmy-carter-10k-collapse",
+  "who": "Jimmy Carter",
+  "title": "Collapsed in a 10 km, aged 54",
+  "event": "Catoctin Mountain, 1979",
+  "year": 1979,
+  "age": 54,
+  "discipline": "run",
+  "category": "Politics & power",
+  "note": "A sitting president running a mountain 10 km in September heat, pulled out grey-faced at six kilometres by the Secret Service. He was back to a 40-mile week within days and still building houses at 95.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 2,
+  "tags": [
+   "running"
+  ],
+  "display": "DNF at 6 km",
+  "source": "extra3"
+ },
+ {
+  "id": "george-w-bush-w100k",
+  "who": "George W. Bush",
+  "title": "The W100K mountain-bike ride",
+  "event": "Texas, 2011-",
+  "year": 2011,
+  "age": 65,
+  "discipline": "ride",
+  "category": "Politics & power",
+  "note": "After two knee surgeries ended the running, he took up mountain biking and now leads a 100-km three-day ride with wounded veterans every year, at a pace that has dropped Secret Service agents.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 100000,
+   "days": 3
+  },
+  "tier": 2,
+  "tags": [
+   "cycling",
+   "charity"
+  ],
+  "display": "100 km · 3 days",
+  "source": "extra3"
+ },
+ {
+  "id": "gerald-ford-michigan-football",
+  "who": "Gerald Ford",
+  "title": "Two NFL offers, declined",
+  "event": "Michigan, 1934",
+  "year": 1934,
+  "age": 21,
+  "discipline": "other",
+  "category": "Politics & power",
+  "note": "Most valuable player on an undefeated Michigan side, offered contracts by the Packers and the Lions, and turned both down for law school. Still swam laps daily as president.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "football"
+  ],
+  "display": "Packers and Lions",
+  "source": "extra3"
+ },
+ {
+  "id": "ronald-reagan-lifeguard",
+  "who": "Ronald Reagan",
+  "title": "77 rescues as a river lifeguard",
+  "event": "Rock River, Illinois · 1927-32",
+  "year": 1932,
+  "age": 21,
+  "discipline": "swim",
+  "category": "Politics & power",
+  "note": "Seven summers on a stretch of river with a real current, and he notched each rescue on a log. The number is his own count, disputed by nobody who swam there.",
+  "confidence": "reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "swimming"
+  ],
+  "display": "77 pulls",
+  "source": "extra3"
+ },
+ {
+  "id": "barack-obama-basketball",
+  "who": "Barack Obama",
+  "title": "A basketball habit that outlasted the presidency",
+  "event": "1970s-",
+  "year": 2012,
+  "age": 51,
+  "discipline": "other",
+  "category": "Politics & power",
+  "note": "Played at high school in Hawaii and kept a full-court game running through eight years in office, including on election mornings for luck. Took an elbow to the mouth in 2010 and needed twelve stitches.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 2,
+  "tags": [
+   "basketball"
+  ],
+  "display": "12 stitches",
+  "source": "extra3"
+ },
+ {
+  "id": "yuichiro-miura-everest-80",
+  "who": "Yuichiro Miura",
+  "title": "Everest at 80",
+  "event": "2013",
+  "year": 2013,
+  "age": 80,
+  "discipline": "mountain",
+  "category": "Age-defying",
+  "note": "Skied down Everest's south face in 1970 with a parachute, then summited at 70, 75 and 80 — the last of those after four heart operations and a broken pelvis.",
+  "confidence": "verified",
+  "check": {
+   "kind": "summit",
+   "altitude_m": 8849
+  },
+  "tier": 5,
+  "tags": [
+   "8000er",
+   "masters"
+  ],
+  "logistics": "Permit and expedition, US$45-90k, plus a cardiologist who says yes",
+  "display": "8,849 m · age 80",
+  "source": "extra3"
+ },
+ {
+  "id": "junko-tabei-everest-1975",
+  "who": "Junko Tabei",
+  "title": "First woman to summit Everest",
+  "event": "1975",
+  "year": 1975,
+  "age": 35,
+  "discipline": "mountain",
+  "category": "Historical wing",
+  "note": "Buried by an avalanche at 6,300 m twelve days before the summit, dug out unconscious, and went up anyway. She later became the first woman to complete the Seven Summits, while working and raising two children.",
+  "confidence": "verified",
+  "check": {
+   "kind": "summit",
+   "altitude_m": 8849
+  },
+  "tier": 5,
+  "tags": [
+   "8000er",
+   "historical"
+  ],
+  "display": "8,849 m · 1975",
+  "source": "extra3"
+ },
+ {
+  "id": "buzz-aldrin-south-pole-86",
+  "who": "Buzz Aldrin",
+  "title": "South Pole at 86",
+  "event": "2016",
+  "year": 2016,
+  "age": 86,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Reached the Pole as a tourist, then had to be evacuated to New Zealand with fluid on the lungs. He had already walked on the Moon, so the risk calculus was always going to be his own.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "polar",
+   "masters"
+  ],
+  "logistics": "Antarctic tourism, US$50k+",
+  "display": "90°S · age 86",
+  "source": "extra3"
+ },
+ {
+  "id": "scott-kelly-year-in-space",
+  "who": "Scott Kelly",
+  "title": "340 consecutive days in orbit",
+  "event": "ISS · 2015-16",
+  "year": 2016,
+  "age": 52,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Two hours of resistance and cardio work every single day for eleven months, purely to slow the bone and muscle loss. Came home five centimetres taller and with a genome the twin study is still arguing about.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "streak",
+   "sport": "other",
+   "min_m": 1,
+   "days": 340
+  },
+  "tier": 5,
+  "tags": [
+   "space",
+   "streak"
+  ],
+  "display": "340 days · 2 h/day",
+  "source": "extra3"
+ },
+ {
+  "id": "peggy-whitson-cumulative-days",
+  "who": "Peggy Whitson",
+  "title": "665 days off the planet",
+  "event": "2002-2017",
+  "year": 2017,
+  "age": 57,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "More cumulative time in space than any American, ten spacewalks, and a first command of the ISS at 47. The exercise protocol is the only reason any of it is survivable.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "space"
+  ],
+  "display": "665 days · 10 EVAs",
+  "source": "extra3"
+ },
+ {
+  "id": "chris-hadfield-iss-command",
+  "who": "Chris Hadfield",
+  "flag": "CAN",
+  "title": "Commanded the ISS, then played guitar in orbit",
+  "event": "2013",
+  "year": 2013,
+  "age": 53,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Two spacewalks, one of them half-blind when anti-fog solution got into his eyes, and a fitness regime that kept a 53-year-old body functional in zero gravity for five months.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "space"
+  ],
+  "display": "146 days · 2 EVAs",
+  "source": "extra3"
+ },
+ {
+  "id": "alexei-leonov-first-spacewalk",
+  "who": "Alexei Leonov",
+  "title": "The first spacewalk, and the suit that nearly killed him",
+  "event": "Voskhod 2 · 1965",
+  "year": 1965,
+  "age": 30,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Twelve minutes outside, then a suit so inflated he could not fit back through the airlock. He bled off his own oxygen to deflate it, going in head-first, with heatstroke and boots full of sweat.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "space",
+   "historical"
+  ],
+  "display": "12 minutes",
+  "source": "extra3"
+ },
+ {
+  "id": "william-shatner-space-90",
+  "who": "William Shatner",
+  "title": "To space at 90",
+  "event": "Blue Origin NS-18 · 2021",
+  "year": 2021,
+  "age": 90,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Oldest person to reach space, on a suborbital hop that pulled around 5g on re-entry, at ninety. Came back and said it felt like a funeral.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "space",
+   "masters"
+  ],
+  "logistics": "An invitation from a billionaire",
+  "display": "107 km · age 90",
+  "source": "extra3"
+ },
+ {
+  "id": "annie-londonderry-world-bicycle",
+  "who": "Annie Londonderry",
+  "title": "Cycled around the world on a bet",
+  "event": "1894-95",
+  "year": 1895,
+  "age": 24,
+  "discipline": "ride",
+  "category": "Historical wing",
+  "note": "A Latvian-born mother of three from Boston who had barely ridden a bicycle, left on a 42-pound Columbia to settle a wager that no woman could circle the globe, and came back fifteen months later having done it.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 15000000,
+   "days": 455
+  },
+  "tier": 5,
+  "tags": [
+   "historical",
+   "multiday"
+  ],
+  "display": "15 months",
+  "source": "extra3"
+ },
+ {
+  "id": "dervla-murphy-ireland-india",
+  "who": "Dervla Murphy",
+  "title": "Cycled Ireland to India, alone, in winter",
+  "event": "1963",
+  "year": 1963,
+  "age": 31,
+  "discipline": "ride",
+  "category": "Historical wing",
+  "note": "Set off in the coldest European winter in decades with a revolver in her bag, crossed Persia and Afghanistan solo, and wrote Full Tilt about it. Kept travelling by bicycle into her eighties.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 7000000,
+   "days": 180
+  },
+  "tier": 5,
+  "tags": [
+   "historical",
+   "multiday"
+  ],
+  "display": "≈7,000 km · solo",
+  "source": "extra3"
+ },
+ {
+  "id": "nellie-bly-72-days",
+  "who": "Nellie Bly",
+  "title": "Around the world in 72 days",
+  "event": "1889-90",
+  "year": 1890,
+  "age": 25,
+  "discipline": "other",
+  "category": "Historical wing",
+  "note": "A reporter racing a fictional record with one bag and one dress, by ship, train, rickshaw and horse, filing copy the whole way. Beat Phileas Fogg by eight days.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "historical"
+  ],
+  "display": "72 days",
+  "source": "extra3"
+ },
+ {
+  "id": "florence-chadwick-channel-both-ways",
+  "who": "Florence Chadwick",
+  "title": "The Channel, both directions, records both times",
+  "event": "1950-51",
+  "year": 1951,
+  "age": 33,
+  "discipline": "swim",
+  "category": "Historical wing",
+  "note": "Swam France to England faster than any woman had, then England to France faster than any woman had, then did the Catalina Channel and three more. Trained by swimming in the Persian Gulf on her lunch break from an oil company job.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "swim_time",
+   "meters": 34000,
+   "seconds": 49080,
+   "water": "open"
+  },
+  "tier": 5,
+  "tags": [
+   "channel",
+   "historical"
+  ],
+  "display": "13 h 38 m",
+  "source": "extra3"
+ },
+ {
+  "id": "lynne-cox-bering-strait",
+  "who": "Lynne Cox",
+  "title": "Swam the Bering Strait",
+  "event": "1987",
+  "year": 1987,
+  "age": 30,
+  "discipline": "swim",
+  "category": "Open water",
+  "note": "Four kilometres between the US and Soviet Union in 3.3°C water in a swimsuit, with the two governments negotiating permission around her. Reagan and Gorbachev toasted the swim at the INF treaty signing.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "swim_distance",
+   "meters": 4300,
+   "water": "ice"
+  },
+  "tier": 5,
+  "tags": [
+   "openwater",
+   "cold",
+   "historical"
+  ],
+  "logistics": "Two superpowers agreeing on something",
+  "display": "4.3 km · 3.3°C",
+  "source": "extra3"
+ },
+ {
+  "id": "helen-skelton-amazon-kayak",
+  "who": "Helen Skelton",
+  "title": "Kayaked 3,200 km of the Amazon",
+  "event": "2010",
+  "year": 2010,
+  "age": 26,
+  "discipline": "row",
+  "category": "Ultra & multiday",
+  "note": "Forty-two days alone in a kayak from Nauta to Almeirim, six to ten hours a day, with hallucinations by the end. First woman to do it, and she was a children's television presenter.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "row",
+   "meters": 3200000,
+   "days": 42
+  },
+  "tier": 5,
+  "tags": [
+   "multiday",
+   "charity"
+  ],
+  "display": "3,200 km · 42 days",
+  "source": "extra3"
+ },
+ {
+  "id": "helen-skelton-south-pole-kite",
+  "who": "Helen Skelton",
+  "title": "To the South Pole by kite ski and bicycle",
+  "event": "2012",
+  "year": 2012,
+  "age": 28,
+  "discipline": "ski",
+  "category": "Mountains & poles",
+  "note": "500 miles across Antarctica using a snow-kite, skis and a custom ice bike, in eighteen days, two years after the Amazon. Also once walked a high wire between the Battersea chimneys.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ski",
+   "meters": 800000,
+   "days": 18
+  },
+  "tier": 5,
+  "tags": [
+   "polar",
+   "charity"
+  ],
+  "logistics": "Antarctic support, six figures",
+  "display": "800 km · 18 days",
+  "source": "extra3"
+ },
+ {
+  "id": "gal-gadot-idf-service",
+  "who": "Gal Gadot",
+  "title": "Two years as a combat instructor",
+  "event": "Israel Defense Forces · 2005-07",
+  "year": 2006,
+  "age": 21,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Compulsory service spent teaching gymnastics and calisthenics to soldiers, which is why the Wonder Woman training footage looks like someone returning to a skill rather than learning one.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "military"
+  ],
+  "display": "2 years",
+  "source": "extra3"
+ },
+ {
+  "id": "joan-benoit-samuelson-1984",
+  "who": "Joan Benoit Samuelson",
+  "title": "Won the first Olympic women's marathon",
+  "event": "Los Angeles 1984",
+  "year": 1984,
+  "age": 27,
+  "discipline": "run",
+  "category": "Historical wing",
+  "note": "Seventeen days after arthroscopic knee surgery she won the US trials, and three months later took the first Olympic gold ever offered to women over the distance, breaking away at five kilometres. Ran 3:02 at 61.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 8763
+  },
+  "tier": 5,
+  "tags": [
+   "marathon",
+   "olympics",
+   "historical"
+  ],
+  "display": "2:24:52",
+  "source": "extra3"
+ },
+ {
+  "id": "babe-zaharias-two-sports",
+  "who": "Babe Didrikson Zaharias",
+  "title": "Olympic golds, then 10 golf majors",
+  "event": "1932-1954",
+  "year": 1932,
+  "age": 21,
+  "discipline": "other",
+  "category": "Historical wing",
+  "note": "Two athletics golds and a silver at Los Angeles, then baseball, basketball and a golf career that produced ten majors — three of them after a cancer diagnosis and a colostomy.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "olympics",
+   "historical"
+  ],
+  "display": "2 golds · 10 majors",
+  "source": "extra3"
+ },
+ {
+  "id": "jim-thorpe-1912",
+  "who": "Jim Thorpe",
+  "title": "Pentathlon and decathlon gold in borrowed shoes",
+  "event": "Stockholm 1912",
+  "year": 1912,
+  "age": 24,
+  "discipline": "other",
+  "category": "Historical wing",
+  "note": "His shoes were stolen on the morning of the decathlon; he competed in a mismatched pair found in a bin, one of them worn over an extra sock, and won by nearly 700 points.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "olympics",
+   "historical"
+  ],
+  "display": "2 golds",
+  "source": "extra3"
+ },
+ {
+  "id": "spiridon-louis-1896",
+  "who": "Spiridon Louis",
+  "title": "Won the first Olympic marathon",
+  "event": "Athens 1896",
+  "year": 1896,
+  "age": 23,
+  "discipline": "run",
+  "category": "Historical wing",
+  "note": "A water carrier from Marousi who stopped at an inn near Chalandri for a glass of wine, asked how far ahead the leaders were, and then ran them all down. 2:58:50, on roads that were not roads.",
+  "confidence": "verified",
+  "check": {
+   "kind": "run_time",
+   "distance_m": 40000,
+   "seconds": 10730
+  },
+  "tier": 5,
+  "tags": [
+   "marathon",
+   "historical"
+  ],
+  "display": "2:58:50 · 40 km",
+  "source": "extra3"
+ },
+ {
+  "id": "dorando-pietri-1908",
+  "who": "Dorando Pietri",
+  "title": "Collapsed five times in the last 400 m",
+  "event": "London 1908",
+  "year": 1908,
+  "age": 22,
+  "discipline": "run",
+  "category": "Historical wing",
+  "note": "Entered the stadium first, turned the wrong way, fell repeatedly, was helped over the line by officials and disqualified for it. Queen Alexandra had a special cup made for him and the marathon became famous.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "marathon",
+   "historical"
+  ],
+  "display": "DQ, and immortal",
+  "source": "extra3"
+ },
+ {
+  "id": "douglas-mawson-far-eastern-party",
+  "who": "Douglas Mawson",
+  "title": "Walked 500 km back alone",
+  "event": "Antarctica 1912-13",
+  "year": 1913,
+  "age": 31,
+  "discipline": "other",
+  "category": "Historical wing",
+  "note": "One companion vanished into a crevasse with most of the food; the other died of what was probably vitamin A poisoning from dog liver. Mawson walked out alone, skin sloughing off his body, falling into a crevasse and climbing back up the rope.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ski",
+   "meters": 500000,
+   "days": 30
+  },
+  "tier": 5,
+  "tags": [
+   "polar",
+   "historical"
+  ],
+  "display": "500 km · alone",
+  "source": "extra3"
+ },
+ {
+  "id": "roald-amundsen-south-pole",
+  "who": "Roald Amundsen",
+  "title": "First to the South Pole",
+  "event": "1911",
+  "year": 1911,
+  "age": 39,
+  "discipline": "ski",
+  "category": "Historical wing",
+  "note": "2,800 km round trip on skis with dogs, arriving 34 days before Scott and losing nobody, because he had spent years learning from Netsilik hunters what Europeans thought they already knew.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ski",
+   "meters": 2800000,
+   "days": 99
+  },
+  "tier": 5,
+  "tags": [
+   "polar",
+   "historical"
+  ],
+  "display": "2,800 km · 99 days",
+  "source": "extra3"
+ },
+ {
+  "id": "pheidippides-legend",
+  "who": "Pheidippides",
+  "title": "The run the whole genre is named after",
+  "event": "490 BC",
+  "year": -490,
+  "age": null,
+  "ageLabel": "unknown",
+  "discipline": "run",
+  "category": "Historical wing",
+  "note": "Herodotus has him running about 240 km to Sparta and back for reinforcements, which is credible and is now the Spartathlon. The 42 km version with the dying announcement was added centuries later by writers who preferred it.",
+  "confidence": "legend",
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 240000,
+   "days": 2
+  },
+  "tier": 5,
+  "tags": [
+   "historical",
+   "legend"
+  ],
+  "display": "≈240 km · 2 days",
+  "source": "extra3"
+ },
+ {
+  "id": "bruce-springsteen-four-hour-shows",
+  "who": "Bruce Springsteen",
+  "title": "Four-hour shows into his seventies",
+  "event": "1975-",
+  "year": 2023,
+  "age": 73,
+  "discipline": "other",
+  "category": "Music & stage",
+  "note": "Three to four hours a night with no interval, sliding across stages and crowd-surfing, on a schedule of 60-plus dates. He treadmills and lifts specifically to make the shows survivable.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual",
+   "was_duration_s": 14400
+  },
+  "tier": 4,
+  "tags": [
+   "stage",
+   "masters"
+  ],
+  "display": "4 h · no interval",
+  "source": "extra3"
+ },
+ {
+  "id": "mick-jagger-stage-miles",
+  "who": "Mick Jagger",
+  "title": "Twelve miles of stage per show, at 80",
+  "event": "1962-",
+  "year": 2023,
+  "age": 80,
+  "discipline": "other",
+  "category": "Music & stage",
+  "note": "Preparation is running, swimming, cycling, kickboxing and ballet; the show itself covers roughly twelve miles of stage while singing. He was back on tour seven weeks after heart valve surgery at 75.",
+  "confidence": "reported",
+  "check": {
+   "kind": "manual",
+   "was_duration_s": 7800
+  },
+  "tier": 4,
+  "tags": [
+   "stage",
+   "masters"
+  ],
+  "display": "≈19 km per show",
+  "source": "extra3"
+ },
+ {
+  "id": "pink-aerial-acrobatics",
+  "who": "Pink",
+  "title": "Aerial acrobatics while singing live",
+  "event": "2010-",
+  "year": 2019,
+  "age": 40,
+  "discipline": "other",
+  "category": "Music & stage",
+  "note": "Flies on a harness across stadiums, spins upside down and holds pitch through it, having trained with circus coaches for years. The safety rehearsals alone are a strength programme.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "stage",
+   "strength"
+  ],
+  "display": "Harness, live vocal",
+  "source": "extra3"
+ },
+ {
+  "id": "dave-grohl-broken-leg-set",
+  "who": "Dave Grohl",
+  "title": "Finished the set on a broken leg",
+  "event": "Gothenburg, 2015",
+  "year": 2015,
+  "age": 46,
+  "discipline": "other",
+  "category": "Music & stage",
+  "note": "Fell off the stage, snapped his fibula, had it set by a medic at the side of the stage, and came back to play another two hours with a doctor holding his leg. Then toured on a throne he designed himself.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "stage"
+  ],
+  "display": "2 more hours",
+  "source": "extra3"
+ },
+ {
+  "id": "james-brown-show-schedule",
+  "who": "James Brown",
+  "title": "The hardest working man in show business",
+  "event": "1960s",
+  "year": 1965,
+  "age": 32,
+  "discipline": "other",
+  "category": "Music & stage",
+  "note": "Over 300 shows a year at his peak, losing several pounds of body weight a night, with a band fined for missed steps. The nickname was a job description.",
+  "confidence": "legend",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "stage",
+   "historical"
+  ],
+  "display": "300+ shows/yr",
+  "source": "extra3"
+ },
+ {
+  "id": "rich-roll-epic5",
+  "who": "Rich Roll",
+  "title": "Five Ironmans, five Hawaiian islands, one week",
+  "event": "EPIC5 · 2010",
+  "year": 2010,
+  "age": 43,
+  "discipline": "multisport",
+  "category": "Ultra & multiday",
+  "note": "A recovering alcoholic and former lawyer who could not walk up a flight of stairs at 39, doing five full-distance triathlons on five islands in under a week at 43.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "multi",
+   "meters": 1131285,
+   "days": 7,
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "repeats": 5
+  },
+  "tier": 5,
+  "tags": [
+   "ironman",
+   "multiday"
+  ],
+  "display": "5 × 226 km · 7 days",
+  "source": "extra3"
+ },
+ {
+  "id": "peter-attia-catalina-swim",
+  "who": "Peter Attia",
+  "title": "Swam the Catalina Channel",
+  "event": "2008",
+  "year": 2008,
+  "age": 35,
+  "discipline": "swim",
+  "category": "Open water",
+  "note": "A surgeon turned longevity podcaster who did the 33 km crossing overnight, and attempted Maui to Lanai and back. The medicine came later; the swimming was first.",
+  "confidence": "verified",
+  "check": {
+   "kind": "swim_distance",
+   "meters": 33000,
+   "water": "open"
+  },
+  "tier": 5,
+  "tags": [
+   "openwater"
+  ],
+  "logistics": "Pilot and observer, ~US$3,500",
+  "display": "33 km",
+  "source": "extra3"
+ },
+ {
+  "id": "bryan-johnson-blueprint",
+  "who": "Bryan Johnson",
+  "title": "The measured-decline protocol",
+  "event": "Blueprint · 2021-",
+  "year": 2023,
+  "age": 46,
+  "discipline": "other",
+  "category": "Strength & gym",
+  "note": "An hour of exercise a day, 111 supplements, thousands of measurements a month and several million dollars a year, all aimed at slowing biological ageing. The VO2max numbers are genuinely elite; the rest is an experiment with one subject.",
+  "confidence": "self-reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "longevity"
+  ],
+  "display": "n=1",
+  "source": "extra3"
+ },
+ {
+  "id": "tim-ferriss-kickboxing-title",
+  "who": "Tim Ferriss",
+  "title": "A national kickboxing title, gamed",
+  "event": "1999",
+  "year": 1999,
+  "age": 22,
+  "discipline": "combat",
+  "category": "Combat sports",
+  "note": "Won a Chinese kickboxing national title by dehydrating to drop three weight classes, rehydrating overnight, and pushing opponents off the platform — a legal win condition nobody used. He published the method himself.",
+  "confidence": "reported",
+  "disputed": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "contested"
+  ],
+  "display": "Rules, exploited",
+  "source": "extra3"
+ },
+ {
+  "id": "mark-wahlberg-4am",
+  "who": "Mark Wahlberg",
+  "title": "The 2:30 a.m. schedule",
+  "event": "2018-",
+  "year": 2018,
+  "age": 47,
+  "discipline": "strength",
+  "category": "Strength & gym",
+  "note": "Published a daily timetable starting at 2:30 a.m. with two gym sessions, cryotherapy and a golf round before most people are awake. Whether it is admirable or a cry for help is left to the reader.",
+  "confidence": "self-reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "strength"
+  ],
+  "display": "2 sessions daily",
+  "source": "extra3"
+ },
+ {
+  "id": "fiona-kolbinger-transcontinental",
+  "who": "Fiona Kolbinger",
+  "title": "Won the Transcontinental outright",
+  "event": "2019",
+  "year": 2019,
+  "age": 24,
+  "discipline": "ride",
+  "category": "Ultra & multiday",
+  "note": "4,000 km across Europe self-supported in 10 days 2 hours, beating every man in the field, as a cancer-research medical student on her first ultra-distance race.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 4000000,
+   "days": 11
+  },
+  "tier": 5,
+  "tags": [
+   "ultra",
+   "record"
+  ],
+  "logistics": "Race entry and a bike you can sleep beside",
+  "display": "4,000 km · 10 d 2 h",
+  "source": "extra3"
+ },
+ {
+  "id": "lael-wilcox-around-the-world",
+  "who": "Lael Wilcox",
+  "title": "Around the world by bike in 108 days",
+  "event": "2024",
+  "year": 2024,
+  "age": 38,
+  "discipline": "ride",
+  "category": "Ultra & multiday",
+  "note": "29,000 km across 21 countries, riding roughly 270 km a day, setting the women's round-the-world record. Started and finished in Chicago because the rules require it.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 29000000,
+   "days": 108
+  },
+  "tier": 5,
+  "tags": [
+   "multiday",
+   "record"
+  ],
+  "display": "29,000 km · 108 days",
+  "source": "extra3"
+ },
+ {
+  "id": "courtney-dauwalter-moab-240",
+  "who": "Courtney Dauwalter",
+  "title": "Won a 240-mile race by ten hours",
+  "event": "Moab 240 · 2017",
+  "year": 2017,
+  "age": 32,
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Beat the entire field, men included, by nearly half a day, on nachos and beer. A former science teacher; included as a scale marker rather than a peer.",
+  "confidence": "verified",
+  "reference": true,
+  "proAsterisk": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 386000,
+   "seconds": 204000
+  },
+  "tier": 5,
+  "tags": [
+   "ultra"
+  ],
+  "display": "56 h 41 m · 386 km",
+  "source": "extra3"
+ },
+ {
+  "id": "milind-soman-india-run",
+  "who": "Milind Soman",
+  "title": "Ran 1,500 km across India",
+  "event": "Green Ultra · 2015",
+  "year": 2015,
+  "age": 50,
+  "discipline": "run",
+  "category": "Ultra & multiday",
+  "note": "Delhi to Mumbai in 30 days at fifty, barefoot for stretches of it, the same year he finished an Ironman. He models, acts and appears to regard rest as optional.",
+  "confidence": "reported",
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 1500000,
+   "days": 30
+  },
+  "tier": 5,
+  "tags": [
+   "multiday"
+  ],
+  "display": "1,500 km · 30 days",
+  "source": "extra3"
+ },
+ {
+  "id": "rahul-bose-rugby-india",
+  "who": "Rahul Bose",
+  "title": "Played rugby for India",
+  "event": "1998",
+  "year": 1998,
+  "age": 31,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Capped for the national side at the Asian Rugby Championship while building a film career, and later ran the sport's federation. Also a scuba instructor.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "rugby"
+  ],
+  "display": "India cap",
+  "source": "extra3"
+ },
+ {
+  "id": "jodie-kidd-racing-driver",
+  "who": "Jodie Kidd",
+  "title": "Model to racing driver",
+  "event": "2000s",
+  "year": 2005,
+  "age": 26,
+  "discipline": "other",
+  "category": "Wheels & motors",
+  "note": "Set the fastest celebrity lap on Top Gear's track for years, then raced GTs properly, including the Maserati Trofeo series. The lap time was the part nobody expected.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "motorsport"
+  ],
+  "display": "GT racing",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-bob-graham-round",
+  "who": "Bob Graham Round",
+  "title": "42 Lakeland peaks in 24 hours",
+  "event": "Cumbria, since 1932",
+  "discipline": "run",
+  "category": "Trails & rounds",
+  "note": "106 km and 8,200 m of ascent over 42 summits, unsupported navigation, traditionally starting at Keswick's Moot Hall at some antisocial hour. About 2,000 people have completed it.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 106000,
+   "seconds": 86400,
+   "climb_m": 8200,
+   "factor": 1.15,
+   "factor_why": "Lakeland navigation and night sections"
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "fell"
+  ],
+  "logistics": "Pacers, road support and a navigation habit",
+  "display": "106 km · 8,200 m · 24 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-ramsay-round",
+  "who": "Ramsay Round",
+  "title": "24 Munros in 24 hours",
+  "event": "Lochaber, Scotland",
+  "discipline": "run",
+  "category": "Trails & rounds",
+  "note": "93 km and 8,500 m of ascent including Ben Nevis, over rougher and remoter ground than the Bob Graham, with a fraction of the support infrastructure.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 93000,
+   "seconds": 86400,
+   "climb_m": 8500,
+   "factor": 1.2,
+   "factor_why": "remote Scottish ground and bog"
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "fell"
+  ],
+  "display": "93 km · 8,500 m · 24 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-tour-du-mont-blanc",
+  "who": "Tour du Mont Blanc",
+  "title": "170 km around the massif",
+  "event": "France, Italy, Switzerland",
+  "discipline": "mountain",
+  "category": "Trails & rounds",
+  "note": "The trekking version of the UTMB route: seven to eleven days, hut to hut, 10,000 m of ascent, and no cutoff except the last cable car.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 170000,
+   "days": 9
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "trek"
+  ],
+  "logistics": "Hut bookings months ahead",
+  "display": "170 km · 9 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-west-highland-way",
+  "who": "West Highland Way",
+  "title": "154 km from Milngavie to Fort William",
+  "event": "Scotland",
+  "discipline": "run",
+  "category": "Trails & rounds",
+  "note": "The accessible British long-distance classic: a week walking, or a 35-hour race if you enter the June ultra. Midges are the real cutoff.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 154000,
+   "days": 6
+  },
+  "tier": 2,
+  "tags": [
+   "benchmark",
+   "trek"
+  ],
+  "display": "154 km · 6 days",
+  "source": "extra3",
+  "logistics": "A week off and a bed booked in Kinlochleven"
+ },
+ {
+  "id": "reference-kokoda-track",
+  "who": "Kokoda Track",
+  "title": "96 km across the Owen Stanley Range",
+  "event": "Papua New Guinea",
+  "discipline": "mountain",
+  "category": "Trails & rounds",
+  "note": "Six to nine days of jungle, 6,000 m of climbing in oppressive humidity, along the 1942 campaign route. An Australian pilgrimage as much as a trek.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 96000,
+   "days": 8
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "trek"
+  ],
+  "logistics": "Guided trek ~A$4,000",
+  "display": "96 km · 8 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-appalachian-trail",
+  "who": "Appalachian Trail",
+  "title": "3,500 km, Georgia to Maine",
+  "event": "United States",
+  "discipline": "run",
+  "category": "Trails & rounds",
+  "note": "Five to seven months of walking with 140,000 m of cumulative climbing — more than sixteen ascents of Everest from sea level. About a quarter of starters finish.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 3500000,
+   "days": 165
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "thruhike"
+  ],
+  "logistics": "Five months of your life and about US$6,000",
+  "display": "3,500 km · 5-7 months",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-pacific-crest-trail",
+  "who": "Pacific Crest Trail",
+  "title": "4,265 km, Mexico to Canada",
+  "event": "United States",
+  "discipline": "run",
+  "category": "Trails & rounds",
+  "note": "Desert, then the High Sierra, then Oregon and Washington, in a five-month weather window that is shrinking at both ends. Permits are now a lottery.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 4265000,
+   "days": 150
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "thruhike"
+  ],
+  "logistics": "Long-distance permit lottery",
+  "display": "4,265 km · 5 months",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-six-star-finisher",
+  "who": "Six Star Finisher",
+  "title": "All six World Marathon Majors",
+  "event": "Tokyo, Boston, London, Berlin, Chicago, New York",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Six marathons, six cities, three continents, and about US$15,000 once you count flights, entries and charity minimums. The medal is enormous, deliberately.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "marathon"
+  ],
+  "logistics": "Ballots, charity places or qualifying times, plus about US$15,000",
+  "display": "6 majors",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-world-marathon-challenge",
+  "who": "World Marathon Challenge",
+  "title": "7 marathons, 7 continents, 7 days",
+  "event": "Commercial, annually",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "The packaged version of what Ranulph Fiennes improvised in 2003: Antarctica, Cape Town, Perth, Dubai, Madrid, Fortaleza, Miami, on a chartered jet, for about €40,000.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 295365,
+   "days": 7
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "marathon"
+  ],
+  "logistics": "About €40,000 and a tolerance for aeroplane sleep",
+  "display": "7 × 42.195 km",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-antarctic-ice-marathon",
+  "who": "Antarctic Ice Marathon",
+  "title": "42.195 km at 80°S",
+  "event": "Union Glacier, annually",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Run on snow at −20°C with a katabatic wind, at 700 m altitude that feels like 2,000. Finishing times run two hours slower than road equivalents.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 25200,
+   "factor": 1.3,
+   "factor_why": "snow underfoot at −20°C"
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "marathon",
+   "cold"
+  ],
+  "logistics": "About €19,000 including the flight from Punta Arenas",
+  "display": "42.2 km · −20°C",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-everest-marathon",
+  "who": "Everest Marathon",
+  "title": "The highest marathon there is",
+  "event": "Nepal, annually",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Starts at Everest Base Camp at 5,364 m and descends to Namche, on trails, with about half the oxygen available at sea level. Acclimatisation trek included, compulsorily.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 25200,
+   "climb_m": 800,
+   "factor": 1.35,
+   "factor_why": "half the oxygen and technical descent"
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "marathon",
+   "altitude"
+  ],
+  "logistics": "Trek, permits, ~US$4,000",
+  "display": "5,364 m start",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-two-oceans",
+  "who": "Two Oceans",
+  "title": "56 km around the Cape Peninsula",
+  "event": "Cape Town, annually",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "The prettiest ultramarathon in the world by general agreement, over Chapman's Peak and Constantia Nek, with a seven-hour cutoff and a qualifying marathon required.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 56000,
+   "seconds": 25200,
+   "climb_m": 1000
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "ultra"
+  ],
+  "logistics": "Qualifying marathon under 5:00",
+  "display": "56 km · sub-7 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-jfk-50",
+  "who": "JFK 50 Mile",
+  "title": "The president's fitness challenge, still running",
+  "event": "Maryland, since 1963",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Started when Kennedy revived Roosevelt's standard that officers should march 50 miles in 20 hours, and the country took it up as a fad. The fad died; the race did not.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 80467,
+   "seconds": 50400,
+   "climb_m": 1000
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "ultra",
+   "historical"
+  ],
+  "display": "80 km · 14 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-spartathlon",
+  "who": "Spartathlon",
+  "title": "246 km, Athens to Sparta, 36 hours",
+  "event": "Greece, annually",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Run along the route Herodotus gives Pheidippides, with 75 checkpoints each carrying its own cutoff, so you can be eliminated at kilometre 80 for being nine minutes down.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 246000,
+   "seconds": 129600,
+   "climb_m": 2500
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "ultra"
+  ],
+  "logistics": "Strict qualifying standards",
+  "display": "246 km · 36 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-vasaloppet",
+  "who": "Vasaloppet",
+  "title": "90 km of classic cross-country skiing",
+  "event": "Sweden, since 1922",
+  "discipline": "ski",
+  "category": "Reference lines",
+  "note": "The world's oldest and largest ski race, 90 km from Sälen to Mora with 15,000 starters and blueberry soup at the checkpoints. Pippa Middleton has one.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "ski",
+   "meters": 90000,
+   "days": 1
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "ski"
+  ],
+  "logistics": "Entry sells out a year ahead",
+  "display": "90 km",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-norseman",
+  "who": "Norseman Xtreme",
+  "title": "The triathlon with a mountain at the end",
+  "event": "Norway, annually",
+  "discipline": "multisport",
+  "category": "Reference lines",
+  "note": "A 3.8 km swim in a 13°C fjord after jumping off a ferry, 180 km of Norwegian climbing, then a marathon that finishes 1,850 m up Gaustatoppen. Only the first 160 finishers get the black t-shirt.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3800,
+    "bike_m": 180000,
+    "run_m": 42195
+   },
+   "seconds": 54000,
+   "climb_m": 5000
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "triathlon"
+  ],
+  "logistics": "Lottery entry and your own support crew",
+  "display": "15:00 · black shirt",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-escape-from-alcatraz",
+  "who": "Escape from Alcatraz",
+  "title": "Triathlon out of San Francisco Bay",
+  "event": "Annually since 1981",
+  "discipline": "multisport",
+  "category": "Reference lines",
+  "note": "2.4 km from the island in cold tidal water, 29 km on the bike, then 13 km including the sand ladder. The swim is the whole story.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 2400,
+    "bike_m": 29000,
+    "run_m": 13000
+   },
+   "seconds": 12600
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "triathlon"
+  ],
+  "logistics": "Lottery entry",
+  "display": "3:30:00",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-hyrox",
+  "who": "HYROX",
+  "title": "Eight kilometres of running, eight stations",
+  "event": "Worldwide, since 2017",
+  "discipline": "strength",
+  "category": "Reference lines",
+  "note": "1 km run, one station, repeated eight times: ski erg, sled push, sled pull, burpee broad jumps, rowing, farmer's carry, lunges, wall balls. Sub-60 minutes is the number people chase.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "reps",
+   "name": "HYROX",
+   "seconds": 3600
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "crossfit"
+  ],
+  "logistics": "Entry ~€110",
+  "display": "Sub-60:00",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-2k-erg",
+  "who": "The 2k erg",
+  "title": "2,000 m on a Concept2",
+  "event": "Universal rowing benchmark",
+  "discipline": "row",
+  "category": "Reference lines",
+  "note": "Six to eight minutes of the most honest suffering available indoors. Sub-7:00 for men and sub-8:00 for women marks a serious amateur; the test is universally hated.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "row_time",
+   "meters": 2000,
+   "seconds": 420
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "row"
+  ],
+  "display": "7:00",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-marathon-row",
+  "who": "The marathon erg",
+  "title": "42,195 m on a rowing machine",
+  "event": "Concept2 challenge",
+  "discipline": "row",
+  "category": "Reference lines",
+  "note": "Three to four hours in one spot, staring at a wall, with nothing to look at but the split. Considerably harder than it sounds and much harder than it looks.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "row_time",
+   "meters": 42195,
+   "seconds": 12600
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "row"
+  ],
+  "display": "42,195 m",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-vo2max-50",
+  "who": "VO₂max 50",
+  "title": "Fit for your age, on the treadmill test",
+  "event": "Physiological benchmark",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Around the 90th percentile for a 40-year-old man and comfortably above it for a woman. Estimated here from your own race performances via Daniels' tables, not from a mask.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "vo2max",
+   "value": 50
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "physiology"
+  ],
+  "display": "50 ml/kg/min",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-vo2max-60",
+  "who": "VO₂max 60",
+  "title": "Club-runner physiology",
+  "event": "Physiological benchmark",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Roughly what a 2:50 marathoner carries. Trainable for most people from a decent base; the ceiling is largely inherited and the last five points are the expensive ones.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "vo2max",
+   "value": 60
+  },
+  "tier": 4,
+  "tags": [
+   "benchmark",
+   "physiology"
+  ],
+  "display": "60 ml/kg/min",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-vo2max-70",
+  "who": "VO₂max 70",
+  "title": "The genetic lottery, plus the work",
+  "event": "Physiological benchmark",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "National-class territory. Kilian Jornet and Oskar Svendsen have measured in the high 80s and low 90s; most people cannot reach 70 with any amount of training.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "vo2max",
+   "value": 70
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "physiology"
+  ],
+  "display": "70 ml/kg/min",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-12-marathons-year",
+  "who": "Twelve in Twelve",
+  "title": "A marathon a month for a year",
+  "event": "Community benchmark",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Nothing here is fast; the challenge is staying uninjured and solvent for twelve months while your long runs never stop.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "marathon"
+  ],
+  "display": "12 × 42.195 km",
+  "source": "extra3",
+  "logistics": "Twelve race entries, twelve start lines, about £900"
+ },
+ {
+  "id": "reference-50k-ultra",
+  "who": "The first ultra",
+  "title": "50 km",
+  "event": "Community benchmark",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Eight kilometres past a marathon, which sounds trivial and is not. The most common entry point to ultrarunning and the one with the highest finish rate.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 50000,
+   "seconds": 21600
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "ultra"
+  ],
+  "display": "50 km · sub-6 h",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-1000km-ride-month",
+  "who": "The Cycling Thousand",
+  "title": "1,000 km on the bike in a month",
+  "event": "Community benchmark",
+  "discipline": "ride",
+  "category": "Reference lines",
+  "note": "About 250 km a week, or one long weekend ride plus commuting. The entry-level version of serious mileage.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 1000000,
+   "days": 30
+  },
+  "tier": 2,
+  "tags": [
+   "benchmark",
+   "volume"
+  ],
+  "display": "1,000 km · 30 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-swim-1500-25",
+  "who": "The metric mile",
+  "title": "1,500 m swim under 25 minutes",
+  "event": "Pool benchmark",
+  "discipline": "swim",
+  "category": "Reference lines",
+  "note": "1:40 per 100 m, held for thirty lengths. The swim leg of an Olympic triathlon, and the point at which technique matters more than fitness.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "swim_time",
+   "meters": 1500,
+   "seconds": 1500
+  },
+  "tier": 3,
+  "tags": [
+   "benchmark",
+   "swim"
+  ],
+  "display": "25:00",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-swim-400-6",
+  "who": "The 400",
+  "title": "400 m swim under 6 minutes",
+  "event": "Pool benchmark",
+  "discipline": "swim",
+  "category": "Reference lines",
+  "note": "1:30 per 100 m for eight lengths of a 50 m pool. The standard entry test for lifeguard and dive courses, and a fair line between swimming and merely not drowning.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "swim_time",
+   "meters": 400,
+   "seconds": 360
+  },
+  "tier": 2,
+  "tags": [
+   "benchmark",
+   "swim"
+  ],
+  "display": "6:00",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-run-streak-1000",
+  "who": "The Four-Digit Streak",
+  "title": "A mile every day for 1,000 days",
+  "event": "Streak Runners International",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Nearly three years without a single missed day: through flu, funerals, long-haul flights and the day you sprained an ankle. The registry lists people past 19,000.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "streak",
+   "sport": "run",
+   "min_m": 1609,
+   "days": 1000
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "streak"
+  ],
+  "display": "1,000 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-elev-8848-month",
+  "who": "An Everest a month",
+  "title": "8,848 m of climbing in 30 days",
+  "event": "Community benchmark",
+  "discipline": "ride",
+  "category": "Reference lines",
+  "note": "About 300 m a day, or two hilly rides a week. The civilised alternative to Everesting in one go.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "elev_window",
+   "meters": 8848,
+   "days": 30
+  },
+  "tier": 2,
+  "tags": [
+   "benchmark",
+   "climbing"
+  ],
+  "display": "8,848 m · 30 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-double-everesting",
+  "who": "Double Everesting",
+  "title": "17,696 m of climbing in one ride",
+  "event": "Community benchmark",
+  "discipline": "ride",
+  "category": "Reference lines",
+  "note": "Forty hours or so on one hill, sleep optional. Fewer than a hundred people are on the register.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "elev_single",
+   "meters": 17696
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "climbing"
+  ],
+  "display": "17,696 m",
+  "source": "extra3"
+ },
+ {
+  "id": "bill-rancic-ironman",
+  "who": "Bill Rancic",
+  "title": "Ironman finisher, twice over",
+  "event": "2013-15",
+  "year": 2014,
+  "age": 43,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "The first Apprentice winner, who took up endurance sport in his forties and finished full-distance triathlons while running businesses and a television career.",
+  "confidence": "reported",
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "seconds": 50400
+  },
+  "tier": 4,
+  "tags": [
+   "ironman"
+  ],
+  "display": "≈14:00",
+  "source": "extra3"
+ },
+ {
+  "id": "gordon-ramsay-hell-week",
+  "who": "Gordon Ramsay",
+  "title": "Marathons, Ironmans and a broken run of luck",
+  "event": "2000s-2010s",
+  "year": 2013,
+  "age": 46,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Ten-plus marathons, two Kona finishes and a habit of training at four in the morning around eighteen-hour kitchen days. Also survived a shark encounter and a plane crash in the Antarctic, separately.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "ironman",
+   "marathon"
+  ],
+  "display": "A career of it",
+  "source": "extra3"
+ },
+ {
+  "id": "amanda-holden-charity-treks",
+  "who": "Amanda Holden",
+  "title": "Sahara ultra for charity",
+  "event": "2019",
+  "year": 2019,
+  "age": 48,
+  "discipline": "run",
+  "category": "Ultra & multiday",
+  "note": "100 km across the Namib desert in three days with a group of presenters, in heat that put several of them on drips.",
+  "confidence": "reported",
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 100000,
+   "days": 3
+  },
+  "tier": 3,
+  "tags": [
+   "charity",
+   "desert"
+  ],
+  "display": "100 km · 3 days",
+  "source": "extra3"
+ },
+ {
+  "id": "nick-grimshaw-charity-cycle",
+  "who": "Nick Grimshaw",
+  "title": "Cycled the length of Britain for Sport Relief",
+  "event": "2016",
+  "year": 2016,
+  "age": 31,
+  "discipline": "ride",
+  "category": "Ultra & multiday",
+  "note": "Presented the breakfast show from the road while riding, on a body that had done no meaningful training. The show is the hard part.",
+  "confidence": "reported",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 1400000,
+   "days": 9
+  },
+  "tier": 3,
+  "tags": [
+   "charity",
+   "multiday"
+  ],
+  "display": "≈1,400 km",
+  "source": "extra3"
+ },
+ {
+  "id": "jordan-north-comic-relief",
+  "who": "Jordan North",
+  "title": "Climbed and cycled and rowed for Comic Relief",
+  "event": "2021",
+  "year": 2021,
+  "age": 31,
+  "discipline": "multisport",
+  "category": "Ultra & multiday",
+  "note": "A radio presenter with no athletic background doing a multi-discipline endurance challenge live on air, in visible distress, for several days.",
+  "confidence": "reported",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "charity"
+  ],
+  "display": "Multi-discipline",
+  "source": "extra3"
+ },
+ {
+  "id": "rob-burrow-mnd-marathon",
+  "who": "Rob Burrow",
+  "title": "Completed the Leeds Marathon",
+  "event": "2023",
+  "year": 2023,
+  "age": 40,
+  "discipline": "run",
+  "category": "Ultra & multiday",
+  "note": "Four years into a motor neurone disease diagnosis, pushed in a chair over the line by Kevin Sinfield, who carried him the last few metres so they could finish together.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "charity"
+  ],
+  "display": "Leeds 2023",
+  "source": "extra3"
+ },
+ {
+  "id": "doddie-weir-charity",
+  "who": "Doddie Weir",
+  "title": "Kept turning up",
+  "event": "2017-2022",
+  "year": 2020,
+  "age": 50,
+  "discipline": "other",
+  "category": "Ultra & multiday",
+  "note": "A Scotland lock who, after his own motor neurone diagnosis, raised millions and appeared at match after match while the disease took his legs, then his hands, then his voice.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "charity"
+  ],
+  "display": "Five years of it",
+  "source": "extra3"
+ },
+ {
+  "id": "stephen-hawking-zero-g",
+  "who": "Stephen Hawking",
+  "title": "Zero-gravity flight at 65",
+  "event": "2007",
+  "year": 2007,
+  "age": 65,
+  "discipline": "other",
+  "category": "Space & extremes",
+  "note": "Eight parabolas out of a modified 727 with motor neurone disease and a team of doctors on board, forty-three years after being given two years to live. He wanted to do the suborbital flight next.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "space"
+  ],
+  "display": "8 parabolas",
+  "source": "extra3"
+ },
+ {
+  "id": "tom-brady-longevity",
+  "who": "Tom Brady",
+  "title": "Playing elite sport at 45",
+  "event": "2000-2023",
+  "year": 2022,
+  "age": 45,
+  "discipline": "other",
+  "category": "Age-defying",
+  "note": "Twenty-three NFL seasons at the position most likely to end a career, on a pliability-and-hydration regime widely mocked and quietly copied. Filed with the professional asterisk it deserves.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "masters"
+  ],
+  "display": "23 seasons",
+  "source": "extra3"
+ },
+ {
+  "id": "jack-lalanne-birthday-feats",
+  "who": "Jack LaLanne",
+  "title": "A birthday feat every year for decades",
+  "event": "1954-1984",
+  "year": 1984,
+  "age": 70,
+  "discipline": "strength",
+  "category": "Age-defying",
+  "note": "At 60 he swam from Alcatraz to Fisherman's Wharf handcuffed; at 70, handcuffed and shackled, he towed 70 boats with 70 people a mile and a half against the current in Long Beach Harbor.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "strength",
+   "masters",
+   "historical"
+  ],
+  "display": "70 boats at 70",
+  "source": "extra3"
+ },
+ {
+  "id": "charles-eugster-sprinting",
+  "who": "Charles Eugster",
+  "title": "Took up sprinting at 95",
+  "event": "2010s",
+  "year": 2016,
+  "age": 97,
+  "discipline": "run",
+  "category": "Age-defying",
+  "note": "A retired dentist who started bodybuilding at 87 and sprinting at 95, then set world records in the over-95 category for 200 m and 400 m indoors. Said he wanted a body that would turn heads on the beach.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "masters",
+   "record"
+  ],
+  "display": "Records at 97",
+  "source": "extra3"
+ },
+ {
+  "id": "tao-porchon-lynch-yoga",
+  "who": "Tao Porchon-Lynch",
+  "title": "Teaching yoga at 100",
+  "event": "2018",
+  "year": 2018,
+  "age": 100,
+  "discipline": "other",
+  "category": "Age-defying",
+  "note": "A former cabaret dancer and Resistance-era marcher who taught yoga into her hundredth year and competed in ballroom dance with partners eight decades younger, after three hip replacements.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "masters"
+  ],
+  "display": "Still teaching at 100",
+  "source": "extra3"
+ },
+ {
+  "id": "hiroshi-hoketsu-olympic-71",
+  "who": "Hiroshi Hoketsu",
+  "title": "Olympic dressage at 71",
+  "event": "London 2012",
+  "year": 2012,
+  "age": 71,
+  "discipline": "other",
+  "category": "Age-defying",
+  "note": "First competed at the 1964 Tokyo Games, then returned to the Olympics at 67 and 71. He said his horse was in better shape than he was.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "olympics",
+   "masters"
+  ],
+  "display": "48 years apart",
+  "source": "extra3"
+ },
+ {
+  "id": "mieko-nagaoka-100-swim",
+  "who": "Mieko Nagaoka",
+  "title": "1,500 m butterfly-adjacent, at 100",
+  "event": "Japan, 2015",
+  "year": 2015,
+  "age": 100,
+  "discipline": "swim",
+  "category": "Age-defying",
+  "note": "Learned to swim at 80 as rehabilitation for a knee, then became the first centenarian to complete a 1,500 m freestyle in competition — in 1 hour 15 minutes, alone in her age category.",
+  "confidence": "verified",
+  "check": {
+   "kind": "swim_time",
+   "meters": 1500,
+   "seconds": 4500
+  },
+  "tier": 3,
+  "tags": [
+   "masters",
+   "swim"
+  ],
+  "display": "1:15:54 · age 100",
+  "source": "extra3"
+ },
+ {
+  "id": "johanna-quaas-gymnastics",
+  "who": "Johanna Quaas",
+  "title": "Competitive gymnastics at 86",
+  "event": "2012",
+  "year": 2012,
+  "age": 86,
+  "discipline": "strength",
+  "category": "Age-defying",
+  "note": "Recognised as the world's oldest competing gymnast, performing parallel-bar and floor routines that most twenty-year-olds could not hold, having trained continuously since the 1930s.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "masters",
+   "strength"
+  ],
+  "display": "Floor routine at 86",
+  "source": "extra3"
+ },
+ {
+  "id": "olga-kotelko-masters-records",
+  "who": "Olga Kotelko",
+  "flag": "CAN",
+  "title": "Thirty world records after the age of 77",
+  "event": "2000s-2014",
+  "year": 2012,
+  "age": 93,
+  "discipline": "other",
+  "category": "Age-defying",
+  "note": "Took up track and field at 77 after a career teaching school, and set records in eleven events. Neuroscientists studied her brain to work out what was going on; the answer was mostly that she kept doing it.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "masters",
+   "record"
+  ],
+  "display": "30+ records",
+  "source": "extra3"
+ },
+ {
+  "id": "ida-keeling-100m-100",
+  "who": "Ida Keeling",
+  "title": "Ran 100 m at 100",
+  "event": "Penn Relays 2016",
+  "year": 2016,
+  "age": 100,
+  "discipline": "run",
+  "category": "Age-defying",
+  "note": "Started running at 67 to cope with the murders of her two sons, and set a world record for the 100-plus category at 1:17.33. Her daughter coached her.",
+  "confidence": "verified",
+  "check": {
+   "kind": "run_time",
+   "distance_m": 100,
+   "seconds": 77.33
+  },
+  "tier": 3,
+  "tags": [
+   "masters",
+   "record"
+  ],
+  "display": "1:17.33 · age 100",
+  "source": "extra3"
+ },
+ {
+  "id": "sebastian-vettel-cycling",
+  "who": "Sebastian Vettel",
+  "title": "Cycled the Nürburgring after retiring",
+  "event": "2023",
+  "year": 2023,
+  "age": 36,
+  "discipline": "ride",
+  "category": "Wheels & motors",
+  "note": "Four world titles, then a post-retirement habit of riding the Nordschleife and running environmental campaigns from a bicycle. F1 neck training does not transfer, but the aerobic base does.",
+  "confidence": "reported",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [
+   "motorsport",
+   "cycling"
+  ],
+  "display": "Nordschleife, unpowered",
+  "source": "extra3"
+ },
+ {
+  "id": "travis-pastrana-nitro",
+  "who": "Travis Pastrana",
+  "title": "Double backflip, then jumped out of a plane without a parachute",
+  "event": "2006-2018",
+  "year": 2007,
+  "age": 23,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "Landed the first double backflip on a motorcycle at X Games, jumped from a plane with no parachute into a friend's arms, and broke both ankles, both wrists, his spine and his pelvis over the career.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "stunts"
+  ],
+  "display": "Every bone, once",
+  "source": "extra3"
+ },
+ {
+  "id": "felix-baumgartner-stratos",
+  "who": "Felix Baumgartner",
+  "title": "Jumped from 39 km and broke the sound barrier",
+  "event": "Red Bull Stratos · 2012",
+  "year": 2012,
+  "age": 43,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "Four minutes and twenty seconds of freefall from the stratosphere at Mach 1.25, into a flat spin he had to arrest himself, having spent five years and a claustrophobia crisis getting there.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "stunts",
+   "air"
+  ],
+  "logistics": "A pressure suit, a balloon and a corporate sponsor",
+  "display": "39 km · Mach 1.25",
+  "source": "extra3"
+ },
+ {
+  "id": "alain-robert-freesolo-buildings",
+  "who": "Alain Robert",
+  "title": "Free-soloed 150 skyscrapers",
+  "event": "1994-",
+  "year": 2011,
+  "age": 49,
+  "discipline": "mountain",
+  "category": "Air, water & pressure",
+  "note": "The Burj Khalifa, the Petronas Towers, the Eiffel Tower, mostly without permission and usually in handcuffs afterwards — with vertigo, epilepsy and 60% disability status from earlier falls.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "climbing"
+  ],
+  "logistics": "An arrest record",
+  "display": "150+ buildings",
+  "source": "extra3"
+ },
+ {
+  "id": "philippe-petit-wtc-wire",
+  "who": "Philippe Petit",
+  "title": "Walked between the Twin Towers",
+  "event": "1974",
+  "year": 1974,
+  "age": 24,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "Forty-five minutes, eight crossings, 400 m above Manhattan on a cable smuggled up overnight, six years of planning, no permission and no safety line.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "balance",
+   "historical"
+  ],
+  "display": "8 crossings · 400 m up",
+  "source": "extra3"
+ },
+ {
+  "id": "nik-wallenda-niagara",
+  "who": "Nik Wallenda",
+  "title": "Wire-walked Niagara Falls",
+  "event": "2012",
+  "year": 2012,
+  "age": 33,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "550 m across the gorge in spray thick enough to soak the wire, live on television, wearing a tether the broadcaster insisted on and he resented. Seventh-generation Flying Wallenda.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "balance"
+  ],
+  "display": "550 m",
+  "source": "extra3"
+ },
+ {
+  "id": "wim-hof-ice-records",
+  "who": "Wim Hof",
+  "title": "Ice baths, Kilimanjaro in shorts, a marathon above the Arctic Circle",
+  "event": "1990s-",
+  "year": 2009,
+  "age": 50,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "Twenty-plus records for cold exposure, including nearly two hours in ice and a barefoot half marathon on snow. The breathing method is now studied properly; the mysticism around it is not.",
+  "confidence": "verified",
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "cold",
+   "record"
+  ],
+  "display": "1 h 53 m in ice",
+  "source": "extra3"
+ },
+ {
+  "id": "aleix-segura-static-apnea",
+  "who": "Aleix Segura",
+  "title": "24 minutes and 3 seconds without breathing",
+  "event": "2016",
+  "year": 2016,
+  "age": 40,
+  "discipline": "other",
+  "category": "Air, water & pressure",
+  "note": "Static apnea with pre-breathed oxygen, floating face down while a safety team watched for the blackout. The no-oxygen record is around eleven and a half minutes, which is somehow worse.",
+  "confidence": "verified",
+  "proAsterisk": true,
+  "check": {
+   "kind": "breath_hold",
+   "seconds": 1443
+  },
+  "tier": 5,
+  "tags": [
+   "freedive",
+   "record"
+  ],
+  "display": "24:03",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-static-apnea-4min",
+  "who": "Four minutes down",
+  "title": "A four-minute static breath-hold",
+  "event": "Freediving benchmark",
+  "discipline": "other",
+  "category": "Reference lines",
+  "note": "Achievable by most healthy people inside a weekend course with proper safety supervision, which is the part nobody should skip. Kate Winslet held 7:15 on a film set.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "breath_hold",
+   "seconds": 240
+  },
+  "tier": 2,
+  "tags": [
+   "benchmark",
+   "freedive"
+  ],
+  "logistics": "Never alone, never in water without a buddy",
+  "display": "4:00",
+  "source": "extra3"
+ },
+ {
+  "id": "guy-martin-tour-divide",
+  "who": "Guy Martin",
+  "title": "Rode the Tour Divide",
+  "event": "2015",
+  "year": 2015,
+  "age": 33,
+  "discipline": "ride",
+  "category": "Ultra & multiday",
+  "note": "4,400 km of the Rockies self-supported, off-road, from Banff to the Mexican border, in eighteen days — between motorcycle races and shifts as a lorry mechanic.",
+  "confidence": "verified",
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 4400000,
+   "days": 18
+  },
+  "tier": 5,
+  "tags": [
+   "ultra",
+   "multiday"
+  ],
+  "display": "4,400 km · 18 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-tour-divide",
+  "who": "Tour Divide",
+  "title": "4,400 km of the Continental Divide, self-supported",
+  "event": "Banff to Antelope Wells",
+  "discipline": "ride",
+  "category": "Reference lines",
+  "note": "No entry fee, no prize, no support: a Grand Depart in June and a dot on a map. Around 60,000 m of climbing on dirt, with bears.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 4400000,
+   "days": 24
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "ultra"
+  ],
+  "display": "4,400 km · 24 days",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-transcontinental",
+  "who": "Transcontinental Race",
+  "title": "4,000 km across Europe, unsupported",
+  "event": "Annually since 2013",
+  "discipline": "ride",
+  "category": "Reference lines",
+  "note": "Four checkpoints, one start line, no route: you plan it, you ride it, you sleep in bus shelters. Winners take about ten days and sleep two hours a night.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "distance_window",
+   "sport": "ride",
+   "meters": 4000000,
+   "days": 16
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "ultra"
+  ],
+  "logistics": "Ballot entry and a dot tracker",
+  "display": "4,000 km · 16 days",
+  "source": "extra3"
+ },
+ {
+  "id": "eliud-kipchoge-ineos",
+  "who": "Eliud Kipchoge",
+  "title": "The first marathon under two hours",
+  "event": "INEOS 1:59 Challenge, Vienna · 2019",
+  "year": 2019,
+  "age": 34,
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "1:59:40 with rotating pacemakers, a laser car and a course chosen for it, so it does not count as a record and does not need to. 2:50 per kilometre for 42 of them.",
+  "confidence": "verified",
+  "reference": true,
+  "proAsterisk": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 7180
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "elite"
+  ],
+  "display": "1:59:40",
+  "source": "extra3"
+ },
+ {
+  "id": "reference-parkrun-1000",
+  "who": "The parkrun 1000",
+  "title": "A thousand Saturday mornings",
+  "event": "parkrun milestone",
+  "discipline": "run",
+  "category": "Reference lines",
+  "note": "Nineteen years of turning up if you never miss a week, and the reason the volunteer-run 5 km is the most successful mass-participation event ever built. The 250 shirt is the realistic one.",
+  "confidence": "verified",
+  "reference": true,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [
+   "benchmark",
+   "streak"
+  ],
+  "display": "1,000 runs",
+  "source": "extra3"
+ },
+ {
+  "id": "arthur-eddington-number-84",
+  "who": "Sir Arthur Eddington",
+  "title": "Eddington number of 84",
+  "event": "A lifetime of English lanes",
+  "year": 1944,
+  "discipline": "ride",
+  "category": "Historical wing",
+  "note": "The astrophysicist who confirmed general relativity at the 1919 eclipse also kept a cycling ledger, and invented the statistic that still carries his name: the largest E such that you have ridden at least E miles on E different days. His own stood at 84 when he died — eighty-four separate days of eighty-four miles or more, on a steel roadster, between lectures.",
+  "confidence": "reported",
+  "check": {
+   "kind": "eddington",
+   "sport": "ride",
+   "value": 84,
+   "unit": "mi"
+  },
+  "tier": 5,
+  "tags": [
+   "historical",
+   "cycling",
+   "science"
+  ],
+  "display": "E = 84 (miles)",
+  "source": "extra3"
+ }
+]

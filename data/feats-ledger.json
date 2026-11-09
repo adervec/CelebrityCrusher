@@ -1,0 +1,2194 @@
+[
+ {
+  "id": "lance-armstrong-marathon-2007",
+  "who": "Lance Armstrong",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2007",
+  "year": 2007,
+  "age": 36,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "One year retired from pro cycling, five years before the doping confession. A professional engine slumming in the amateur field — this row is a ceiling, not a peer.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": true,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 10003
+  },
+  "tier": 5,
+  "tags": [
+   "marathon"
+  ],
+  "display": "2:46:43",
+  "source": "ledger"
+ },
+ {
+  "id": "nell-mcandrew-marathon-2012",
+  "who": "Nell McAndrew",
+  "flag": null,
+  "title": "Marathon",
+  "event": "London 2012",
+  "year": 2012,
+  "age": 38,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "The original Lara Croft model came into London with a 3:08 PB and left with 2:54:39 — in a year when only 88 British women had broken three hours. The ceiling for anyone without a pro licence.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 10479
+  },
+  "tier": 5,
+  "tags": [
+   "marathon"
+  ],
+  "display": "2:54:39",
+  "source": "ledger"
+ },
+ {
+  "id": "nev-schulman-marathon-2018",
+  "who": "Nev Schulman",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2018",
+  "year": 2018,
+  "age": 34,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Debuted 3:34:31 in 2015 as the year's fastest celebrity; broke three hours on his third attempt. In 2024, three months after an e-bike crash broke his neck, he ran New York anyway — as a guide for a visually impaired athlete.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 10680
+  },
+  "tier": 5,
+  "tags": [
+   "marathon"
+  ],
+  "display": "2:58*",
+  "source": "ledger"
+ },
+ {
+  "id": "harry-styles-marathon-2025",
+  "who": "Harry Styles",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Berlin 2025",
+  "year": 2025,
+  "age": 31,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "On indefinite hiatus after two years of Love On Tour; entered under the alias Sted Sarandos and split 1:29:08 / 1:30:06 — pacing discipline most amateurs never find.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 10753
+  },
+  "tier": 5,
+  "tags": [
+   "marathon"
+  ],
+  "display": "2:59:13",
+  "source": "ledger"
+ },
+ {
+  "id": "matt-james-marathon-2024",
+  "who": "Matt James",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2024",
+  "year": 2024,
+  "age": 32,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Reality-TV lead who trains like it matters — and finished 21 seconds on the wrong side of three hours. The cruellest margin on this table.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 10820
+  },
+  "tier": 4,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:00:20",
+  "source": "ledger"
+ },
+ {
+  "id": "zac-clark-marathon-2024",
+  "who": "Zac Clark",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2024",
+  "year": 2024,
+  "age": 40,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Addiction-recovery nonprofit founder. Ran a 4:40:24 hand-in-hand with his reality-TV fiancée in 2021, split weeks later, and has since taken nearly an hour and a half off the time.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 11803
+  },
+  "tier": 4,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:16:43",
+  "source": "ledger"
+ },
+ {
+  "id": "bryan-cranston-marathon-1985",
+  "who": "Bryan Cranston",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 1985",
+  "year": 1985,
+  "age": 29,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "A jobbing actor living on daytime-soap and commercial paycheques. Malcolm was fifteen years away; Breaking Bad, twenty-three.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 12045
+  },
+  "tier": 4,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:20:45",
+  "source": "ledger"
+ },
+ {
+  "id": "caroline-wozniacki-marathon-2014",
+  "who": "Caroline Wozniacki",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2014",
+  "year": 2014,
+  "age": 24,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "World No. 8 in tennis, eight weeks removed from a US Open final and months removed from a called-off wedding; long runs wedged between tournaments.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 12393
+  },
+  "tier": 4,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:26:33",
+  "source": "ledger"
+ },
+ {
+  "id": "haruki-murakami-marathon-x",
+  "who": "Haruki Murakami",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Japan, late '80s",
+  "year": null,
+  "age": 40,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Self-reported from his memoir — the man runs 10 km a day, once ran the original Athens–Marathon route solo in summer heat, and wants his epitaph to read that at least he never walked.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 12420
+  },
+  "tier": 4,
+  "tags": [
+   "marathon"
+  ],
+  "display": "≈3:27*",
+  "source": "ledger"
+ },
+ {
+  "id": "gordon-ramsay-marathon-2004",
+  "who": "Gordon Ramsay",
+  "flag": null,
+  "title": "Marathon",
+  "event": "London 2004",
+  "year": 2004,
+  "age": 37,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Holding three Michelin stars at Royal Hospital Road with Kitchen Nightmares premiering days after the race. Missed the 3:30 barrier by 37 seconds and has chased it since.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 12637
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:30:37",
+  "source": "ledger"
+ },
+ {
+  "id": "flea-marathon-2011",
+  "who": "Flea",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Los Angeles 2011",
+  "year": 2011,
+  "age": 48,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Mid-recording with the Chili Peppers. Read Born to Run, decided bodies were for running, and used the race to fund his Silverlake Conservatory of Music.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13309
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:41:49",
+  "source": "ledger"
+ },
+ {
+  "id": "claire-holt-marathon-2024",
+  "who": "Claire Holt",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2024",
+  "year": 2024,
+  "age": 36,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "The Originals star, mother of three — and quietly the fastest actress on this table.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13363
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:42:43",
+  "source": "ledger"
+ },
+ {
+  "id": "george-w-bush-marathon-1993",
+  "who": "George W. Bush",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Houston 1993",
+  "year": 1993,
+  "age": 46,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "The same month his father handed the White House to Clinton. Sober seven years, running Texas Rangers business, quietly plotting the governor's race. Still the only US president with a marathon finish.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13492
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:44:52",
+  "source": "ledger"
+ },
+ {
+  "id": "edward-norton-marathon-2009",
+  "who": "Edward Norton",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2009",
+  "year": 2009,
+  "age": 40,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Trained partly in Kenya and ran alongside three Maasai runners to fund their wilderness conservation trust — a fortieth-birthday-year project.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13681
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:48:01",
+  "source": "ledger"
+ },
+ {
+  "id": "ryan-reynolds-marathon-2008",
+  "who": "Ryan Reynolds",
+  "flag": "CAN",
+  "title": "Marathon",
+  "event": "New York 2008",
+  "year": 2008,
+  "age": 32,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Ran for his father's Parkinson's, logging 4:30 a.m. miles between film shoots. Pre-Deadpool, self-described: \"I am not a runner, I am a running joke.\"",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13822
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:50:22",
+  "source": "ledger"
+ },
+ {
+  "id": "natalie-dormer-marathon-2014",
+  "who": "Natalie Dormer",
+  "flag": null,
+  "title": "Marathon",
+  "event": "London 2014",
+  "year": 2014,
+  "age": 32,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Marathon debut while playing Margaery in Game of Thrones and shooting The Hunger Games. Returned in 2016, missed this time by 24 seconds, and was \"a tiny bit peeved.\"",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13857
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:50:57",
+  "source": "ledger"
+ },
+ {
+  "id": "colin-farrell-marathon-2022",
+  "who": "Colin Farrell",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Brisbane 2022",
+  "year": 2022,
+  "age": 46,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "First marathon, run while shooting in Australia with Ron Howard. Two years later he ran Dublin in 4:06:45, pushed Emma Fogarty's wheelchair over the line for the final kilometres, and raised roughly €800,000 for her skin-condition charity.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 13980
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:53*",
+  "source": "ledger"
+ },
+ {
+  "id": "ashton-kutcher-marathon-2022",
+  "who": "Ashton Kutcher",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2022",
+  "year": 2022,
+  "age": 44,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "A few years after a rare vasculitis episode knocked out his vision, hearing and balance for months; ran to raise money for Thorn, his anti-child-exploitation nonprofit.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14041
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:54:01",
+  "source": "ledger"
+ },
+ {
+  "id": "diplo-marathon-2019",
+  "who": "Diplo",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Los Angeles 2019",
+  "year": 2019,
+  "age": 40,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Run — by his own cheerful admission — on LSD, mid-festival-season. Sub-four regardless.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14100
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:55*",
+  "source": "ledger"
+ },
+ {
+  "id": "will-ferrell-marathon-2003",
+  "who": "Will Ferrell",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Boston 2003",
+  "year": 2003,
+  "age": 35,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Fresh off leaving SNL, with Old School in theatres and Elf in the can — mid-leap from sketch comedy to movie stardom.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14172
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:56:12",
+  "source": "ledger"
+ },
+ {
+  "id": "pippa-middleton-marathon-2015",
+  "who": "Pippa Middleton",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Lewa, Kenya 2015",
+  "year": 2015,
+  "age": 31,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Living inside the royal press bubble; ran a conservancy course at roughly 1,700 m of altitude, patrolled by armed wildlife rangers.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14193
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:56:33",
+  "source": "ledger"
+ },
+ {
+  "id": "chelsea-clinton-marathon-2021",
+  "who": "Chelsea Clinton",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2021",
+  "year": 2021,
+  "age": 41,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Three kids, a book tour, the Clinton Foundation circuit — and 51 seconds inside four hours.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14349
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:59:09",
+  "source": "ledger"
+ },
+ {
+  "id": "sarah-palin-marathon-2005",
+  "who": "Sarah Palin",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Anchorage 2005",
+  "year": 2005,
+  "age": 41,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Term-limited small-town mayor with four kids, one year from winning the governorship. Broke four hours at Humpy's Classic by 24 seconds.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14376
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "3:59:36",
+  "source": "ledger"
+ },
+ {
+  "id": "bobby-flay-marathon-2010",
+  "who": "Bobby Flay",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2010",
+  "year": 2010,
+  "age": 45,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Between Iron Chef tapings and restaurant openings. New York's resident celebrity chef — half an hour adrift of Ramsay's London best.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14460
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:01*",
+  "source": "ledger"
+ },
+ {
+  "id": "paul-ryan-marathon-1990",
+  "who": "Paul Ryan",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Grandma's 1990",
+  "year": 1990,
+  "age": 20,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Ran it at 20. At 42, as VP nominee, he claimed a \"two-fifty-something\" on national radio; Runner's World pulled the archived result inside a week. The clock is undefeated.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14485
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:01:25",
+  "source": "ledger"
+ },
+ {
+  "id": "kevin-hart-marathon-2017",
+  "who": "Kevin Hart",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2017",
+  "year": 2017,
+  "age": 38,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "The busiest comedian alive, deep in a Jumanji press cycle and weeks past a very public extortion scandal and apology.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 14706
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:05:06",
+  "source": "ledger"
+ },
+ {
+  "id": "sean-combs-marathon-2003",
+  "who": "Sean Combs",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2003",
+  "year": 2003,
+  "age": 33,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Eight weeks of training on a bad knee, an empire to run, and one stated goal: beat Oprah. Raised about $2M for New York City schools doing it.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 15294
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:14:54",
+  "source": "ledger"
+ },
+ {
+  "id": "randall-park-marathon-2024",
+  "who": "Randall Park",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2024",
+  "year": 2024,
+  "age": 50,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Fresh Off the Boat lead, running for a sensory-inclusion charity at 50.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 15378
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:16:18",
+  "source": "ledger"
+ },
+ {
+  "id": "mario-lopez-marathon-2011",
+  "who": "Mario Lopez",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2011",
+  "year": 2011,
+  "age": 38,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "By his own later admission, his Boston debut in 2002 involved a shortcut. New York, nine years on, was the make-good — run in full.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 15780
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:23*",
+  "source": "ledger"
+ },
+ {
+  "id": "oprah-winfrey-marathon-1994",
+  "who": "Oprah Winfrey",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Marine Corps 1994",
+  "year": 1994,
+  "age": 40,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Nineteen months of secret 4:30 a.m. training with Bob Greene, 72 lb down, the year she turned 40. Verdict at the finish: \"better than an Emmy.\" The time became the amateur benchmark.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 16160
+  },
+  "tier": 3,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:29:20",
+  "source": "ledger"
+ },
+ {
+  "id": "shia-labeouf-marathon-2010",
+  "who": "Shia LaBeouf",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Los Angeles 2010",
+  "year": 2010,
+  "age": 23,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Between Wall Street 2 and Transformers 3 shoots, running his hometown race through peak tabloid attention.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 16531
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:35:31",
+  "source": "ledger"
+ },
+ {
+  "id": "drew-carey-marathon-2011",
+  "who": "Drew Carey",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Marine Corps 2011",
+  "year": 2011,
+  "age": 53,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Roughly 80 lb lighter, off diabetes medication, hosting The Price Is Right. The marathon was the receipt for the rebuild.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 16631
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:37:11",
+  "source": "ledger"
+ },
+ {
+  "id": "mike-huckabee-marathon-2005",
+  "who": "Mike Huckabee",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Little Rock 2005",
+  "year": 2005,
+  "age": 49,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Sitting governor of Arkansas, roughly 110 lb lighter after a type-2 diabetes diagnosis; wrote the diet book, then ran his own capital's race to close the argument.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 16740
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:39*",
+  "source": "ledger"
+ },
+ {
+  "id": "al-gore-marathon-1997",
+  "who": "Al Gore",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Marine Corps 1997",
+  "year": 1997,
+  "age": 49,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Sitting Vice-President of the United States. Ran it because his daughters dared him to.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 17905
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "4:58:25",
+  "source": "ledger"
+ },
+ {
+  "id": "uzo-aduba-marathon-2013",
+  "who": "Uzo Aduba",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2013",
+  "year": 2013,
+  "age": 32,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Orange Is the New Black had premiered that summer; spectators yelled \"Crazy Eyes\" at her the entire way, by her own delighted account. Ran Boston in 5:03 two years later.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 18060
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "5:01*",
+  "source": "ledger"
+ },
+ {
+  "id": "princess-beatrice-marathon-2010",
+  "who": "Princess Beatrice",
+  "flag": null,
+  "title": "Marathon",
+  "event": "London 2010",
+  "year": 2010,
+  "age": 21,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "First member of the royal family to finish London — roped to 33 other runners in a record-setting \"human caterpillar,\" which makes the pace an ensemble statistic.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 18780
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "≈5:13",
+  "source": "ledger"
+ },
+ {
+  "id": "chip-gaines-marathon-2018",
+  "who": "Chip Gaines",
+  "flag": null,
+  "title": "Marathon",
+  "event": "Waco 2018",
+  "year": 2018,
+  "age": 43,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Co-founded the Silo District race himself, attached it to pro runner and cancer survivor Gabriele Grunewald's research cause, then ran the inaugural edition.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 19314
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "5:21:54",
+  "source": "ledger"
+ },
+ {
+  "id": "katie-holmes-marathon-2007",
+  "who": "Katie Holmes",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2007",
+  "year": 2007,
+  "age": 28,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "About ten quiet weeks of training with toddler Suri and the Cruise circus in tow — in flared yoga pants. Conspiracy theorists later audited her splits; she ran every step.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 19798
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "5:29:58",
+  "source": "ledger"
+ },
+ {
+  "id": "pamela-anderson-marathon-2013",
+  "who": "Pamela Anderson",
+  "flag": "CAN",
+  "title": "Marathon",
+  "event": "New York 2013",
+  "year": 2013,
+  "age": 46,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Admitted she \"didn't train much,\" ran for Haiti earthquake relief, and gutted out five-plus hours anyway.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 20463
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "5:41:03",
+  "source": "ledger"
+ },
+ {
+  "id": "alicia-keys-marathon-2015",
+  "who": "Alicia Keys",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2015",
+  "year": 2015,
+  "age": 34,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Between albums with a toddler and an infant at home; called marathon training \"the Jedi mind-training I need.\"",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 21052
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "5:50:52",
+  "source": "ledger"
+ },
+ {
+  "id": "al-roker-marathon-2010",
+  "who": "Al Roker",
+  "flag": null,
+  "title": "Marathon",
+  "event": "New York 2010",
+  "year": 2010,
+  "age": 56,
+  "discipline": "run",
+  "category": "Marathon",
+  "note": "Eight years after gastric-bypass surgery, on Today-show sleep. Kept moving past the seven-hour mark and took the medal.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 42195,
+   "seconds": 25784
+  },
+  "tier": 2,
+  "tags": [
+   "marathon"
+  ],
+  "display": "7:09:44",
+  "source": "ledger"
+ },
+ {
+  "id": "eddie-izzard-43-marathons-in-51-days",
+  "who": "Eddie Izzard",
+  "flag": null,
+  "title": "43 marathons in 51 days",
+  "event": "≈1,800 km · UK 2009",
+  "year": 2009,
+  "age": 47,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Roughly five weeks of training and no athletic history, then a marathon a day, six days a week, around Britain for Sport Relief. Did it again at 54 — 27 in 27 across South Africa, finishing with a double.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 1814385,
+   "days": 51
+  },
+  "tier": 5,
+  "tags": [
+   "multiday",
+   "charity",
+   "ultra"
+  ],
+  "logistics": null,
+  "display": "≈1,800 km · UK 2009",
+  "source": "ledger"
+ },
+ {
+  "id": "ranulph-fiennes-7-marathons-7-continents-7-days",
+  "who": "Ranulph Fiennes",
+  "flag": null,
+  "title": "7 marathons, 7 continents, 7 days",
+  "event": "Land Rover 7·7·7 · 2003",
+  "year": 2003,
+  "age": 59,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Four months after a heart attack and double bypass. Professionally an explorer, so file under occupational hazard — but the cardiology stands on its own.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "run",
+   "meters": 295365,
+   "days": 7
+  },
+  "tier": 5,
+  "tags": [
+   "multiday",
+   "777"
+  ],
+  "logistics": "Seven continents in seven days: flights, visas, ~$40k",
+  "display": "Land Rover 7·7·7 · 2003",
+  "source": "ledger"
+ },
+ {
+  "id": "frederik-of-denmark-ironman-copenhagen",
+  "who": "Frederik of Denmark",
+  "flag": null,
+  "title": "Ironman Copenhagen",
+  "event": "≈10:45 · 2013",
+  "year": 2013,
+  "age": 45,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "The crown prince — now King of Denmark — went sub-11 in his home capital. Comfortably the fastest blue-blood result on either table.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "seconds": 38700
+  },
+  "tier": 4,
+  "tags": [
+   "ironman"
+  ],
+  "logistics": null,
+  "display": "≈10:45 · 2013",
+  "source": "ledger"
+ },
+ {
+  "id": "gordon-ramsay-ironman-world-championship",
+  "who": "Gordon Ramsay",
+  "flag": null,
+  "title": "Ironman World Championship",
+  "event": "14:04:48 · Kona 2013",
+  "year": 2013,
+  "age": 46,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Tore a hamstring and botched his fuelling mid-race, finished anyway. The only name that appears on both of these tables.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "seconds": 50688
+  },
+  "tier": 4,
+  "tags": [
+   "ironman",
+   "kona"
+  ],
+  "logistics": "Kona requires qualification or a charity/lottery slot",
+  "display": "14:04:48 · Kona 2013",
+  "source": "ledger"
+ },
+ {
+  "id": "sean-astin-ironman-world-championship",
+  "who": "Sean Astin",
+  "flag": null,
+  "title": "Ironman World Championship",
+  "event": "15:30:31 · Kona 2015",
+  "year": 2015,
+  "age": 44,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Samwise at the world championship — raised over $25,000 for #Run3rd, his youth-running charity, while carrying the thing all the way up the mountain himself this time.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "seconds": 55831
+  },
+  "tier": 4,
+  "tags": [
+   "ironman",
+   "kona"
+  ],
+  "logistics": "Kona slot required",
+  "display": "15:30:31 · Kona 2015",
+  "source": "ledger"
+ },
+ {
+  "id": "milind-soman-ironman-finisher-pushing-50",
+  "who": "Milind Soman",
+  "flag": null,
+  "title": "Ironman finisher pushing 50",
+  "event": "≈15:19 · Zurich 2015",
+  "year": 2015,
+  "age": 49,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Indian supermodel-actor who took up serious endurance sport in middle age and never stopped escalating.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 3862,
+    "bike_m": 180200,
+    "run_m": 42195
+   },
+   "seconds": 55140
+  },
+  "tier": 4,
+  "tags": [
+   "ironman"
+  ],
+  "logistics": null,
+  "display": "≈15:19 · Zurich 2015",
+  "source": "ledger"
+ },
+ {
+  "id": "haruki-murakami-100-km-ultramarathon",
+  "who": "Haruki Murakami",
+  "flag": null,
+  "title": "100 km ultramarathon",
+  "event": "≈11 h 42 m · Lake Saroma 1996",
+  "year": 1996,
+  "age": 47,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Somewhere past 75 km he \"passed through\" to the far side of exhaustion; wrote the definitive account of the runner's void, then mostly retired from ultras.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "run_time",
+   "distance_m": 100000,
+   "seconds": 42120
+  },
+  "tier": 4,
+  "tags": [
+   "ultra"
+  ],
+  "logistics": null,
+  "display": "≈11 h 42 m · Lake Saroma 1996",
+  "source": "ledger"
+ },
+ {
+  "id": "jennifer-lopez-nautica-malibu-triathlon",
+  "who": "Jennifer Lopez",
+  "flag": null,
+  "title": "Nautica Malibu Triathlon",
+  "event": "2:23:28 · 2008",
+  "year": 2008,
+  "age": 39,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Her first triathlon, seven months after giving birth to twins, with a tour on the calendar.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "triathlon",
+   "legs": {
+    "swim_m": 805,
+    "bike_m": 28968,
+    "run_m": 6437
+   },
+   "seconds": 8608
+  },
+  "tier": 2,
+  "tags": [
+   "triathlon"
+  ],
+  "logistics": null,
+  "display": "2:23:28 · 2008",
+  "source": "ledger"
+ },
+ {
+  "id": "davina-mccall-500-miles-in-7-days",
+  "who": "Davina McCall",
+  "flag": null,
+  "title": "500 miles in 7 days",
+  "event": "≈810 km · Edinburgh→London · 2014",
+  "year": 2014,
+  "age": 46,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Run, bike and swim for Sport Relief. Pulled from a Lake Windermere swim with hypothermia partway through, warmed up, and finished the week.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "multi",
+   "meters": 804672,
+   "days": 7
+  },
+  "tier": 5,
+  "tags": [
+   "multiday",
+   "charity"
+  ],
+  "logistics": null,
+  "display": "≈810 km · Edinburgh→London · 2014",
+  "source": "ledger"
+ },
+ {
+  "id": "john-bishop-paris-to-london-the-hard-way",
+  "who": "John Bishop",
+  "flag": null,
+  "title": "Paris to London, the hard way",
+  "event": "≈470 km · cycle–row–run · 5 days · 2012",
+  "year": 2012,
+  "age": 45,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Cycled from Paris to the coast, rowed the Channel, then ran three back-to-back marathons into London for Sport Relief — over £4M raised.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "multi",
+   "meters": 470000,
+   "days": 5
+  },
+  "tier": 4,
+  "tags": [
+   "multiday",
+   "charity"
+  ],
+  "logistics": null,
+  "display": "≈470 km · cycle–row–run · 5 days · 2012",
+  "source": "ledger"
+ },
+ {
+  "id": "pippa-middleton-the-amateur-grand-slam",
+  "who": "Pippa Middleton",
+  "flag": null,
+  "title": "The amateur grand slam",
+  "event": "Vasaloppet 90 km ski '12 · cross-America cycling relay '14 · Ötillö SwimRun '15",
+  "year": null,
+  "age": null,
+  "ageLabel": "28–31",
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "Quietly assembled the most complete amateur endurance CV in the tabloids while the press covered her wardrobe.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [
+   "composite"
+  ],
+  "logistics": null,
+  "display": "Vasaloppet 90 km ski '12 · cross-America cycling relay '14 · Ötillö SwimRun '15",
+  "source": "ledger"
+ },
+ {
+  "id": "taylor-swift-the-eras-treadmill-protocol",
+  "who": "Taylor Swift",
+  "flag": null,
+  "title": "The Eras treadmill protocol",
+  "event": "3½ h setlist · sung at tempo · daily",
+  "year": null,
+  "age": 33,
+  "ageLabel": null,
+  "discipline": "multisport",
+  "category": "Multisport & ultra",
+  "note": "By her own account, ran the entire 44-song set aloud on a treadmill every day for months to build the lungs for a three-hour show. Self-reported, but the tour footage is the audit.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "duration_single",
+   "sport": "run",
+   "seconds": 12600
+  },
+  "tier": 3,
+  "tags": [
+   "self-reported"
+  ],
+  "logistics": null,
+  "display": "3½ h setlist · sung at tempo · daily",
+  "source": "ledger"
+ },
+ {
+  "id": "benjamin-franklin-thames-exhibition-swim",
+  "who": "Benjamin Franklin",
+  "flag": null,
+  "title": "Thames exhibition swim",
+  "event": "≈5.6 km · Chelsea→Blackfriars · 1726",
+  "year": 1726,
+  "age": 20,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Swam the Thames performing stroke demonstrations en route, and nearly stayed in London to open a swimming school. Honoured in the Swimming Hall of Fame two centuries later.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "swim_distance",
+   "meters": 5600,
+   "water": "open"
+  },
+  "tier": 3,
+  "tags": [
+   "historical",
+   "openwater"
+  ],
+  "logistics": null,
+  "display": "≈5.6 km · Chelsea→Blackfriars · 1726",
+  "source": "ledger"
+ },
+ {
+  "id": "lord-byron-swam-the-hellespont",
+  "who": "Lord Byron",
+  "flag": null,
+  "title": "Swam the Hellespont",
+  "event": "≈5 km against current · 1810",
+  "year": 1810,
+  "age": 22,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Club foot and all, crossed from Europe to Asia in emulation of Leander — \"I plume myself on this achievement\" — and mentioned it forever. The original celebrity endurance flex.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "swim_distance",
+   "meters": 5000,
+   "water": "open"
+  },
+  "tier": 3,
+  "tags": [
+   "historical",
+   "openwater"
+  ],
+  "logistics": "Dardanelles crossing runs as an organised annual swim",
+  "display": "≈5 km against current · 1810",
+  "source": "ledger"
+ },
+ {
+  "id": "david-walliams-swam-the-english-channel",
+  "who": "David Walliams",
+  "flag": null,
+  "title": "Swam the English Channel",
+  "event": "10 h 34 m · 2006",
+  "year": 2006,
+  "age": 34,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "A comedian with a year of coaching crossed faster than many club swimmers. Five years later he swam the 225 km length of the Thames through an infection the press named \"Thames tummy.\"",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "swim_time",
+   "meters": 34000,
+   "seconds": 38040,
+   "water": "open"
+  },
+  "tier": 5,
+  "tags": [
+   "channel",
+   "openwater"
+  ],
+  "logistics": "CS&PF/CSA pilot boat, observer, ~GBP 3-4k, 2-year waitlist",
+  "display": "10 h 34 m · 2006",
+  "source": "ledger"
+ },
+ {
+  "id": "simon-le-bon-whitbread-round-the-world-race",
+  "who": "Simon Le Bon",
+  "flag": null,
+  "title": "Whitbread Round the World Race",
+  "event": "Drum · 1985–86",
+  "year": 1985,
+  "age": 27,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Trapped under the hull when Drum capsized in the '85 Fastnet; refloated her and raced around the world anyway, at the height of Duran Duran.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "Ocean race berth",
+  "display": "Drum · 1985–86",
+  "source": "ledger"
+ },
+ {
+  "id": "cody-simpson-pop-career-national-swim-team",
+  "who": "Cody Simpson",
+  "flag": null,
+  "title": "Pop career → national swim team",
+  "event": "100 m fly · Comm Games 2022",
+  "year": 2022,
+  "age": 25,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Traded arena tours for a Gold Coast pool at 21; three years later he was swimming for Australia at the Commonwealth Games.",
+  "confidence": "reported",
+  "approx": true,
+  "proAsterisk": false,
+  "check": {
+   "kind": "swim_time",
+   "meters": 100,
+   "seconds": 53.7,
+   "stroke": "butterfly"
+  },
+  "tier": 5,
+  "tags": [
+   "elite"
+  ],
+  "logistics": null,
+  "display": "100 m fly · Comm Games 2022",
+  "source": "ledger"
+ },
+ {
+  "id": "kate-winslet-static-breath-hold",
+  "who": "Kate Winslet",
+  "flag": null,
+  "title": "Static breath-hold",
+  "event": "7 m 15 s · Avatar set 2018",
+  "year": 2018,
+  "age": 43,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Reportedly the longest breath-hold ever filmed for a movie, past Tom Cruise's six-minute mark from Rogue Nation — achieved for underwater performance-capture scenes.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "breath_hold",
+   "seconds": 435
+  },
+  "tier": 4,
+  "tags": [
+   "freedive"
+  ],
+  "logistics": null,
+  "display": "7 m 15 s · Avatar set 2018",
+  "source": "ledger"
+ },
+ {
+  "id": "tom-cruise-106-halo-jumps",
+  "who": "Tom Cruise",
+  "flag": null,
+  "title": "106 HALO jumps",
+  "event": "25,000 ft exits · Fallout 2018",
+  "year": 2018,
+  "age": 55,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Did the sequence for real — over a hundred exits to get three usable takes — months after breaking his ankle on the same film.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "HALO certification + military-grade oxygen rig",
+  "display": "25,000 ft exits · Fallout 2018",
+  "source": "ledger"
+ },
+ {
+  "id": "george-h-w-bush-birthday-skydives",
+  "who": "George H.W. Bush",
+  "flag": null,
+  "title": "Birthday skydives",
+  "event": "Jumps at 75 · 80 · 85 · 90",
+  "year": null,
+  "age": null,
+  "ageLabel": "75–90",
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "Shot down over the Pacific at 20; marked every round-number birthday with a skydive, the last tandem at 90 with a wheelchair waiting on the landing zone.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 2,
+  "tags": [],
+  "logistics": "Tandem jump ~$300",
+  "display": "Jumps at 75 · 80 · 85 · 90",
+  "source": "ledger"
+ },
+ {
+  "id": "richard-branson-kitesurfed-the-english-channel",
+  "who": "Richard Branson",
+  "flag": null,
+  "title": "Kitesurfed the English Channel",
+  "event": "Oldest crossing · 2012",
+  "year": 2012,
+  "age": 61,
+  "ageLabel": null,
+  "discipline": "swim",
+  "category": "Open water & air",
+  "note": "The oldest person to kitesurf the Channel, two years after conditions forced an earlier attempt back to shore.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [],
+  "logistics": "Kite crossing needs escort + coastguard clearance",
+  "display": "Oldest crossing · 2012",
+  "source": "ledger"
+ },
+ {
+  "id": "bear-grylls-everest-summit",
+  "who": "Bear Grylls",
+  "flag": null,
+  "title": "Everest summit",
+  "event": "8,849 m · 1998",
+  "year": 1998,
+  "age": 23,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Eighteen months after a parachute failure broke three vertebrae and put walking, let alone climbing, in doubt.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "summit",
+   "altitude_m": 8849
+  },
+  "tier": 5,
+  "tags": [
+   "8000er"
+  ],
+  "logistics": "Permit + expedition, US$45-90k",
+  "display": "8,849 m · 1998",
+  "source": "ledger"
+ },
+ {
+  "id": "brian-blessed-everest-without-bottled-oxygen",
+  "who": "Brian Blessed",
+  "flag": null,
+  "title": "Everest without bottled oxygen",
+  "event": "≈8,600 m · 1993",
+  "year": 1993,
+  "age": 56,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "The Flash Gordon voice climbed into the death zone without supplemental oxygen at 56 and turned back short of the summit.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "summit",
+   "altitude_m": 8600,
+   "no_oxygen": true
+  },
+  "tier": 5,
+  "tags": [
+   "8000er"
+  ],
+  "logistics": "Expedition cost + no-O2 acclimatisation",
+  "display": "≈8,600 m · 1993",
+  "source": "ledger"
+ },
+ {
+  "id": "alexander-skarsgard-south-pole-trek",
+  "who": "Alexander Skarsgård",
+  "flag": null,
+  "title": "South Pole trek",
+  "event": "≈335 km · 2013",
+  "year": 2013,
+  "age": 37,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Hauled a sledge to the Pole alongside wounded veterans — and Prince Harry — in the Walking With The Wounded race, between True Blood seasons.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "ski",
+   "meters": 335000,
+   "days": 21
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "Antarctic logistics, US$70k+",
+  "display": "≈335 km · 2013",
+  "source": "ledger"
+ },
+ {
+  "id": "prince-harry-both-ends-of-the-earth",
+  "who": "Prince Harry",
+  "flag": null,
+  "title": "Both ends of the earth",
+  "event": "South Pole '13 · North Pole attempt '11",
+  "year": null,
+  "age": 29,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Trekked to the South Pole with wounded veterans; two years earlier he'd started the North Pole crossing but left early for his brother's wedding.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "Polar expedition support",
+  "display": "South Pole '13 · North Pole attempt '11",
+  "source": "ledger"
+ },
+ {
+  "id": "jessica-biel-kilimanjaro-summit",
+  "who": "Jessica Biel",
+  "flag": null,
+  "title": "Kilimanjaro summit",
+  "event": "5,895 m · 2010",
+  "year": 2010,
+  "age": 27,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Led a celebrity rope of musicians up Africa's roof for a clean-water campaign.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "summit",
+   "altitude_m": 5895
+  },
+  "tier": 3,
+  "tags": [],
+  "logistics": "Guided trek ~US$2-4k, 6-8 days",
+  "display": "5,895 m · 2010",
+  "source": "ledger"
+ },
+ {
+  "id": "ben-fogle-atlantic-row-everest",
+  "who": "Ben Fogle",
+  "flag": null,
+  "title": "Atlantic row + Everest",
+  "event": "49 days at sea '05–06 · 8,849 m '18",
+  "year": null,
+  "age": null,
+  "ageLabel": "32 / 44",
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Reality-castaway turned presenter: rowed the Atlantic with a double Olympic champion — capsize included — then summited Everest twelve years later.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "Ocean row berth + Everest permit",
+  "display": "49 days at sea '05–06 · 8,849 m '18",
+  "source": "ledger"
+ },
+ {
+  "id": "jack-osbourne-climbed-el-capitan",
+  "who": "Jack Osbourne",
+  "flag": null,
+  "title": "Climbed El Capitan",
+  "event": "≈900 m of granite · 2005",
+  "year": 2005,
+  "age": 19,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "One year out of rehab, the reality-TV kid trained himself fit and topped out El Cap — guided, roped, and thoroughly earned — for his show's finale.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [],
+  "logistics": "Big-wall skills + partner",
+  "display": "≈900 m of granite · 2005",
+  "source": "ledger"
+ },
+ {
+  "id": "the-comic-relief-nine-kilimanjaro-en-masse",
+  "who": "The Comic Relief Nine",
+  "flag": null,
+  "title": "Kilimanjaro, en masse",
+  "event": "5,895 m · 2009",
+  "year": 2009,
+  "age": null,
+  "ageLabel": "25–38",
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Cheryl Cole, Gary Barlow, Chris Moyles and six more chart-and-telly names summited together, altitude-sick and televised, raising over £3M.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "summit",
+   "altitude_m": 5895
+  },
+  "tier": 3,
+  "tags": [],
+  "logistics": "Guided trek",
+  "display": "5,895 m · 2009",
+  "source": "ledger"
+ },
+ {
+  "id": "shirley-maclaine-camino-de-santiago",
+  "who": "Shirley MacLaine",
+  "flag": null,
+  "title": "Camino de Santiago",
+  "event": "≈780 km on foot · 30 days · 1994",
+  "year": 1994,
+  "age": 60,
+  "ageLabel": null,
+  "discipline": "mountain",
+  "category": "Mountains, walls & poles",
+  "note": "Walked it alone at 60, mostly incognito, and got a bestseller out of it.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "distance_window",
+   "sport": "walk",
+   "meters": 780000,
+   "days": 30
+  },
+  "tier": 3,
+  "tags": [
+   "multiday"
+  ],
+  "logistics": null,
+  "display": "≈780 km on foot · 30 days · 1994",
+  "source": "ledger"
+ },
+ {
+  "id": "theodore-roosevelt-white-house-fight-club",
+  "who": "Theodore Roosevelt",
+  "flag": null,
+  "title": "White House fight club",
+  "event": "Boxing + judo · 1901–08",
+  "year": 1901,
+  "age": null,
+  "ageLabel": "43–50",
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Sparred through his presidency until a blow detached a retina and quietly blinded the eye; trained judo under Yamashita and swam Rock Creek in winter. The job description was different then.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 2,
+  "tags": [],
+  "logistics": null,
+  "display": "Boxing + judo · 1901–08",
+  "source": "ledger"
+ },
+ {
+  "id": "mickey-rourke-professional-boxing-career",
+  "who": "Mickey Rourke",
+  "flag": null,
+  "title": "Professional boxing career",
+  "event": "6–0–2 · 1991–94",
+  "year": 1991,
+  "age": null,
+  "ageLabel": "39–42",
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Paused an A-list acting run to box professionally for three years; won six, drew two, and rearranged his face doing it.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": "Pro licence",
+  "display": "6–0–2 · 1991–94",
+  "source": "ledger"
+ },
+ {
+  "id": "idris-elba-professional-kickboxing-debut-won",
+  "who": "Idris Elba",
+  "flag": null,
+  "title": "Professional kickboxing debut — won",
+  "event": "1 fight, 1 win · 2016",
+  "year": 2016,
+  "age": 44,
+  "ageLabel": null,
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Trained for a year around shooting schedules for a Discovery documentary, then won his first and only professional bout.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [],
+  "logistics": "Sanctioned bout + medicals",
+  "display": "1 fight, 1 win · 2016",
+  "source": "ledger"
+ },
+ {
+  "id": "anthony-bourdain-ibjjf-tournament-gold",
+  "who": "Anthony Bourdain",
+  "flag": null,
+  "title": "IBJJF tournament gold",
+  "event": "NY Spring Open · blue belt masters · 2016",
+  "year": 2016,
+  "age": 59,
+  "ageLabel": null,
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Started Brazilian jiu-jitsu at 58, trained in a different city every week on the road, took gold at 59.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [],
+  "logistics": "IBJJF membership ~$85 + entry ~$100",
+  "display": "NY Spring Open · blue belt masters · 2016",
+  "source": "ledger"
+ },
+ {
+  "id": "tom-hardy-two-open-bjj-tournaments-two-golds",
+  "who": "Tom Hardy",
+  "flag": null,
+  "title": "Two open BJJ tournaments, two golds",
+  "event": "REORG charity opens · 2022",
+  "year": 2022,
+  "age": 44,
+  "ageLabel": null,
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Entered unannounced under his given name, Edward Hardy; his opponents found out who they'd drawn at the bracket.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [],
+  "logistics": null,
+  "display": "REORG charity opens · 2022",
+  "source": "ledger"
+ },
+ {
+  "id": "mark-zuckerberg-first-bjj-tournament-two-medals",
+  "who": "Mark Zuckerberg",
+  "flag": null,
+  "title": "First BJJ tournament — two medals",
+  "event": "Gold + silver · 2023",
+  "year": 2023,
+  "age": 38,
+  "ageLabel": null,
+  "discipline": "combat",
+  "category": "Mats & rings",
+  "note": "Medalled twice barely a year into training, and later posted a sub-40 weighted Murph. File tech founders under \"celebrity\" at your own discretion.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 3,
+  "tags": [],
+  "logistics": null,
+  "display": "Gold + silver · 2023",
+  "source": "ledger"
+ },
+ {
+  "id": "burt-lancaster-circus-acrobat",
+  "who": "Burt Lancaster",
+  "flag": null,
+  "title": "Circus acrobat",
+  "event": "Lang & Cravat troupe · 1930s",
+  "year": 1930,
+  "age": null,
+  "ageLabel": "teens–20s",
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Nine years on the bars before an injury pushed him toward acting; did his own acrobatics in Trapeze at 42.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [],
+  "logistics": null,
+  "display": "Lang & Cravat troupe · 1930s",
+  "source": "ledger"
+ },
+ {
+  "id": "arthur-conan-doyle-the-victorian-all-rounder",
+  "who": "Arthur Conan Doyle",
+  "flag": null,
+  "title": "The Victorian all-rounder",
+  "event": "Keeper · cricketer · ski pioneer · 1880s–1900s",
+  "year": 1880,
+  "age": null,
+  "ageLabel": "25–41",
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Kept goal for Portsmouth, helped introduce alpine ski touring to Davos, and took exactly one first-class wicket: W.G. Grace — after Grace had already made a century off the bowling.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 4,
+  "tags": [],
+  "logistics": null,
+  "display": "Keeper · cricketer · ski pioneer · 1880s–1900s",
+  "source": "ledger"
+ },
+ {
+  "id": "samuel-beckett-first-class-cricketer",
+  "who": "Samuel Beckett",
+  "flag": null,
+  "title": "First-class cricketer",
+  "event": "2 matches · Dublin University · 1925–26",
+  "year": 1925,
+  "age": 19,
+  "ageLabel": null,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "The only Nobel literature laureate in Wisden — a left-hand opening bat whose averages were as bleak as the plays.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": null,
+  "display": "2 matches · Dublin University · 1925–26",
+  "source": "ledger"
+ },
+ {
+  "id": "jason-statham-commonwealth-games-diver",
+  "who": "Jason Statham",
+  "flag": null,
+  "title": "Commonwealth Games diver",
+  "event": "3 events · Auckland 1990",
+  "year": 1990,
+  "age": 22,
+  "ageLabel": null,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Twelve years on Britain's national diving squad before anyone had heard of him. Lock, Stock was still eight years out.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": null,
+  "display": "3 events · Auckland 1990",
+  "source": "ledger"
+ },
+ {
+  "id": "hugh-laurie-the-boat-race",
+  "who": "Hugh Laurie",
+  "flag": null,
+  "title": "The Boat Race",
+  "event": "Cambridge · 1980",
+  "year": 1980,
+  "age": 20,
+  "ageLabel": null,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "GB junior international oarsman who lost one of the closest Boat Races ever rowed — by a canvas — then drifted to the Footlights. Comedy was the fallback.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": null,
+  "display": "Cambridge · 1980",
+  "source": "ledger"
+ },
+ {
+  "id": "geena-davis-us-olympic-archery-trials-semifina",
+  "who": "Geena Davis",
+  "flag": null,
+  "title": "US Olympic archery trials, semifinals",
+  "event": "24th of 300 · 1999",
+  "year": 1999,
+  "age": 43,
+  "ageLabel": null,
+  "discipline": "other",
+  "category": "First careers & second callings",
+  "note": "Picked up a bow at 41. Two years and thousands of arrows later she was 24 places from Sydney.",
+  "confidence": "verified",
+  "approx": false,
+  "proAsterisk": false,
+  "check": {
+   "kind": "manual"
+  },
+  "tier": 5,
+  "tags": [],
+  "logistics": null,
+  "display": "24th of 300 · 1999",
+  "source": "ledger"
+ }
+]

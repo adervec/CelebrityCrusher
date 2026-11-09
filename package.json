@@ -1,0 +1,8 @@
+{
+  "name": "celebrity-crusher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Which celebrity fitness feats your own training data already beats.",
+  "scripts": { "start": "node server.mjs", "test": "node test.mjs" }
+}

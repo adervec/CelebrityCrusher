@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Celebrity Endurance Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soot:#16130f;
+    --panel:#1d1915;
+    --panel-2:#211c17;
+    --hairline:#2e2820;
+    --bone:#e9e1d2;
+    --bone-dim:#a89f8c;
+    --bone-faint:#7d7566;
+    --ember:#dd6b2f;
+    --ember-soft:#e8926033;
+    --gold:#c9a05a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{background:var(--soot);}
+  body{
+    background:var(--soot);
+    color:var(--bone);
+    font-family:'Newsreader',serif;
+    font-size:1.02rem;
+    line-height:1.55;
+    padding:3rem 1.25rem 4rem;
+  }
+  .wrap{max-width:1120px;margin:0 auto;}
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:1rem;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:clamp(2.1rem,5.5vw,3.4rem);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin-bottom:1rem;
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(1.5rem,3.5vw,2.1rem);
+    line-height:1.15;
+    margin:3.2rem 0 0.5rem;
+  }
+  .section-dek{
+    font-size:1.02rem;
+    color:var(--bone-dim);
+    max-width:66ch;
+    margin-bottom:1.4rem;
+  }
+  .dek{
+    font-size:1.08rem;
+    color:var(--bone-dim);
+    max-width:64ch;
+    margin-bottom:1.6rem;
+  }
+  .dek em{color:var(--bone);font-style:italic;}
+  .callout{
+    border-top:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+    padding:1.05rem 0;
+    margin-bottom:2.2rem;
+    font-family:'Fraunces',serif;
+    font-size:1.12rem;
+    color:var(--bone-dim);
+  }
+  .callout .t{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    color:var(--ember);
+    font-size:1.12rem;
+  }
+
+  /* ---------- tables ---------- */
+  .table-note{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    color:var(--bone-faint);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:0.7rem;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+  }
+  thead th{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    font-weight:500;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--bone-faint);
+    text-align:left;
+    padding:0 0.7rem 0.6rem 0;
+    border-bottom:1px solid var(--hairline);
+    white-space:nowrap;
+  }
+  thead th.num{text-align:right;padding-right:1rem;}
+  tbody td{
+    padding:0.85rem 0.7rem 0.85rem 0;
+    border-bottom:1px solid var(--hairline);
+    vertical-align:top;
+  }
+  td.rank{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    color:var(--bone-faint);
+    text-align:right;
+    padding-right:1rem;
+    width:2.4rem;
+  }
+  td.runner{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.04rem;
+    white-space:nowrap;
+  }
+  .chip{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    font-weight:500;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:3px;
+    padding:0 0.3rem;
+    margin-left:0.45rem;
+    vertical-align:0.1rem;
+    line-height:1.35;
+  }
+  td.time{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:1.02rem;
+    color:var(--bone);
+    white-space:nowrap;
+  }
+  td.pace{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.9rem;
+    color:var(--bone-faint);
+    white-space:nowrap;
+  }
+  td.race{
+    font-size:0.95rem;
+    color:var(--bone-dim);
+    white-space:nowrap;
+  }
+  td.age{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.95rem;
+    color:var(--bone-dim);
+    text-align:center;
+  }
+  td.context{
+    font-size:0.98rem;
+    color:var(--bone-dim);
+    min-width:22ch;
+  }
+  td.context strong{color:var(--bone);font-weight:500;}
+  sup{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:0.85rem;}
+
+  /* feats table specifics */
+  td.feat{
+    font-size:0.98rem;
+    color:var(--bone);
+    min-width:16ch;
+  }
+  td.numbers{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.9rem;
+    color:var(--ember);
+    white-space:normal;
+    min-width:14ch;
+  }
+  tr.group td{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    font-weight:500;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold);
+    border-bottom:1px solid var(--hairline);
+    padding:1.7rem 0 0.5rem;
+  }
+
+  /* ---------- Adam marker row ---------- */
+  tr.marker td{
+    border-bottom:1px dashed var(--ember);
+    border-top:1px dashed var(--ember);
+    background:linear-gradient(90deg, var(--ember-soft), transparent 70%);
+    padding-top:0.75rem;
+    padding-bottom:0.75rem;
+  }
+  tr.marker td.runner{color:var(--ember);}
+  tr.marker td.time,
+  tr.marker td.rank{color:var(--ember);}
+  tr.marker td.context{font-style:italic;}
+
+  /* ---------- Canadian line ---------- */
+  .canadian-line{
+    margin-top:3rem;
+    border-top:1px solid var(--ember);
+    padding-top:1.3rem;
+    max-width:72ch;
+  }
+  .canadian-line .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ember);
+    margin-bottom:0.5rem;
+  }
+  .canadian-line p{
+    font-family:'Fraunces',serif;
+    font-size:1.15rem;
+    line-height:1.5;
+    color:var(--bone);
+  }
+  .canadian-line .t{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    color:var(--ember);
+  }
+
+  /* ---------- footnotes ---------- */
+  .foot{
+    margin-top:2.4rem;
+    border-top:1px solid var(--hairline);
+    padding-top:1.4rem;
+    display:grid;
+    gap:0.85rem;
+    max-width:78ch;
+  }
+  .foot p{
+    font-size:0.9rem;
+    color:var(--bone-faint);
+    line-height:1.6;
+  }
+  .foot p b{
+    color:var(--bone-dim);
+    font-weight:500;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.85rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-right:0.4rem;
+  }
+  .foot sup{font-size:0.85rem;}
+
+  /* ---------- responsive: stack to cards ---------- */
+  @media (max-width:760px){
+    body{padding:2.2rem 1rem 3rem;}
+    table, tbody, tr, td{display:block;width:100%;}
+    thead{display:none;}
+    tbody tr{
+      border:1px solid var(--hairline);
+      border-radius:6px;
+      background:var(--panel);
+      margin-bottom:0.9rem;
+      padding:0.9rem 1rem 0.35rem;
+    }
+    tbody td{border-bottom:none;padding:0 0 0.55rem 0;}
+    td.rank{
+      text-align:left;width:auto;padding:0 0 0.15rem 0;
+    }
+    td.rank::before{content:"№ ";color:var(--bone-faint);}
+    td.runner{white-space:normal;font-size:1.12rem;padding-bottom:0.35rem;}
+    td.time{display:inline-block;width:auto;font-size:1.15rem;color:var(--ember);padding-right:0.9rem;}
+    td.pace{display:inline-block;width:auto;padding-right:0.9rem;}
+    td.age{display:inline-block;width:auto;text-align:left;}
+    td.age::before{content:"age ";color:var(--bone-faint);}
+    td.race{padding-top:0.1rem;white-space:normal;}
+    td.feat{font-size:1rem;padding-bottom:0.3rem;}
+    td.context{padding-top:0.45rem;border-top:1px solid var(--hairline);margin-top:0.2rem;}
+    tr.group{
+      border:none;background:none;border-radius:0;
+      margin:1.2rem 0 0.7rem;padding:0;
+    }
+    tr.group td{border-bottom:1px solid var(--hairline);padding:0 0 0.4rem;}
+    tr.marker{
+      border:1px dashed var(--ember);
+      background:linear-gradient(180deg, var(--ember-soft), var(--panel) 80%);
+    }
+    tr.marker td{border-top:none;border-bottom:none;background:none;}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    tbody tr{transition:background 120ms ease;}
+    @media (hover:hover){
+      tbody tr:not(.marker):not(.group):hover{background:var(--panel-2);}
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Field Guide · Two Tables · 83 Entries</p>
+  <h1>The Celebrity Endurance Ledger</h1>
+  <p class="dek">Part one: verified marathon personal bests, age on race day, and what each life actually looked like at the start line — with one projection pinned where it lands: <em>Georgina, 13 September 2026.</em> Part two: everything beyond 42.195 — channels, summits, poles, mats, one breath held for seven minutes, and a historical wing going back to 1726.</p>
+
+  <div class="callout">
+    The reference point for the entire genre is still <span class="t">4:29:20</span> — the Oprah line, Marine Corps 1994. Everything above and below it is measured against a talk-show host who trained in secret at 4:30 a.m.
+  </div>
+
+  <h2>I. The Marathon Table</h2>
+  <p class="table-note">PR · pace per km · race · age · circumstances</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="num">№</th>
+        <th>Runner</th>
+        <th>PR</th>
+        <th>/km</th>
+        <th>Race</th>
+        <th>Age</th>
+        <th>What they were dealing with</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td class="rank">01</td>
+        <td class="runner">Lance Armstrong<sup>†</sup></td>
+        <td class="time">2:46:43</td>
+        <td class="pace">3:57</td>
+        <td class="race">New York 2007</td>
+        <td class="age">36</td>
+        <td class="context">One year retired from pro cycling, five years before the doping confession. A professional engine slumming in the amateur field — this row is a ceiling, not a peer.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">02</td>
+        <td class="runner">Nell McAndrew</td>
+        <td class="time">2:54:39</td>
+        <td class="pace">4:08</td>
+        <td class="race">London 2012</td>
+        <td class="age">38</td>
+        <td class="context">The original Lara Croft model came into London with a 3:08 PB and left with 2:54:39 — in a year when only 88 British women had broken three hours. The ceiling for anyone without a pro licence.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">03</td>
+        <td class="runner">Nev Schulman</td>
+        <td class="time">2:58<sup>*</sup></td>
+        <td class="pace">4:13</td>
+        <td class="race">New York 2018</td>
+        <td class="age">34</td>
+        <td class="context">Debuted 3:34:31 in 2015 as the year's fastest celebrity; broke three hours on his third attempt. In 2024, three months after an e-bike crash broke his neck, he ran New York anyway — as a guide for a visually impaired athlete.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">04</td>
+        <td class="runner">Harry Styles</td>
+        <td class="time">2:59:13</td>
+        <td class="pace">4:15</td>
+        <td class="race">Berlin 2025</td>
+        <td class="age">31</td>
+        <td class="context">On indefinite hiatus after two years of Love On Tour; entered under the alias <strong>Sted Sarandos</strong> and split 1:29:08 / 1:30:06 — pacing discipline most amateurs never find.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">05</td>
+        <td class="runner">Matt James</td>
+        <td class="time">3:00:20</td>
+        <td class="pace">4:16</td>
+        <td class="race">New York 2024</td>
+        <td class="age">32</td>
+        <td class="context">Reality-TV lead who trains like it matters — and finished 21 seconds on the wrong side of three hours. The cruellest margin on this table.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">06</td>
+        <td class="runner">Zac Clark</td>
+        <td class="time">3:16:43</td>
+        <td class="pace">4:40</td>
+        <td class="race">New York 2024</td>
+        <td class="age">40</td>
+        <td class="context">Addiction-recovery nonprofit founder. Ran a 4:40:24 hand-in-hand with his reality-TV fiancée in 2021, split weeks later, and has since taken nearly an hour and a half off the time.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">07</td>
+        <td class="runner">Bryan Cranston</td>
+        <td class="time">3:20:45</td>
+        <td class="pace">4:45</td>
+        <td class="race">New York 1985</td>
+        <td class="age">29</td>
+        <td class="context">A jobbing actor living on daytime-soap and commercial paycheques. Malcolm was fifteen years away; Breaking Bad, twenty-three.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">08</td>
+        <td class="runner">Caroline Wozniacki</td>
+        <td class="time">3:26:33</td>
+        <td class="pace">4:54</td>
+        <td class="race">New York 2014</td>
+        <td class="age">24</td>
+        <td class="context">World No. 8 in tennis, eight weeks removed from a US Open final and months removed from a called-off wedding; long runs wedged between tournaments.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">09</td>
+        <td class="runner">Haruki Murakami</td>
+        <td class="time">≈3:27<sup>*</sup></td>
+        <td class="pace">4:54</td>
+        <td class="race">Japan, late '80s</td>
+        <td class="age">≈40</td>
+        <td class="context">Self-reported from his memoir — the man runs 10 km a day, once ran the original Athens–Marathon route solo in summer heat, and wants his epitaph to read that at least he never walked.</td>
+      </tr>
+
+      <tr class="marker">
+        <td class="rank">→</td>
+        <td class="runner">Adam (projected)</td>
+        <td class="time">3:28–3:32</td>
+        <td class="pace">4:56–5:01</td>
+        <td class="race">Georgina 2026</td>
+        <td class="age">—</td>
+        <td class="context">Opens a minute past Murakami and straddles Ramsay. First-25 km discipline decides which side of the chef you finish on.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">10</td>
+        <td class="runner">Gordon Ramsay</td>
+        <td class="time">3:30:37</td>
+        <td class="pace">4:59</td>
+        <td class="race">London 2004</td>
+        <td class="age">37</td>
+        <td class="context">Holding three Michelin stars at Royal Hospital Road with Kitchen Nightmares premiering days after the race. Missed the 3:30 barrier by 37 seconds and has chased it since.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">11</td>
+        <td class="runner">Flea</td>
+        <td class="time">3:41:49</td>
+        <td class="pace">5:15</td>
+        <td class="race">Los Angeles 2011</td>
+        <td class="age">48</td>
+        <td class="context">Mid-recording with the Chili Peppers. Read <strong>Born to Run</strong>, decided bodies were for running, and used the race to fund his Silverlake Conservatory of Music.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">12</td>
+        <td class="runner">Claire Holt</td>
+        <td class="time">3:42:43</td>
+        <td class="pace">5:17</td>
+        <td class="race">New York 2024</td>
+        <td class="age">36</td>
+        <td class="context">The Originals star, mother of three — and quietly the fastest actress on this table.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">13</td>
+        <td class="runner">George W. Bush</td>
+        <td class="time">3:44:52</td>
+        <td class="pace">5:20</td>
+        <td class="race">Houston 1993</td>
+        <td class="age">46</td>
+        <td class="context">The same month his father handed the White House to Clinton. Sober seven years, running Texas Rangers business, quietly plotting the governor's race. Still the only US president with a marathon finish.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">14</td>
+        <td class="runner">Edward Norton</td>
+        <td class="time">3:48:01</td>
+        <td class="pace">5:24</td>
+        <td class="race">New York 2009</td>
+        <td class="age">40</td>
+        <td class="context">Trained partly in Kenya and ran alongside three Maasai runners to fund their wilderness conservation trust — a fortieth-birthday-year project.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">15</td>
+        <td class="runner">Ryan Reynolds <span class="chip">CAN</span></td>
+        <td class="time">3:50:22</td>
+        <td class="pace">5:28</td>
+        <td class="race">New York 2008</td>
+        <td class="age">32</td>
+        <td class="context">Ran for his father's Parkinson's, logging 4:30 a.m. miles between film shoots. Pre-Deadpool, self-described: "I am not a runner, I am a running joke."</td>
+      </tr>
+
+      <tr>
+        <td class="rank">16</td>
+        <td class="runner">Natalie Dormer</td>
+        <td class="time">3:50:57</td>
+        <td class="pace">5:28</td>
+        <td class="race">London 2014</td>
+        <td class="age">32</td>
+        <td class="context">Marathon debut while playing Margaery in Game of Thrones and shooting The Hunger Games. Returned in 2016, missed this time by 24 seconds, and was "a tiny bit peeved."</td>
+      </tr>
+
+      <tr>
+        <td class="rank">17</td>
+        <td class="runner">Colin Farrell</td>
+        <td class="time">3:53<sup>*</sup></td>
+        <td class="pace">5:31</td>
+        <td class="race">Brisbane 2022</td>
+        <td class="age">46</td>
+        <td class="context">First marathon, run while shooting in Australia with Ron Howard. Two years later he ran Dublin in 4:06:45, pushed Emma Fogarty's wheelchair over the line for the final kilometres, and raised roughly €800,000 for her skin-condition charity.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">18</td>
+        <td class="runner">Ashton Kutcher</td>
+        <td class="time">3:54:01</td>
+        <td class="pace">5:33</td>
+        <td class="race">New York 2022</td>
+        <td class="age">44</td>
+        <td class="context">A few years after a rare vasculitis episode knocked out his vision, hearing and balance for months; ran to raise money for Thorn, his anti-child-exploitation nonprofit.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">19</td>
+        <td class="runner">Diplo</td>
+        <td class="time">3:55<sup>*</sup></td>
+        <td class="pace">5:34</td>
+        <td class="race">Los Angeles 2019</td>
+        <td class="age">40</td>
+        <td class="context">Run — by his own cheerful admission — on LSD, mid-festival-season. Sub-four regardless.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">20</td>
+        <td class="runner">Will Ferrell</td>
+        <td class="time">3:56:12</td>
+        <td class="pace">5:36</td>
+        <td class="race">Boston 2003</td>
+        <td class="age">35</td>
+        <td class="context">Fresh off leaving SNL, with Old School in theatres and Elf in the can — mid-leap from sketch comedy to movie stardom.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">21</td>
+        <td class="runner">Pippa Middleton</td>
+        <td class="time">3:56:33</td>
+        <td class="pace">5:36</td>
+        <td class="race">Lewa, Kenya 2015</td>
+        <td class="age">31</td>
+        <td class="context">Living inside the royal press bubble; ran a conservancy course at roughly 1,700 m of altitude, patrolled by armed wildlife rangers.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">22</td>
+        <td class="runner">Chelsea Clinton</td>
+        <td class="time">3:59:09</td>
+        <td class="pace">5:40</td>
+        <td class="race">New York 2021</td>
+        <td class="age">41</td>
+        <td class="context">Three kids, a book tour, the Clinton Foundation circuit — and 51 seconds inside four hours.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">23</td>
+        <td class="runner">Sarah Palin</td>
+        <td class="time">3:59:36</td>
+        <td class="pace">5:41</td>
+        <td class="race">Anchorage 2005</td>
+        <td class="age">41</td>
+        <td class="context">Term-limited small-town mayor with four kids, one year from winning the governorship. Broke four hours at Humpy's Classic by 24 seconds.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">24</td>
+        <td class="runner">Bobby Flay</td>
+        <td class="time">4:01<sup>*</sup></td>
+        <td class="pace">5:43</td>
+        <td class="race">New York 2010</td>
+        <td class="age">45</td>
+        <td class="context">Between Iron Chef tapings and restaurant openings. New York's resident celebrity chef — half an hour adrift of Ramsay's London best.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">25</td>
+        <td class="runner">Paul Ryan</td>
+        <td class="time">4:01:25</td>
+        <td class="pace">5:43</td>
+        <td class="race">Grandma's 1990</td>
+        <td class="age">20</td>
+        <td class="context">Ran it at 20. At 42, as VP nominee, he claimed a "two-fifty-something" on national radio; Runner's World pulled the archived result inside a week. The clock is undefeated.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">26</td>
+        <td class="runner">Kevin Hart</td>
+        <td class="time">4:05:06</td>
+        <td class="pace">5:49</td>
+        <td class="race">New York 2017</td>
+        <td class="age">38</td>
+        <td class="context">The busiest comedian alive, deep in a Jumanji press cycle and weeks past a very public extortion scandal and apology.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">27</td>
+        <td class="runner">Sean Combs</td>
+        <td class="time">4:14:54</td>
+        <td class="pace">6:02</td>
+        <td class="race">New York 2003</td>
+        <td class="age">33</td>
+        <td class="context">Eight weeks of training on a bad knee, an empire to run, and one stated goal: beat Oprah. Raised about $2M for New York City schools doing it.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">28</td>
+        <td class="runner">Randall Park</td>
+        <td class="time">4:16:18</td>
+        <td class="pace">6:04</td>
+        <td class="race">New York 2024</td>
+        <td class="age">50</td>
+        <td class="context">Fresh Off the Boat lead, running for a sensory-inclusion charity at 50.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">29</td>
+        <td class="runner">Mario Lopez</td>
+        <td class="time">4:23<sup>*</sup></td>
+        <td class="pace">6:14</td>
+        <td class="race">New York 2011</td>
+        <td class="age">38</td>
+        <td class="context">By his own later admission, his Boston debut in 2002 involved a shortcut. New York, nine years on, was the make-good — run in full.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">30</td>
+        <td class="runner">Oprah Winfrey</td>
+        <td class="time">4:29:20</td>
+        <td class="pace">6:23</td>
+        <td class="race">Marine Corps 1994</td>
+        <td class="age">40</td>
+        <td class="context">Nineteen months of secret 4:30 a.m. training with Bob Greene, 72 lb down, the year she turned 40. Verdict at the finish: "better than an Emmy." The time became the amateur benchmark.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">31</td>
+        <td class="runner">Shia LaBeouf</td>
+        <td class="time">4:35:31</td>
+        <td class="pace">6:32</td>
+        <td class="race">Los Angeles 2010</td>
+        <td class="age">23</td>
+        <td class="context">Between Wall Street 2 and Transformers 3 shoots, running his hometown race through peak tabloid attention.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">32</td>
+        <td class="runner">Drew Carey</td>
+        <td class="time">4:37:11</td>
+        <td class="pace">6:34</td>
+        <td class="race">Marine Corps 2011</td>
+        <td class="age">53</td>
+        <td class="context">Roughly 80 lb lighter, off diabetes medication, hosting The Price Is Right. The marathon was the receipt for the rebuild.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">33</td>
+        <td class="runner">Mike Huckabee</td>
+        <td class="time">4:39<sup>*</sup></td>
+        <td class="pace">6:37</td>
+        <td class="race">Little Rock 2005</td>
+        <td class="age">49</td>
+        <td class="context">Sitting governor of Arkansas, roughly 110 lb lighter after a type-2 diabetes diagnosis; wrote the diet book, then ran his own capital's race to close the argument.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">34</td>
+        <td class="runner">Al Gore</td>
+        <td class="time">4:58:25</td>
+        <td class="pace">7:04</td>
+        <td class="race">Marine Corps 1997</td>
+        <td class="age">49</td>
+        <td class="context">Sitting Vice-President of the United States. Ran it because his daughters dared him to.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">35</td>
+        <td class="runner">Uzo Aduba</td>
+        <td class="time">5:01<sup>*</sup></td>
+        <td class="pace">7:08</td>
+        <td class="race">New York 2013</td>
+        <td class="age">32</td>
+        <td class="context">Orange Is the New Black had premiered that summer; spectators yelled "Crazy Eyes" at her the entire way, by her own delighted account. Ran Boston in 5:03 two years later.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">36</td>
+        <td class="runner">Princess Beatrice</td>
+        <td class="time">≈5:13</td>
+        <td class="pace">7:25</td>
+        <td class="race">London 2010</td>
+        <td class="age">21</td>
+        <td class="context">First member of the royal family to finish London — roped to 33 other runners in a record-setting "human caterpillar," which makes the pace an ensemble statistic.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">37</td>
+        <td class="runner">Chip Gaines</td>
+        <td class="time">5:21:54</td>
+        <td class="pace">7:38</td>
+        <td class="race">Waco 2018</td>
+        <td class="age">43</td>
+        <td class="context">Co-founded the Silo District race himself, attached it to pro runner and cancer survivor Gabriele Grunewald's research cause, then ran the inaugural edition.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">38</td>
+        <td class="runner">Katie Holmes</td>
+        <td class="time">5:29:58</td>
+        <td class="pace">7:49</td>
+        <td class="race">New York 2007</td>
+        <td class="age">28</td>
+        <td class="context">About ten quiet weeks of training with toddler Suri and the Cruise circus in tow — in flared yoga pants. Conspiracy theorists later audited her splits; she ran every step.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">39</td>
+        <td class="runner">Pamela Anderson <span class="chip">CAN</span></td>
+        <td class="time">5:41:03</td>
+        <td class="pace">8:05</td>
+        <td class="race">New York 2013</td>
+        <td class="age">46</td>
+        <td class="context">Admitted she "didn't train much," ran for Haiti earthquake relief, and gutted out five-plus hours anyway.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">40</td>
+        <td class="runner">Alicia Keys</td>
+        <td class="time">5:50:52</td>
+        <td class="pace">8:19</td>
+        <td class="race">New York 2015</td>
+        <td class="age">34</td>
+        <td class="context">Between albums with a toddler and an infant at home; called marathon training "the Jedi mind-training I need."</td>
+      </tr>
+
+      <tr>
+        <td class="rank">41</td>
+        <td class="runner">Al Roker</td>
+        <td class="time">7:09:44</td>
+        <td class="pace">10:11</td>
+        <td class="race">New York 2010</td>
+        <td class="age">56</td>
+        <td class="context">Eight years after gastric-bypass surgery, on Today-show sleep. Kept moving past the seven-hour mark and took the medal.</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <h2>II. Beyond 42.195</h2>
+  <p class="section-dek">Channels, summits, poles, mats, breath-holds — plus a historical wing, because the celebrity endurance flex predates television by two centuries. Grouped by discipline rather than ranked; the units don't compare, and that's the point.</p>
+  <p class="table-note">feat · the numbers · age · circumstances</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="num">№</th>
+        <th>Name</th>
+        <th>Feat</th>
+        <th>The numbers</th>
+        <th>Age</th>
+        <th>What they were dealing with</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="group"><td colspan="6">Multisport &amp; ultra</td></tr>
+
+      <tr>
+        <td class="rank">01</td>
+        <td class="runner">Eddie Izzard</td>
+        <td class="feat">43 marathons in 51 days</td>
+        <td class="numbers">≈1,800 km · UK 2009</td>
+        <td class="age">47</td>
+        <td class="context">Roughly five weeks of training and no athletic history, then a marathon a day, six days a week, around Britain for Sport Relief. Did it again at 54 — 27 in 27 across South Africa, finishing with a double.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">02</td>
+        <td class="runner">Ranulph Fiennes</td>
+        <td class="feat">7 marathons, 7 continents, 7 days</td>
+        <td class="numbers">Land Rover 7·7·7 · 2003</td>
+        <td class="age">59</td>
+        <td class="context">Four months after a heart attack and double bypass. Professionally an explorer, so file under occupational hazard — but the cardiology stands on its own.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">03</td>
+        <td class="runner">Frederik of Denmark</td>
+        <td class="feat">Ironman Copenhagen</td>
+        <td class="numbers">≈10:45 · 2013</td>
+        <td class="age">45</td>
+        <td class="context">The crown prince — now King of Denmark — went sub-11 in his home capital. Comfortably the fastest blue-blood result on either table.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">04</td>
+        <td class="runner">Gordon Ramsay</td>
+        <td class="feat">Ironman World Championship</td>
+        <td class="numbers">14:04:48 · Kona 2013</td>
+        <td class="age">46</td>
+        <td class="context">Tore a hamstring and botched his fuelling mid-race, finished anyway. The only name that appears on both of these tables.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">05</td>
+        <td class="runner">Sean Astin</td>
+        <td class="feat">Ironman World Championship</td>
+        <td class="numbers">15:30:31 · Kona 2015</td>
+        <td class="age">44</td>
+        <td class="context">Samwise at the world championship — raised over $25,000 for #Run3rd, his youth-running charity, while carrying the thing all the way up the mountain himself this time.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">06</td>
+        <td class="runner">Milind Soman</td>
+        <td class="feat">Ironman finisher pushing 50</td>
+        <td class="numbers">≈15:19 · Zurich 2015</td>
+        <td class="age">49</td>
+        <td class="context">Indian supermodel-actor who took up serious endurance sport in middle age and never stopped escalating.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">07</td>
+        <td class="runner">Haruki Murakami</td>
+        <td class="feat">100 km ultramarathon</td>
+        <td class="numbers">≈11 h 42 m · Lake Saroma 1996</td>
+        <td class="age">47</td>
+        <td class="context">Somewhere past 75 km he "passed through" to the far side of exhaustion; wrote the definitive account of the runner's void, then mostly retired from ultras.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">08</td>
+        <td class="runner">Jennifer Lopez</td>
+        <td class="feat">Nautica Malibu Triathlon</td>
+        <td class="numbers">2:23:28 · 2008</td>
+        <td class="age">39</td>
+        <td class="context">Her first triathlon, seven months after giving birth to twins, with a tour on the calendar.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">09</td>
+        <td class="runner">Davina McCall</td>
+        <td class="feat">500 miles in 7 days</td>
+        <td class="numbers">≈810 km · Edinburgh→London · 2014</td>
+        <td class="age">46</td>
+        <td class="context">Run, bike and swim for Sport Relief. Pulled from a Lake Windermere swim with hypothermia partway through, warmed up, and finished the week.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">10</td>
+        <td class="runner">John Bishop</td>
+        <td class="feat">Paris to London, the hard way</td>
+        <td class="numbers">≈470 km · cycle–row–run · 5 days · 2012</td>
+        <td class="age">45</td>
+        <td class="context">Cycled from Paris to the coast, rowed the Channel, then ran three back-to-back marathons into London for Sport Relief — over £4M raised.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">11</td>
+        <td class="runner">Pippa Middleton</td>
+        <td class="feat">The amateur grand slam</td>
+        <td class="numbers">Vasaloppet 90 km ski '12 · cross-America cycling relay '14 · Ötillö SwimRun '15</td>
+        <td class="age">28–31</td>
+        <td class="context">Quietly assembled the most complete amateur endurance CV in the tabloids while the press covered her wardrobe.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">12</td>
+        <td class="runner">Taylor Swift</td>
+        <td class="feat">The Eras treadmill protocol</td>
+        <td class="numbers">3½ h setlist · sung at tempo · daily</td>
+        <td class="age">33</td>
+        <td class="context">By her own account, ran the entire 44-song set aloud on a treadmill every day for months to build the lungs for a three-hour show. Self-reported, but the tour footage is the audit.</td>
+      </tr>
+
+      <tr class="group"><td colspan="6">Open water &amp; air</td></tr>
+
+      <tr>
+        <td class="rank">13</td>
+        <td class="runner">Benjamin Franklin</td>
+        <td class="feat">Thames exhibition swim</td>
+        <td class="numbers">≈5.6 km · Chelsea→Blackfriars · 1726</td>
+        <td class="age">20</td>
+        <td class="context">Swam the Thames performing stroke demonstrations en route, and nearly stayed in London to open a swimming school. Honoured in the Swimming Hall of Fame two centuries later.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">14</td>
+        <td class="runner">Lord Byron</td>
+        <td class="feat">Swam the Hellespont</td>
+        <td class="numbers">≈5 km against current · 1810</td>
+        <td class="age">22</td>
+        <td class="context">Club foot and all, crossed from Europe to Asia in emulation of Leander — "I plume myself on this achievement" — and mentioned it forever. The original celebrity endurance flex.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">15</td>
+        <td class="runner">David Walliams</td>
+        <td class="feat">Swam the English Channel</td>
+        <td class="numbers">10 h 34 m · 2006</td>
+        <td class="age">34</td>
+        <td class="context">A comedian with a year of coaching crossed faster than many club swimmers. Five years later he swam the 225 km length of the Thames through an infection the press named "Thames tummy."</td>
+      </tr>
+
+      <tr>
+        <td class="rank">16</td>
+        <td class="runner">Simon Le Bon</td>
+        <td class="feat">Whitbread Round the World Race</td>
+        <td class="numbers">Drum · 1985–86</td>
+        <td class="age">27</td>
+        <td class="context">Trapped under the hull when Drum capsized in the '85 Fastnet; refloated her and raced around the world anyway, at the height of Duran Duran.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">17</td>
+        <td class="runner">Cody Simpson</td>
+        <td class="feat">Pop career → national swim team</td>
+        <td class="numbers">100 m fly · Comm Games 2022</td>
+        <td class="age">25</td>
+        <td class="context">Traded arena tours for a Gold Coast pool at 21; three years later he was swimming for Australia at the Commonwealth Games.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">18</td>
+        <td class="runner">Kate Winslet</td>
+        <td class="feat">Static breath-hold</td>
+        <td class="numbers">7 m 15 s · Avatar set 2018</td>
+        <td class="age">43</td>
+        <td class="context">Reportedly the longest breath-hold ever filmed for a movie, past Tom Cruise's six-minute mark from Rogue Nation — achieved for underwater performance-capture scenes.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">19</td>
+        <td class="runner">Tom Cruise</td>
+        <td class="feat">106 HALO jumps</td>
+        <td class="numbers">25,000 ft exits · Fallout 2018</td>
+        <td class="age">55</td>
+        <td class="context">Did the sequence for real — over a hundred exits to get three usable takes — months after breaking his ankle on the same film.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">20</td>
+        <td class="runner">George H.W. Bush</td>
+        <td class="feat">Birthday skydives</td>
+        <td class="numbers">Jumps at 75 · 80 · 85 · 90</td>
+        <td class="age">75–90</td>
+        <td class="context">Shot down over the Pacific at 20; marked every round-number birthday with a skydive, the last tandem at 90 with a wheelchair waiting on the landing zone.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">21</td>
+        <td class="runner">Richard Branson</td>
+        <td class="feat">Kitesurfed the English Channel</td>
+        <td class="numbers">Oldest crossing · 2012</td>
+        <td class="age">61</td>
+        <td class="context">The oldest person to kitesurf the Channel, two years after conditions forced an earlier attempt back to shore.</td>
+      </tr>
+
+      <tr class="group"><td colspan="6">Mountains, walls &amp; poles</td></tr>
+
+      <tr>
+        <td class="rank">22</td>
+        <td class="runner">Bear Grylls</td>
+        <td class="feat">Everest summit</td>
+        <td class="numbers">8,849 m · 1998</td>
+        <td class="age">23</td>
+        <td class="context">Eighteen months after a parachute failure broke three vertebrae and put walking, let alone climbing, in doubt.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">23</td>
+        <td class="runner">Brian Blessed</td>
+        <td class="feat">Everest without bottled oxygen</td>
+        <td class="numbers">≈8,600 m · 1993</td>
+        <td class="age">56</td>
+        <td class="context">The Flash Gordon voice climbed into the death zone without supplemental oxygen at 56 and turned back short of the summit.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">24</td>
+        <td class="runner">Alexander Skarsgård</td>
+        <td class="feat">South Pole trek</td>
+        <td class="numbers">≈335 km · 2013</td>
+        <td class="age">37</td>
+        <td class="context">Hauled a sledge to the Pole alongside wounded veterans — and Prince Harry — in the Walking With The Wounded race, between True Blood seasons.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">25</td>
+        <td class="runner">Prince Harry</td>
+        <td class="feat">Both ends of the earth</td>
+        <td class="numbers">South Pole '13 · North Pole attempt '11</td>
+        <td class="age">29</td>
+        <td class="context">Trekked to the South Pole with wounded veterans; two years earlier he'd started the North Pole crossing but left early for his brother's wedding.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">26</td>
+        <td class="runner">Jessica Biel</td>
+        <td class="feat">Kilimanjaro summit</td>
+        <td class="numbers">5,895 m · 2010</td>
+        <td class="age">27</td>
+        <td class="context">Led a celebrity rope of musicians up Africa's roof for a clean-water campaign.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">27</td>
+        <td class="runner">Ben Fogle</td>
+        <td class="feat">Atlantic row + Everest</td>
+        <td class="numbers">49 days at sea '05–06 · 8,849 m '18</td>
+        <td class="age">32 / 44</td>
+        <td class="context">Reality-castaway turned presenter: rowed the Atlantic with a double Olympic champion — capsize included — then summited Everest twelve years later.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">28</td>
+        <td class="runner">Jack Osbourne</td>
+        <td class="feat">Climbed El Capitan</td>
+        <td class="numbers">≈900 m of granite · 2005</td>
+        <td class="age">19</td>
+        <td class="context">One year out of rehab, the reality-TV kid trained himself fit and topped out El Cap — guided, roped, and thoroughly earned — for his show's finale.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">29</td>
+        <td class="runner">The Comic Relief Nine</td>
+        <td class="feat">Kilimanjaro, en masse</td>
+        <td class="numbers">5,895 m · 2009</td>
+        <td class="age">25–38</td>
+        <td class="context">Cheryl Cole, Gary Barlow, Chris Moyles and six more chart-and-telly names summited together, altitude-sick and televised, raising over £3M.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">30</td>
+        <td class="runner">Shirley MacLaine</td>
+        <td class="feat">Camino de Santiago</td>
+        <td class="numbers">≈780 km on foot · 30 days · 1994</td>
+        <td class="age">60</td>
+        <td class="context">Walked it alone at 60, mostly incognito, and got a bestseller out of it.</td>
+      </tr>
+
+      <tr class="group"><td colspan="6">Mats &amp; rings</td></tr>
+
+      <tr>
+        <td class="rank">31</td>
+        <td class="runner">Theodore Roosevelt</td>
+        <td class="feat">White House fight club</td>
+        <td class="numbers">Boxing + judo · 1901–08</td>
+        <td class="age">43–50</td>
+        <td class="context">Sparred through his presidency until a blow detached a retina and quietly blinded the eye; trained judo under Yamashita and swam Rock Creek in winter. The job description was different then.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">32</td>
+        <td class="runner">Mickey Rourke</td>
+        <td class="feat">Professional boxing career</td>
+        <td class="numbers">6–0–2 · 1991–94</td>
+        <td class="age">39–42</td>
+        <td class="context">Paused an A-list acting run to box professionally for three years; won six, drew two, and rearranged his face doing it.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">33</td>
+        <td class="runner">Idris Elba</td>
+        <td class="feat">Professional kickboxing debut — won</td>
+        <td class="numbers">1 fight, 1 win · 2016</td>
+        <td class="age">44</td>
+        <td class="context">Trained for a year around shooting schedules for a Discovery documentary, then won his first and only professional bout.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">34</td>
+        <td class="runner">Anthony Bourdain</td>
+        <td class="feat">IBJJF tournament gold</td>
+        <td class="numbers">NY Spring Open · blue belt masters · 2016</td>
+        <td class="age">59</td>
+        <td class="context">Started Brazilian jiu-jitsu at 58, trained in a different city every week on the road, took gold at 59.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">35</td>
+        <td class="runner">Tom Hardy</td>
+        <td class="feat">Two open BJJ tournaments, two golds</td>
+        <td class="numbers">REORG charity opens · 2022</td>
+        <td class="age">44</td>
+        <td class="context">Entered unannounced under his given name, Edward Hardy; his opponents found out who they'd drawn at the bracket.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">36</td>
+        <td class="runner">Mark Zuckerberg</td>
+        <td class="feat">First BJJ tournament — two medals</td>
+        <td class="numbers">Gold + silver · 2023</td>
+        <td class="age">38</td>
+        <td class="context">Medalled twice barely a year into training, and later posted a sub-40 weighted Murph. File tech founders under "celebrity" at your own discretion.</td>
+      </tr>
+
+      <tr class="group"><td colspan="6">First careers &amp; second callings</td></tr>
+
+      <tr>
+        <td class="rank">37</td>
+        <td class="runner">Burt Lancaster</td>
+        <td class="feat">Circus acrobat</td>
+        <td class="numbers">Lang &amp; Cravat troupe · 1930s</td>
+        <td class="age">teens–20s</td>
+        <td class="context">Nine years on the bars before an injury pushed him toward acting; did his own acrobatics in Trapeze at 42.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">38</td>
+        <td class="runner">Arthur Conan Doyle</td>
+        <td class="feat">The Victorian all-rounder</td>
+        <td class="numbers">Keeper · cricketer · ski pioneer · 1880s–1900s</td>
+        <td class="age">25–41</td>
+        <td class="context">Kept goal for Portsmouth, helped introduce alpine ski touring to Davos, and took exactly one first-class wicket: W.G. Grace — after Grace had already made a century off the bowling.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">39</td>
+        <td class="runner">Samuel Beckett</td>
+        <td class="feat">First-class cricketer</td>
+        <td class="numbers">2 matches · Dublin University · 1925–26</td>
+        <td class="age">19</td>
+        <td class="context">The only Nobel literature laureate in Wisden — a left-hand opening bat whose averages were as bleak as the plays.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">40</td>
+        <td class="runner">Jason Statham</td>
+        <td class="feat">Commonwealth Games diver</td>
+        <td class="numbers">3 events · Auckland 1990</td>
+        <td class="age">22</td>
+        <td class="context">Twelve years on Britain's national diving squad before anyone had heard of him. Lock, Stock was still eight years out.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">41</td>
+        <td class="runner">Hugh Laurie</td>
+        <td class="feat">The Boat Race</td>
+        <td class="numbers">Cambridge · 1980</td>
+        <td class="age">20</td>
+        <td class="context">GB junior international oarsman who lost one of the closest Boat Races ever rowed — by a canvas — then drifted to the Footlights. Comedy was the fallback.</td>
+      </tr>
+
+      <tr>
+        <td class="rank">42</td>
+        <td class="runner">Geena Davis</td>
+        <td class="feat">US Olympic archery trials, semifinals</td>
+        <td class="numbers">24th of 300 · 1999</td>
+        <td class="age">43</td>
+        <td class="context">Picked up a bow at 41. Two years and thousands of arrows later she was 24 places from Sydney.</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="canadian-line">
+    <p class="label">The Canadian Line</p>
+    <p>Terry Fox, 1980: <span class="t">5,373 km in 143 days</span> — a marathon a day, every day, on one leg, at 21, until the cancer returned. No table holds that row. It goes here, apart, where it belongs.</p>
+  </div>
+
+  <div class="foot">
+    <p><b>† Pro asterisk</b> Armstrong is included for scale only — a career endurance professional (with the record that entails) is not the same species as the rest of the marathon table. Retired pro athletes are likewise excluded from the feats table; Kona is littered with ex-NFL and ex-NHL bodies.</p>
+    <p><b>* Approximations</b> Times marked with an asterisk (Schulman, Farrell, Diplo, Flay, Lopez, Aduba, Huckabee) circulate without seconds in press accounts; Murakami's ≈3:27 is self-reported in his memoir; Beatrice's caterpillar finish is reported to the minute at best. Farrell's fully timed Dublin 2024 finish was 4:06:45.</p>
+    <p><b>The Morissette problem</b> Alanis Morissette's marathon best is reported variously as 3:34, 4:17, and 4:28 depending on outlet and race — unresolvable enough to keep Canada's most decorated triathlete-musician off the table entirely.</p>
+    <p><b>Goalkeeper corner</b> Albert Camus (Racing Universitaire d'Alger), Vladimir Nabokov (Trinity College, Cambridge), the young Karol Wojtyła — later John Paul II — and a teenage Julio Iglesias (Real Madrid youth, until a car crash rerouted him to the guitar) all kept goal before their other careers. Literature and the papacy apparently select for the position.</p>
+    <p><b>Belt-rank corner</b> Guy Ritchie and Ed O'Neill both hold legitimate Brazilian jiu-jitsu black belts. Rank, not race — so no row.</p>
+    <p><b>Sources &amp; variance</b> Times and figures as reported in race results and contemporaneous press. A few numbers circulate in multiple versions (Oprah appears as both 4:29:15 and 4:29:20; the marathon-media consensus 4:29:20 is used here). Ages computed from event date and date of birth; Swift's treadmill protocol and Zuckerberg's Murph are self-reported.</p>
+  </div>
+
+</div>
+</body>
+</html>

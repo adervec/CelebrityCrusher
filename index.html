@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Celebrity Crusher</title>
+<meta name="description" content="The Celebrity Endurance Ledger, made operational: which celebrity fitness feats your own training data already beats, and which are within reach.">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#16130f">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crusher">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./public/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <div>
+      <p class="eyebrow" id="eyebrow">The Celebrity Endurance Ledger, made operational</p>
+      <h1>Celebrity Crusher<span class="dot">.</span></h1>
+    </div>
+    <div class="spacer"></div>
+    <div class="tiny mono dim" id="who-am-i"></div>
+    <button class="btn" id="install" hidden>Install</button>
+    <button class="btn" data-action="sync-all">Sync</button>
+  </div>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+  <section id="view-dashboard"></section>
+  <section id="view-ledger" hidden></section>
+  <section id="view-queue" hidden></section>
+  <section id="view-goals" hidden></section>
+  <section id="view-analytics" hidden></section>
+  <section id="view-connect" hidden></section>
+
+  <footer>
+    <p><b>How verdicts are decided.</b> <span class="dim">Crushed = your own recorded data already clears the mark. In reach = your current fitness projects past it (Riegel extrapolation off your best efforts, exponent fitted to your own curve). Close = within 10%. Trainable = reachable inside three years at your measured rate of improvement. Logbook = no wearable can prove it; log the attempt with evidence.</span></p>
+    <p class="dim">Times and figures as reported in race results and contemporaneous press; a few circulate in multiple versions and are marked. Ages computed from event date and date of birth. Nothing here is medical advice, and several rows are logistics problems long before they are fitness problems.</p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script type="module" src="./public/app.js"></script>
+<script>
+// Install prompt: Chrome and Edge fire this, Safari never does (Share → Add to Home Screen).
+let prompter = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); prompter = e; install.hidden = false; });
+install.onclick = async () => { install.hidden = true; prompter?.prompt(); prompter = null; };
+addEventListener('appinstalled', () => { install.hidden = true; });
+
+// No service worker against the dev server — cache-first would hide every edit.
+if ('serviceWorker' in navigator && !window.CRUSHER_SERVER && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname)))
+  addEventListener('load', () => navigator.serviceWorker.register('./sw.js')
+    .then(reg => reg.update())
+    .catch(err => console.warn('sw', err)));
+</script>
+</body>
+</html>
