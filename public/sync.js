@@ -133,6 +133,8 @@ let _driveToken = null;      // { value, exp } — memory only, never persisted
 let _driveProfile = null;    // { name, email, picture } — cosmetic
 const driveTokenValid = () => !!_driveToken && _driveToken.exp > Date.now() + 60000;
 export const getDriveProfile = () => _driveProfile;
+/** The profile picture, only if it is an https URL — it goes straight into an <img src>. */
+export const avatarUrl = profile => (profile?.picture || '').startsWith('https://') ? profile.picture : '';
 
 async function fetchDriveProfile(token) {
   try {
@@ -191,6 +193,7 @@ export const googleDriveProvider = {
   },
   async isConnected() { return driveTokenValid(); },
   async accountLabel() { return _driveProfile?.email || _driveProfile?.name || null; },
+  accountPicture() { return avatarUrl(_driveProfile); },
   async disconnect() { _driveToken = null; _driveProfile = null; },
   async upload(conn, name, blob) {
     const existing = (await driveFind(conn.token, name))?.id || null;

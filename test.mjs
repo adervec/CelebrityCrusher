@@ -531,6 +531,14 @@ await ta('an empty cloud is not an error, it is just the first sync', async () =
   assert.equal(r.restored, 0);
 });
 
+t('the Google profile picture is drawn beside the account name, https only', () => {
+  assert.equal(Sync.avatarUrl({ picture: 'https://lh3.googleusercontent.com/a/x=s96-c' }), 'https://lh3.googleusercontent.com/a/x=s96-c');
+  for (const bad of [null, {}, { picture: '' }, { picture: 'javascript:alert(1)' }, { picture: 'http://x/y.png' }]) assert.equal(Sync.avatarUrl(bad), '');
+  assert.equal(Sync.googleDriveProvider.accountPicture(), '', 'nothing when signed out');
+  const app = readFileSync('./public/app.js', 'utf8');
+  assert.ok(app.includes('accountPicture') && app.includes("referrerPolicy: 'no-referrer'"));
+});
+
 t('Drive is gated to the origins its client id is registered for', () => {
   assert.ok(Sync.BUILTIN_DRIVE_CLIENT_ID.endsWith('.apps.googleusercontent.com'));
   assert.equal(Sync.driveClientId({ driveClientId: ' mine-123 ' }), 'mine-123');   // a fork's own id wins

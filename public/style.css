@@ -90,6 +90,7 @@ input[type=text]{min-width:220px}
 .btn.primary:hover{filter:brightness(1.1);color:#16130f}
 .btn.ghost{border-color:transparent;color:var(--bone-faint)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
+.avatar{width:24px;height:24px;border-radius:50%;vertical-align:middle;margin-right:.4rem;object-fit:cover}
 label.field,app-font-picker label{display:flex;flex-direction:column;gap:.25rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
 
 /* ---------- queue & goals ---------- */

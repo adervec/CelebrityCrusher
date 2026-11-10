@@ -2,7 +2,7 @@
 // versioned cache: bump VERSION on release and the old one is dropped on activate.
 // ponytail: no stale-while-revalidate, no runtime cache eviction. The whole app is
 // under 1 MB and the version bump is the invalidation story.
-const VERSION = 'crusher-v4';
+const VERSION = 'crusher-v5';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png',
   './public/app.js', './public/charts.js', './public/local.js', './public/sync.js', './public/style.css',

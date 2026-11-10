@@ -742,7 +742,10 @@ async function paintSyncState() {
   const p = Sync.getSyncProvider(cfg.provider);
   const when = cfg.lastSync ? `last synced ${new Date(cfg.lastSync).toLocaleString()}${cfg.lastNote ? ` (${cfg.lastNote})` : ''}` : 'never synced';
   const who = p && (await p.accountLabel?.());
-  st.textContent = `${p ? p.label : 'No target'}${who ? ` · ${who}` : ' · not connected'} · ${when}`;
+  // Signed in to Google: their profile picture sits beside the account name. No picture, no element.
+  const pic = who && p.accountPicture?.();
+  const img = pic ? Object.assign(document.createElement('img'), { src: pic, alt: '', referrerPolicy: 'no-referrer', className: 'avatar' }) : '';
+  st.replaceChildren(`${p ? p.label : 'No target'} · `, img, `${who || 'not connected'} · ${when}`);
 }
 
 // ---------------------------------------------------------------- actions
