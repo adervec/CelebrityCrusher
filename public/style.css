@@ -10,7 +10,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{background:var(--soot)}
-body{background:var(--soot);color:var(--bone);font-family:var(--serif);font-size:1rem;line-height:1.5}
+body{background:var(--soot);color:var(--bone);font-family:var(--app-font,var(--serif));font-size:1rem;line-height:1.5}
 a{color:var(--gold)}
 button,select,input,textarea{font:inherit;color:inherit}
 
@@ -90,7 +90,7 @@ input[type=text]{min-width:220px}
 .btn.primary:hover{filter:brightness(1.1);color:#16130f}
 .btn.ghost{border-color:transparent;color:var(--bone-faint)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-label.field{display:flex;flex-direction:column;gap:.25rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
+label.field,app-font-picker label{display:flex;flex-direction:column;gap:.25rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
 
 /* ---------- queue & goals ---------- */
 .qitem{display:grid;grid-template-columns:2rem 1fr auto;gap:.8rem;align-items:start;background:var(--panel);

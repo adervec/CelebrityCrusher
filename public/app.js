@@ -685,6 +685,7 @@ function connect() {
       <label class="field">Weight (kg)<input type="number" id="a-weight" value="${a.weight_kg || ''}" step="0.5"></label>
       <label class="field">Age-grade table<select id="a-sex">${[['', 'not set (men\'s)'], ['M', 'men\'s'], ['F', 'women\'s']].map(([v, l]) => `<option value="${v}" ${(a.sex || '') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
       <button class="btn primary" data-action="save-athlete">Save</button>
+      <app-font-picker label="Reading font"></app-font-picker>
     </div>
     <p class="tiny faint">Birth year lets the ledger tell you how old each celebrity was when they did it, next to how old you are now. Age adjustment uses the USATF Masters 2025 road tables.</p>
 

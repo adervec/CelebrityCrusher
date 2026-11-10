@@ -413,6 +413,9 @@ t('the PWA ships every file it promises, all by relative path', () => {
   assert.equal(manifest.display, 'standalone');
 
   const shell = read('./index.html'), sw = read('./sw.js');
+  // house font: the shared module loads before the stylesheet, and body text follows the reader's choice
+  assert.ok(shell.indexOf('<script src="https://adervec.github.io/font.js"></script>') > 0 && shell.indexOf('font.js') < shell.indexOf('style.css'));
+  assert.match(read('./public/style.css'), /body\{[^}]*font-family:var\(--app-font,/);
   const files = [...manifest.icons.map(i => i.src),
     ...[...sw.matchAll(/'\.\/([^']*)'/g)].map(m => './' + m[1]),
     ...[...shell.matchAll(/(?:src|href)="(\.\/[^"]+)"/g)].map(m => m[1])];
