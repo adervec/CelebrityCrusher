@@ -5,7 +5,7 @@ machine-comparable targets, judged against your own Strava and Garmin data: whic
 you have already beaten, which ones your current fitness would clear today, and which
 ones are a training plan rather than a fantasy.
 
-The original artifact (`celebrity-marathon-ledger.html`) is still here and unchanged —
+The original artifact (`celebrity-marathon-ledger.html`) is still here, unchanged apart from its fonts now loading from this site —
 it is the source the dataset was generated from.
 
 It runs two ways from the same source tree:

@@ -555,10 +555,11 @@ console.log('house standards');
 const fakeStorage = init => {
   const m = new Map(Object.entries(init));
   return { getItem: k => m.has(k) ? m.get(k) : null, setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k),
-    clear: () => { throw new Error('localStorage.clear() wipes every app on the origin'); }, m };
+    clear: () => { throw new Error('clearing the whole origin wipes every app on it'); }, m };
 };
 
 t('no third-party requests: fonts are self-hosted on adervec.github.io', () => {
+  assert.ok(!/fonts.googleapis|fonts.gstatic/.test(readFileSync('./celebrity-marathon-ledger.html', 'utf8')), 'the original ledger page still calls Google Fonts');
   const shell = readFileSync('./index.html', 'utf8');
   assert.ok(!/fonts\.googleapis|fonts\.gstatic|preconnect/.test(shell), 'Google Fonts still referenced');
   for (const f of ['fraunces', 'newsreader', 'jetbrains-mono'])
@@ -612,6 +613,18 @@ await ta('real activity is reported to the maker portal; demo data is not', asyn
   assert.deepEqual(seen, [[ts, 3000]], 'recent sessions only, so an archive cannot flood the shared list');
   await api('/api/attempts', 'POST', { feat_id: 'gordon-ramsay-marathon-2004', date: '2025-04-27', value: 12600, unit: 's', verified: 1 });
   assert.deepEqual(seen[1], [dayStart('2025-04-27') + 12 * 3600, 12600]);
+});
+
+t("what's new is declared, newest first, with real dates", () => {
+  assert.ok(readFileSync('./index.html', 'utf8').includes('<meta name="app-whatsnew" content="whatsnew.json">'));
+  const wn = JSON.parse(readFileSync('./whatsnew.json', 'utf8'));
+  assert.ok(Array.isArray(wn) && wn.length, 'whatsnew.json is empty');
+  for (const e of wn) {
+    assert.match(e.date, /^\d{4}-\d\d-\d\d$/);
+    assert.ok(Array.isArray(e.items) && e.items.length && e.items.every(x => typeof x === 'string' && x.length > 10));
+  }
+  assert.deepEqual(wn.map(e => e.date), [...wn.map(e => e.date)].sort().reverse(), 'newest first');
+  assert.ok(readFileSync('./sw.js', 'utf8').includes("'./whatsnew.json'"), 'cached for offline');
 });
 
 t('the repo carries the MIT licence', () => {

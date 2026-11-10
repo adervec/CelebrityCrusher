@@ -2,9 +2,9 @@
 // versioned cache: bump VERSION on release and the old one is dropped on activate.
 // ponytail: no stale-while-revalidate, no runtime cache eviction. The whole app is
 // under 1 MB and the version bump is the invalidation story.
-const VERSION = 'crusher-v6';
+const VERSION = 'crusher-v7';
 const SHELL = [
-  './', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png',
+  './', './index.html', './manifest.webmanifest', './whatsnew.json', './icon.svg', './icon-192.png', './icon-512.png',
   './public/app.js', './public/charts.js', './public/local.js', './public/sync.js', './public/device.js', './public/style.css',
   './lib/engine.js', './lib/agegrade.js', './lib/feats-core.js', './lib/garmin.js', './lib/demo.js',
   './data/feats-ledger.json', './data/feats-extra.json', './data/feats-extra2.json', './data/feats-extra3.json',
