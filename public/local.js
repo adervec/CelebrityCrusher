@@ -8,9 +8,10 @@
 // ponytail: one JSON blob in localStorage (~5 MB). That is thousands of activities.
 // Move to IndexedDB if someone imports a decade of riding and hits the quota.
 import { assemble, FILES } from '../lib/feats-core.js';
-import { buildProfile, judge, planFor, compare, dedupeKey, racesFrom, milestones } from '../lib/engine.js';
+import { buildProfile, judge, planFor, compare, dedupeKey, racesFrom, milestones, localYmd, dayStart } from '../lib/engine.js';
 import { importCsv, importGpx, importJson } from '../lib/garmin.js';
 import { demoActivities } from '../lib/demo.js';
+import { logActivity } from './device.js';
 
 const KEY = 'crusher.v1';
 const now = () => Math.floor(Date.now() / 1000);
@@ -25,10 +26,11 @@ export const localStore = () => ({
     try { localStorage.setItem(KEY, JSON.stringify(db)); }
     catch { throw new Error('Browser storage is full — export a backup, then clear demo or imported data.'); }
   },
+  clear() { try { localStorage.removeItem(KEY); } catch { /* private mode */ } },
 });
 
 /** Memory-only store, for tests. */
-export const memStore = (seed = blank()) => { let d = seed; return { read: () => d, write: v => { d = v; } }; };
+export const memStore = (seed = blank()) => { let d = seed; return { read: () => d, write: v => { d = v; }, clear: () => { d = blank(); } }; };
 
 const ACT_FIELDS = a => ({
   id: a.id, provider: a.provider, sport: a.sport, start_ts: a.start_ts,
@@ -38,14 +40,14 @@ const ACT_FIELDS = a => ({
 });
 
 /** Mirrors DB.upsertActivities: same session twice (Garmin → Strava) lands once. */
-function upsertActivities(db, acts) {
+function upsertActivities(db, acts, fresh = []) {
   const ids = new Set(db.activities.map(a => a.id));
   const keys = new Set(db.activities.map(a => a.dedupe_key));
   let added = 0;
   for (const a of acts) {
     const row = ACT_FIELDS(a);
     if (ids.has(row.id) || keys.has(row.dedupe_key)) continue;
-    db.activities.push(row); ids.add(row.id); keys.add(row.dedupe_key); added++;
+    db.activities.push(row); ids.add(row.id); keys.add(row.dedupe_key); added++; fresh.push(row);
   }
   db.activities.sort((x, y) => x.start_ts - y.start_ts);
   return added;
@@ -69,10 +71,11 @@ const byDate = a => [...a].sort((x, y) => String(y.date).localeCompare(String(x.
 
 /**
  * @param {{FEATS:Array, BY_ID:Map, stats:Function}} ledger
- * @param {{read:Function, write:Function}} store
+ * @param {{read:Function, write:Function, clear:Function}} store
+ * @param {(rows:Array) => void} report  real activity for the maker portal's shared list
  * @returns {(path:string, method?:string, body?:object) => Promise<any>} same contract as fetch(/api/…).json()
  */
-export function backend(ledger, store) {
+export function backend(ledger, store, report = () => {}) {
   const { FEATS, BY_ID, stats } = ledger;
   const profile = db => buildProfile(db.activities, db.best_efforts, now(), db.athlete, racesFrom(db.attempts, BY_ID));
 
@@ -135,7 +138,10 @@ export function backend(ledger, store) {
       // json = what tools/garmin-sync.py writes; csv/gpx = what Garmin Connect or Strava exports.
       const r = body.format === 'json' ? importJson(body.text)
         : { activities: body.format === 'gpx' ? importGpx(body.text, body.name) : importCsv(body.text, body.units || 'metric'), bests: [] };
-      const added = upsertActivities(db, r.activities);
+      const fresh = [];
+      const added = upsertActivities(db, r.activities, fresh);
+      // Recent sessions only: a five-year archive would push every other app out of the shared list.
+      report(fresh.filter(a => a.start_ts > now() - 28 * 86400).map(a => [a.start_ts, a.moving_s]));
       for (const e of r.bests) upsertBestEfforts(db, e.activity_id, e.start_ts, [e]);
       logSync(db, 'file-import', added, `${body.format || 'csv'} import: ${r.activities.length} rows${r.bests.length ? `, ${r.bests.length} bests` : ''}`);
       save();
@@ -156,6 +162,8 @@ export function backend(ledger, store) {
       save();
       return { added };
     }
+
+    if (method === 'POST' && path === '/erase') { store.clear(); return { erased: true }; }
 
     if (method === 'POST' && path === '/athlete') {
       for (const k of ['name', 'sex', 'birth_year', 'weight_kg']) if (body[k] != null) db.athlete[k] = body[k];
@@ -261,6 +269,9 @@ export function backend(ledger, store) {
         verified: body.verified ? 1 : 0, notes: body.notes || null, created_ts: now(),
       });
       save();
+      // Logged today: now. Logged for an earlier day: midday of that local day.
+      const when = body.date === localYmd() ? now() : dayStart(body.date) + 12 * 3600;
+      report([[when, body.unit === 's' && body.value > 0 ? body.value : 0]]);
       return byDate(db.attempts);
     }
     if (method === 'DELETE' && /^\/attempts\/\d+$/.test(path)) {
@@ -280,5 +291,5 @@ export async function boot() {
       if (!r.ok) throw new Error(`cannot load ${f} (${r.status})`);
       return r.json();
     })));
-  return backend(assemble(lists), localStore());
+  return backend(assemble(lists), localStore(), rows => logActivity(localStorage, rows));
 }

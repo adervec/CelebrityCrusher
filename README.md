@@ -12,7 +12,7 @@ It runs two ways from the same source tree:
 
 ```bash
 node server.mjs          # http://localhost:8787 — SQLite, live Strava/Garmin OAuth
-node test.mjs            # 46 checks, no framework
+node test.mjs            # 52 checks, no framework
 ```
 
 ...or as an installable offline PWA on GitHub Pages, with no server at all. See
@@ -33,7 +33,7 @@ data** on the Connect tab for 18 months of a plausible 3:2x marathon build.
 | **Queue** | Ordered attempt list with status, target dates, reorder, and suggestions. |
 | **Goals** | Feat + date → required pace, peak weekly volume, weeks needed vs weeks remaining, margin, and a full week-by-week build with 3:1 loading and a taper, exportable to your calendar as `.ics`. |
 | **Analytics** | Pace curve versus every timed feat, rolling-window capacity, verdict spread by category, PB table, a milestones timeline (the day each feat fell), your Eddington numbers, and a three-year crush forecast with projected dates. |
-| **Connect** | Strava OAuth, Garmin OAuth, file import or a watched folder, cloud sync, sync log, athlete settings, JSON backup and restore. |
+| **Connect** | Strava OAuth, Garmin OAuth, file import or a watched folder, cloud sync, sync log, athlete settings, reading font, JSON backup and restore, and **Erase everything**. |
 
 ## Deploying to GitHub Pages
 
@@ -124,6 +124,26 @@ provider. The bytes go from your browser to your storage; no server of ours sees
 Sync is read-merge-write, so two devices converge instead of the last one winning, and
 restoring the same file twice is a no-op. Tick **keep synced automatically** and it pulls
 once on load and pushes a few seconds after each change.
+
+## On this device
+
+Every app on `adervec.github.io` shares one browser origin, so this one keeps to its own
+keys (`crusher.v1`, `crusher.sync`, and the `crusher-fs` IndexedDB for remembered
+folders). **Erase everything** on the Connect tab asks first, then removes those, disconnects
+cloud sync and drops this app's rows from the portal's shared lists — other apps keep
+theirs, and the copy in your Drive or sync folder is not touched. Under `node server.mjs`
+the same button empties the SQLite file.
+
+Real activity — an imported session from the last four weeks, or a logged attempt — is
+appended to the maker portal's shared `portal-activity` list as
+`[unixSeconds, "CelebrityCrusher", "cardio", minutes ÷ 10]`. The demo athlete reports nothing.
+
+No third-party requests: the fonts (Atkinson Hyperlegible, Fraunces, Newsreader, JetBrains
+Mono) are self-hosted on `adervec.github.io`. The only other hosts are the ones you connect:
+Google for Drive sync, Strava from the local server.
+
+A calendar day is your local day. Activities, plans, milestones and date fields all bucket
+by the local date the session started, so a 21:30 run belongs to that evening.
 
 ## How a verdict is decided
 

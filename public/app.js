@@ -1,5 +1,7 @@
 import { lineChart, barChart, paceCurve, COLORS } from './charts.js';
 import * as Sync from './sync.js';
+import { localYmd, dayStr } from '../lib/engine.js';
+import { eraseLocalData } from './device.js';
 
 // ---------------------------------------------------------------- plumbing
 let S = null;                       // last /api/state payload
@@ -30,7 +32,7 @@ const api = async (path, opts) => {
 // sends once, and never on the sync endpoints themselves (that would recurse).
 let pushTimer = null, lastPush = 0;
 function schedulePush(path, method) {
-  if (method === 'GET' || /\/api\/(backup|restore|state|plan)/.test(path)) return;
+  if (method === 'GET' || /\/api\/(backup|restore|state|plan|erase)/.test(path)) return;
   const cfg = syncCfg();
   if (!cfg.auto) return;
   clearTimeout(pushTimer);
@@ -194,7 +196,7 @@ function shareCard() {
   });
   g.fillStyle = css('--bone-dim') || '#b8ad9a'; g.font = '400 24px JetBrains Mono, monospace';
   g.fillText([mp && `marathon projection ${fmtDur(mp)}`, S.profile.vo2max && `VO₂max ${S.profile.vo2max.toFixed(1)}`,
-    new Date().toISOString().slice(0, 10)].filter(Boolean).join('  ·  '), 70, 570);
+    localYmd()].filter(Boolean).join('  ·  '), 70, 570);
   cv.toBlob(b => { download('celebrity-crusher-card.png', 'image/png', b); toast('Card saved'); });
 }
 
@@ -270,8 +272,8 @@ function weeklySeries(sport = 'run') {
 function drawWeekly(sel) {
   const w = weeklySeries('run');
   barChart($(sel), {
-    bars: w.map(x => ({ y: x.y, title: `${new Date(x.day * 86400000).toISOString().slice(0, 10)}: ${x.y.toFixed(1)} km` })),
-    yFmt: v => `${Math.round(v)}k`, xFmt: i => { const d = w[i]; return d ? new Date(d.day * 86400000).toISOString().slice(2, 7) : ''; },
+    bars: w.map(x => ({ y: x.y, title: `${dayStr(x.day)}: ${x.y.toFixed(1)} km` })),
+    yFmt: v => `${Math.round(v)}k`, xFmt: i => { const d = w[i]; return d ? dayStr(d.day).slice(2, 7) : ''; },
     marks: [{ y: w.reduce((a, b) => a + b.y, 0) / Math.max(1, w.length), label: 'avg', color: COLORS.gold }],
   });
 }
@@ -281,7 +283,7 @@ function drawFitness(sel) {
   const pts = a => a.slice(from).map((v, i) => [day0 + from + i, v]);
   lineChart($(sel), {
     series: [{ name: 'Fitness', color: COLORS.ember, points: pts(ctl), area: true }, { name: 'Fatigue', color: COLORS.steel, points: pts(atl), width: 1.1 }],
-    yFmt: v => Math.round(v), xFmt: d => new Date(d * 86400000).toISOString().slice(2, 7),
+    yFmt: v => Math.round(v), xFmt: d => dayStr(d).slice(2, 7),
   });
 }
 
@@ -554,7 +556,7 @@ function analytics() {
         <tbody>${forecast().rows.slice(0, 12).map(r => `<tr class="row" data-action="goto-feat" data-feat="${r.f.id}">
           <td>${esc(r.f.who)} <span class="dim">${esc(r.f.title)}</span></td>
           <td class="num mono">${r.weeks}</td>
-          <td class="num mono faint">${r.date.toISOString().slice(0, 7)}</td></tr>`).join('') || '<tr><td class="dim">nothing inside three years</td></tr>'}
+          <td class="num mono faint">${localYmd(r.date).slice(0, 7)}</td></tr>`).join('') || '<tr><td class="dim">nothing inside three years</td></tr>'}
         </tbody></table>
       </div>
     </div>
@@ -713,6 +715,10 @@ function connect() {
       <button class="btn" data-action="restore">Restore</button>
     </div>
 
+    <h2>Erase everything</h2>
+    <p class="dek">Removes this app's data from this device: your activities, queue, goals, logged attempts, settings, the remembered folders and the cloud-sync connection. Other apps on this site keep theirs. Your copy in Google Drive or your sync folder is not touched — connect sync again and it comes back. Download a backup first if you want one.</p>
+    <div class="controls"><button class="btn danger" data-action="erase-all">Erase everything on this device</button></div>
+
     <h2>Sync log</h2>
     <table class="tiny"><thead><tr><th>When</th><th>Provider</th><th>Status</th><th class="num">Added</th><th>Message</th></tr></thead>
       <tbody>${S.sync_log.map(l => `<tr>
@@ -725,7 +731,7 @@ function connect() {
     <h2>Recent activities</h2>
     <table class="tiny"><thead><tr><th>Date</th><th>Sport</th><th>Name</th><th class="num">Distance</th><th class="num">Time</th><th class="num">Elev</th></tr></thead>
       <tbody>${S.activities.slice(0, 25).map(x => `<tr>
-        <td class="mono">${new Date(x.start_ts * 1000).toISOString().slice(0, 10)}</td>
+        <td class="mono">${localYmd(new Date(x.start_ts * 1000))}</td>
         <td class="mono">${esc(x.sport)}</td><td class="dim">${esc(x.name || '')}</td>
         <td class="num mono">${fmtKm(x.distance_m)}</td><td class="num mono">${fmtDur(x.moving_s)}</td>
         <td class="num mono faint">${Math.round(x.elev_m)} m</td></tr>`).join('') || '<tr><td colspan="6" class="dim">no activities</td></tr>'}
@@ -816,6 +822,16 @@ document.addEventListener('click', async e => {
         toast(`Exported ${filtered().length} rows`); break;
       }
       case 'share-card': shareCard(); break;
+      case 'erase-all': {
+        if (!window.confirm('Erase all Celebrity Crusher data on this device?\n\nActivities, queue, goals, logged attempts, settings and the sync connection are removed. Your Google Drive or sync-folder copy is not touched.')) break;
+        clearTimeout(pushTimer);
+        await api('/api/erase', { body: {} });                 // the store: SQLite on the server, the browser blob here
+        for (const p of Sync.SYNC_PROVIDERS) await p.disconnect?.().catch?.(() => {});
+        await Sync.eraseHandles();                             // remembered sync and Garmin folders
+        eraseLocalData(localStorage);                          // our keys only — never localStorage.clear()
+        toast('Erased from this device. Your Drive or sync-folder copy is untouched.', 6000);
+        setTimeout(() => location.reload(), 1500); break;
+      }
       case 'pin-rival': {
         const cur = S.athlete?.settings?.rival;
         await api('/api/athlete', { body: { rival: cur === feat ? null : feat } });
@@ -829,7 +845,7 @@ document.addEventListener('click', async e => {
       }
       case 'backup': {
         const data = await api('/api/backup', { method: 'GET' });
-        download(`celebrity-crusher-backup-${new Date().toISOString().slice(0, 10)}.json`, 'application/json', JSON.stringify(data, null, 1));
+        download(`celebrity-crusher-backup-${localYmd()}.json`, 'application/json', JSON.stringify(data, null, 1));
         toast('Backup downloaded'); break;
       }
       case 'restore': {
@@ -906,7 +922,8 @@ function toIcs(weeks) {
   const esc2 = t => String(t).replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n');
   const body = weeks.map(w => {
     const d = w.start.replace(/-/g, '');
-    const end = new Date(new Date(w.start).getTime() + 86400000).toISOString().slice(0, 10).replace(/-/g, '');
+    const next = new Date(w.start + 'T00:00:00'); next.setDate(next.getDate() + 1);
+    const end = localYmd(next).replace(/-/g, '');
     return ['BEGIN:VEVENT', `UID:cc-w${w.week}-${d}@celebrity-crusher`, `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${d}`, `DTEND;VALUE=DATE:${end}`,
       fold(`SUMMARY:Week ${w.week} · ${esc2(w.phase)} · ${w.km} km`),
@@ -930,7 +947,7 @@ function attemptForm(featId) {
   box.innerHTML = `<div class="card" style="margin-top:.6rem">
     <p class="eyebrow">Log an attempt</p>
     <div class="controls" style="margin-top:.5rem">
-      <label class="field">Date<input type="date" class="a-date" value="${new Date().toISOString().slice(0, 10)}"></label>
+      <label class="field">Date<input type="date" class="a-date" value="${localYmd()}"></label>
       <label class="field">Evidence URL<input type="text" class="a-evidence" placeholder="race result, Strava link, video"></label>
       ${S.feats.find(x => x.id === featId)?.check.kind === 'run_time' ? '<label class="field">Finish time<input type="text" class="a-time" placeholder="h:mm:ss" size="8"></label>' : ''}
       <label class="field">Notes<input type="text" class="a-notes" placeholder="what actually happened"></label>

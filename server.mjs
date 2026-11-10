@@ -253,6 +253,13 @@ const server = createServer(async (req, res) => {
       return json(res, { added });
     }
 
+    if (m('POST', /^\/api\/erase$/)) {
+      db.exec(`DELETE FROM activities; DELETE FROM best_efforts; DELETE FROM queue; DELETE FROM goals;
+        DELETE FROM attempts; DELETE FROM sync_log; DELETE FROM connections;
+        UPDATE athlete SET name='Athlete', sex=NULL, birth_year=NULL, weight_kg=NULL, settings='{}' WHERE id=1;`);
+      return json(res, { erased: true });
+    }
+
     if (m('GET', /^\/api\/milestones$/))
       return json(res, milestones(FEATS, activities(), bestEfforts(), attemptsByFeat(), now(), DB.one(db, 'SELECT * FROM athlete WHERE id=1') || {}));
 

@@ -42,6 +42,13 @@ export async function getHandle(key) {
     });
   } catch { return null; }
 }
+/** Erase: close and delete the whole handle database (remembered sync and Garmin folders). */
+export async function eraseHandles() {
+  try { _db?.close(); } catch { /* already closed */ }
+  _db = null;
+  if (typeof indexedDB === 'undefined') return;
+  await new Promise(res => { const r = indexedDB.deleteDatabase('crusher-fs'); r.onsuccess = r.onerror = r.onblocked = () => res(); });
+}
 export async function setHandle(key, val) {
   try {
     const db = await idbOpen();

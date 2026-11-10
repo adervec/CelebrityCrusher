@@ -1,7 +1,9 @@
 // node test.mjs — the whole check. assert-based, no framework.
 import assert from 'node:assert/strict';
 import { FEATS, BY_ID, stats } from './lib/feats.js';
-import { buildProfile, judge, planFor, riegel, fmtDur, projectDistanceTime, compare, ageFactor, ageAdjustTime, effortEquiv, STATUS, vdot, danielsTime, milestones, racesFrom } from './lib/engine.js';
+import { buildProfile, judge, planFor, riegel, fmtDur, projectDistanceTime, compare, ageFactor, ageAdjustTime, effortEquiv, STATUS, vdot, danielsTime, milestones, racesFrom, dayStart } from './lib/engine.js';
+import { eraseLocalData, logActivity, OWN_KEYS } from './public/device.js';
+import { execFileSync } from 'node:child_process';
 import { demoActivities } from './lib/demo.js';
 import { importCsv, importGpx, importJson, parseCsv } from './lib/garmin.js';
 import { dedupeKey } from './lib/db.js';
@@ -259,7 +261,7 @@ t('milestones date each crushed feat to the day it fell', () => {
   assert.ok(ms.length >= 2);
   const first = Math.min(...activities.map(a => a.start_ts)) - 86400;
   for (const m of ms) {
-    const ts = Date.parse(m.date) / 1000;
+    const ts = dayStart(m.date);
     assert.ok(ts >= first && ts <= NOW + 86400, `date out of range: ${m.date}`);
     // crushed on its date, not the day before
     const upTo = end => buildProfile(activities.filter(a => a.start_ts <= end), efforts.filter(e => e.start_ts <= end), end);
@@ -545,6 +547,99 @@ t('Drive is gated to the origins its client id is registered for', () => {
   assert.equal(Sync.driveClientId({}), '');                                        // no `location` in node
   assert.equal(Sync.googleDriveProvider.available({}).ok, false);
   assert.equal(Sync.googleDriveProvider.available({ driveClientId: 'x' }), true);
+});
+
+console.log('house standards');
+
+/** A Storage stand-in that fails the test if anyone wipes the shared origin. */
+const fakeStorage = init => {
+  const m = new Map(Object.entries(init));
+  return { getItem: k => m.has(k) ? m.get(k) : null, setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k),
+    clear: () => { throw new Error('localStorage.clear() wipes every app on the origin'); }, m };
+};
+
+t('no third-party requests: fonts are self-hosted on adervec.github.io', () => {
+  const shell = readFileSync('./index.html', 'utf8');
+  assert.ok(!/fonts\.googleapis|fonts\.gstatic|preconnect/.test(shell), 'Google Fonts still referenced');
+  for (const f of ['fraunces', 'newsreader', 'jetbrains-mono'])
+    assert.ok(shell.includes(`<link rel="stylesheet" href="https://adervec.github.io/fonts/${f}.css">`), `${f} not self-hosted`);
+  const hosts = [...shell.matchAll(/(?:src|href)="(https?:\/\/[^/"]+)/g)].map(x => x[1]);
+  assert.deepEqual([...new Set(hosts)], ['https://adervec.github.io'], `external hosts: ${hosts}`);
+});
+
+await ta('erase removes this app\'s data on this device and nothing else', async () => {
+  const st = fakeStorage({
+    'crusher.v1': '{}', 'crusher.sync': '{}', 'maker-font': 'mono', 'gymtracker.v3': '{"x":1}',
+    'portal-activity': JSON.stringify([[1, 'GymTracker315', 'lift', 3], [2, 'CelebrityCrusher', 'cardio', 4]]),
+    'portal-installed': JSON.stringify({ CelebrityCrusher: 1, Tachyread: 2 }),
+  });
+  eraseLocalData(st);
+  for (const k of OWN_KEYS) assert.equal(st.getItem(k), null, `${k} survived`);
+  assert.equal(st.getItem('maker-font'), 'mono');
+  assert.equal(st.getItem('gymtracker.v3'), '{"x":1}');
+  assert.deepEqual(JSON.parse(st.getItem('portal-activity')), [[1, 'GymTracker315', 'lift', 3]]);
+  assert.deepEqual(JSON.parse(st.getItem('portal-installed')), { Tachyread: 2 });
+  // the store itself, through the same route the button calls
+  const api = fresh();
+  await api('/api/demo', 'POST', {});
+  await api('/api/queue', 'POST', { feat_id: 'gordon-ramsay-marathon-2004' });
+  assert.deepEqual(await api('/api/erase', 'POST', {}), { erased: true });
+  const after = await api('/api/state');
+  assert.equal(after.activity_count, 0);
+  assert.equal(after.queue.length, 0);
+  // the button confirms first, disconnects sync, and says the cloud copy is untouched
+  const app = readFileSync('./public/app.js', 'utf8'), at = app.indexOf("case 'erase-all'");
+  const body = app.slice(at, app.indexOf('break; }', at));
+  assert.ok(body.indexOf('window.confirm') >= 0 && body.indexOf('window.confirm') < body.indexOf("api('/api/erase'"), 'confirm comes first');
+  assert.ok(body.includes('disconnect') && body.includes('eraseHandles') && /Drive[^']*not touched/.test(body));
+  assert.ok(!/localStorage\.clear\(\)/.test(app.replace(/\/\/.*$/gm, '')));
+});
+
+await ta('real activity is reported to the maker portal; demo data is not', async () => {
+  const st = fakeStorage({ 'portal-activity': JSON.stringify([[1, 'Tachyread', 'read', 2]]) });
+  logActivity(st, [[1000, 3000], [2000, 30]]);
+  assert.deepEqual(JSON.parse(st.getItem('portal-activity')).slice(1), [[1000, 'CelebrityCrusher', 'cardio', 5], [2000, 'CelebrityCrusher', 'cardio', 1]]);
+  const seen = [];
+  const api = backend({ FEATS, BY_ID, stats }, memStore(), rows => seen.push(...rows));
+  await api('/api/demo', 'POST', {});
+  assert.equal(seen.length, 0, 'the demo athlete is synthetic');
+  const ts = Math.floor(Date.now() / 1000) - 3600, old = ts - 400 * 86400;
+  const r = await api('/api/import/garmin', 'POST', { format: 'json', text: JSON.stringify({ activities: [
+    { id: 7, type: 'running', start: new Date(ts * 1000).toISOString(), distance_m: 10000, moving_s: 3000 },
+    { id: 8, type: 'running', start: new Date(old * 1000).toISOString(), distance_m: 10000, moving_s: 3000 },
+  ] }) });
+  assert.equal(r.added, 2);
+  assert.deepEqual(seen, [[ts, 3000]], 'recent sessions only, so an archive cannot flood the shared list');
+  await api('/api/attempts', 'POST', { feat_id: 'gordon-ramsay-marathon-2004', date: '2025-04-27', value: 12600, unit: 's', verified: 1 });
+  assert.deepEqual(seen[1], [dayStart('2025-04-27') + 12 * 3600, 12600]);
+});
+
+t('the repo carries the MIT licence', () => {
+  assert.ok(/^MIT License/.test(readFileSync('./LICENSE', 'utf8')));
+});
+
+t('a calendar day is the local day (TZ=America/Sao_Paulo)', () => {
+  // 22:30 local on 10 March is 01:30 UTC on the 11th. Every day the app shows must be the 10th.
+  const out = execFileSync(process.execPath, ['--input-type=module', '-e', `
+    import { buildProfile, buildWeeks, milestones, localYmd, localDay, dayStr, dayStart } from './lib/engine.js';
+    const ts = new Date('2026-03-10T22:30:00').getTime() / 1000;
+    const act = { id: 'a', sport: 'run', start_ts: ts, distance_m: 12000, moving_s: 3600 };
+    const p = buildProfile([act], [], ts + 600);
+    const feat = { id: 'f', check: { kind: 'distance_window', sport: 'run', days: 1, meters: 10000 } };
+    console.log(JSON.stringify({
+      utc: new Date(ts * 1000).toISOString().slice(0, 10), local: localYmd(new Date(ts * 1000)),
+      bucket: dayStr(p.series.day0), ran: p.series.byDaySport.run.at(-1),
+      milestone: milestones([feat], [act], [], {}, ts + 600)[0]?.date,
+      week1: buildWeeks(20, 30, 15, 4, {}, ts)[0].start,
+      midnight: dayStart('2026-03-10') === new Date(2026, 2, 10).getTime() / 1000,
+    }));`], { env: { ...process.env, TZ: 'America/Sao_Paulo' }, encoding: 'utf8' });
+  assert.deepEqual(JSON.parse(out), {
+    utc: '2026-03-11', local: '2026-03-10', bucket: '2026-03-10', ran: 12000,
+    milestone: '2026-03-10', week1: '2026-03-10', midnight: true,
+  });
+  // and the UI never takes a day from UTC
+  for (const f of ['./public/app.js', './lib/engine.js', './public/local.js'])
+    assert.ok(!/toISOString\(\)\.slice\(0, (10|7)\)/.test(readFileSync(f, 'utf8')), `${f} still takes a day from UTC`);
 });
 
 console.log(`\n${n} checks passed`);
