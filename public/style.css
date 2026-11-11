@@ -90,6 +90,11 @@ input[type=text]{min-width:220px}
 .btn.primary:hover{filter:brightness(1.1);color:#16130f}
 .btn.ghost{border-color:transparent;color:var(--bone-faint)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
+/* the shared Cowork panel, in this app's palette (its only supported theming) */
+#cowork-slot cowork-panel{--cowork-bg:var(--panel);--cowork-card:var(--panel-2);--cowork-ink:var(--bone);--cowork-mut:var(--bone-dim);
+  --cowork-line:var(--hairline);--cowork-acc:var(--ember);--cowork-accink:var(--soot);--cowork-radius:2px;--cowork-mono:var(--mono)}
+.coach-reply{margin-top:1rem}
+.coach-text{white-space:pre-wrap;margin-top:.5rem;max-width:75ch}
 .btn.danger{border-color:var(--close);color:var(--close)}
 .avatar{width:24px;height:24px;border-radius:50%;vertical-align:middle;margin-right:.4rem;object-fit:cover}
 label.field,app-font-picker label{display:flex;flex-direction:column;gap:.25rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}

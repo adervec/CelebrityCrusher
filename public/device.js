@@ -3,7 +3,9 @@
 // maker portal's shared lists, and never call localStorage.clear().
 export const APP = 'CelebrityCrusher';
 export const KIND = 'cardio';
-export const OWN_KEYS = ['crusher.v1', 'crusher.sync'];
+// crusher.coach = the last coaching reply; cowork-state:<app> = the shared Cowork engine's state for us.
+// ("cowork-device" is the device id every app's Cowork panel shares, so it stays.)
+export const OWN_KEYS = ['crusher.v1', 'crusher.sync', 'crusher.coach', 'cowork-state:celebritycrusher'];
 const ACTIVITY = 'portal-activity';
 
 /** Erase this app's data on this device; other apps' keys and rows are left alone. */
@@ -17,6 +19,22 @@ export function eraseLocalData(storage) {
     const reg = JSON.parse(storage.getItem('portal-installed') || 'null');
     if (reg && typeof reg === 'object' && APP in reg) { delete reg[APP]; storage.setItem('portal-installed', JSON.stringify(reg)); }
   } catch { /* not ours to repair */ }
+}
+
+/** The Cowork engine keeps every app's folder handle in one shared IndexedDB ("cowork-ui",
+ *  store "dirs", keyed by app). Drop only ours, and never create the database just to empty it. */
+export function eraseCoworkFolder(idb = globalThis.indexedDB, app = 'celebritycrusher') {
+  if (!idb) return Promise.resolve();
+  return new Promise(res => {
+    const open = idb.open('cowork-ui', 1);
+    open.onupgradeneeded = () => open.transaction.abort();      // it did not exist: nothing of ours in it
+    open.onerror = () => res();
+    open.onsuccess = () => {
+      const db = open.result;
+      try { const tx = db.transaction('dirs', 'readwrite'); tx.objectStore('dirs').delete(app); tx.oncomplete = tx.onerror = () => { db.close(); res(); }; }
+      catch { db.close(); res(); }
+    };
+  });
 }
 
 /**

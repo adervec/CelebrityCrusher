@@ -1,7 +1,8 @@
 import { lineChart, barChart, paceCurve, COLORS } from './charts.js';
 import * as Sync from './sync.js';
 import { localYmd, dayStr } from '../lib/engine.js';
-import { eraseLocalData } from './device.js';
+import { eraseLocalData, eraseCoworkFolder } from './device.js';
+import { APP_ID, MANIFEST, REPLY_KEY, INSTRUCTIONS, coachRequest, coachBrief, replyText } from './coach.js';
 
 // ---------------------------------------------------------------- plumbing
 let S = null;                       // last /api/state payload
@@ -623,7 +624,7 @@ function drawSports() {
 // ---------------------------------------------------------------- connect
 function connect() {
   const p = S.providers, a = S.athlete || {}, sc = syncCfg();
-  setTimeout(paintSyncState, 0);
+  setTimeout(() => { paintSyncState(); mountCowork(); }, 0);
   $('#view-connect').innerHTML = `
     <h2>Connect</h2>
     <p class="dek">Strava is the main door. Garmin has two: the partner API if you have keys, and plain file import if you do not. If your watch already syncs to Strava, one connection covers both — duplicates are dropped on the way in.</p>
@@ -706,6 +707,11 @@ function connect() {
     ${sc.provider === 'googleDrive' ? `<div class="controls"><label class="field">Your own OAuth client ID (optional)<input type="text" data-action="sync-clientid" value="${esc(sc.driveClientId)}" placeholder="…apps.googleusercontent.com"></label></div>` : ''}
     <p class="tiny faint">Merging is add-only: a goal or attempt deleted on one device comes back from the other. Delete it on both, or restore from a backup file.</p>
 
+    <h2>Cowork</h2>
+    <p class="dek">Hand your numbers to an AI agent through a shared folder (Claude Cowork works from it) and get a feat coach's advice back: what to attempt next, a four-week focus, one risk to watch. You review each reply before it is shown here, and can undo it from the panel's history.</p>
+    <div id="cowork-slot"></div>
+    <div class="card coach-reply" id="coach-reply" hidden><p class="eyebrow">Feat coach</p><div class="coach-text"></div></div>
+
     <h2>Backup</h2>
     <p class="dek">Everything you typed — queue, goals, logged attempts, imported activities — as one JSON file. Provider data is not included; it re-syncs.</p>
     ${S.static ? `<p class="tiny" style="color:var(--gold)">Worth doing here: a standalone install keeps everything in this browser's storage, which clearing site data wipes.</p>` : ''}
@@ -716,7 +722,7 @@ function connect() {
     </div>
 
     <h2>Erase everything</h2>
-    <p class="dek">Removes this app's data from this device: your activities, queue, goals, logged attempts, settings, the remembered folders and the cloud-sync connection. Other apps on this site keep theirs. Your copy in Google Drive or your sync folder is not touched — connect sync again and it comes back. Download a backup first if you want one.</p>
+    <p class="dek">Removes this app's data from this device: your activities, queue, goals, logged attempts, settings, coaching advice, the remembered folders and the cloud-sync and Cowork connections. Other apps on this site keep theirs. Your copy in Google Drive or your sync folder is not touched — connect sync again and it comes back. Download a backup first if you want one.</p>
     <div class="controls"><button class="btn danger" data-action="erase-all">Erase everything on this device</button></div>
 
     <h2>Sync log</h2>
@@ -736,6 +742,51 @@ function connect() {
         <td class="num mono">${fmtKm(x.distance_m)}</td><td class="num mono">${fmtDur(x.moving_s)}</td>
         <td class="num mono faint">${Math.round(x.elev_m)} m</td></tr>`).join('') || '<tr><td colspan="6" class="dim">no activities</td></tr>'}
       </tbody></table>`;
+}
+
+// ---------------------------------------------------------------- cowork
+// The shared engine is loaded on demand, mounted once into a host that survives the Connect
+// tab's re-renders (it is re-attached, not re-mounted), and reads S fresh on every request.
+const coworkHost = document.createElement('div');
+let coworkMounted = false;
+const loadCowork = () => window.cowork ? Promise.resolve(window.cowork) : new Promise(res => {
+  const s = Object.assign(document.createElement('script'), { src: 'https://adervec.github.io/cowork.js', async: true });
+  s.onload = () => res(window.cowork || null); s.onerror = () => res(null);
+  document.head.appendChild(s);
+});
+const coachSaved = () => { try { return localStorage.getItem(REPLY_KEY) || ''; } catch { return ''; } };
+function showCoach(text) {
+  const box = $('#coach-reply');
+  if (!box) return;
+  box.hidden = !text;
+  box.querySelector('.coach-text').textContent = text;
+}
+function mountCowork() {
+  $('#cowork-slot')?.append(coworkHost);
+  showCoach(coachSaved());
+  if (coworkMounted) return;
+  coworkMounted = true;
+  loadCowork().then(cw => {
+    if (!cw) { coworkHost.innerHTML = '<p class="tiny dim">The Cowork panel could not load — it needs to reach adervec.github.io once.</p>'; coworkMounted = false; return; }
+    cw.mount(coworkHost, {
+      app: APP_ID, manifest: MANIFEST,
+      files: () => ({ 'coach/request.json': coachRequest(S), 'coach/INSTRUCTIONS.md': INSTRUCTIONS }),
+      channels: {
+        coach: {
+          label: 'Feat coach',                                   // review stays on: the default
+          preview: reply => [{ id: 'reply', label: 'Show this advice on the Connect tab (replaces the current one)', detail: replyText(reply).slice(0, 600) }],
+          apply: reply => {
+            const prev = coachSaved(), text = replyText(reply);
+            try { localStorage.setItem(REPLY_KEY, text); } catch { /* quota */ }
+            showCoach(text);
+            return { summary: 'new coaching advice shown', undo: { prev } };
+          },
+          undo: data => { try { localStorage.setItem(REPLY_KEY, data.prev || ''); } catch { /* quota */ } showCoach(data.prev || ''); },
+        },
+      },
+      brief: () => coachBrief(S),
+    });
+  });
 }
 
 /** The two lines that need an await: which folder is watched, and who is signed in. */
@@ -823,11 +874,12 @@ document.addEventListener('click', async e => {
       }
       case 'share-card': shareCard(); break;
       case 'erase-all': {
-        if (!window.confirm('Erase all Celebrity Crusher data on this device?\n\nActivities, queue, goals, logged attempts, settings and the sync connection are removed. Your Google Drive or sync-folder copy is not touched.')) break;
+        if (!window.confirm('Erase all Celebrity Crusher data on this device?\n\nActivities, queue, goals, logged attempts, settings, coaching advice and the sync and Cowork connections are removed. Your Google Drive or sync-folder copy is not touched.')) break;
         clearTimeout(pushTimer);
         await api('/api/erase', { body: {} });                 // the store: SQLite on the server, the browser blob here
         for (const p of Sync.SYNC_PROVIDERS) await p.disconnect?.().catch?.(() => {});
         await Sync.eraseHandles();                             // remembered sync and Garmin folders
+        await eraseCoworkFolder();                             // our Cowork folder, not other apps'
         eraseLocalData(localStorage);                          // our keys only — never localStorage.clear()
         toast('Erased from this device. Your Drive or sync-folder copy is untouched.', 6000);
         setTimeout(() => location.reload(), 1500); break;

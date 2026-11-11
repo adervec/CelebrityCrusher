@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { FEATS, BY_ID, stats } from './lib/feats.js';
 import { buildProfile, judge, planFor, riegel, fmtDur, projectDistanceTime, compare, ageFactor, ageAdjustTime, effortEquiv, STATUS, vdot, danielsTime, milestones, racesFrom, dayStart } from './lib/engine.js';
 import { eraseLocalData, logActivity, OWN_KEYS } from './public/device.js';
+import { MANIFEST, INSTRUCTIONS, coachRequest, coachBrief, replyText, djb2 } from './public/coach.js';
 import { execFileSync } from 'node:child_process';
 import { demoActivities } from './lib/demo.js';
 import { importCsv, importGpx, importJson, parseCsv } from './lib/garmin.js';
@@ -625,6 +626,41 @@ t("what's new is declared, newest first, with real dates", () => {
   }
   assert.deepEqual(wn.map(e => e.date), [...wn.map(e => e.date)].sort().reverse(), 'newest first');
   assert.ok(readFileSync('./sw.js', 'utf8').includes("'./whatsnew.json'"), 'cached for offline');
+});
+
+await ta('Cowork: the feat coach channel follows the house standard', async () => {
+  // the manifest the shared engine writes as cowork.json
+  assert.deepEqual(MANIFEST, { protocol: 'cowork-manifest', protocolVersion: 1, app: 'celebritycrusher',
+    channels: [{ name: 'coach', request: ['coach/request.json'], instructions: 'coach/INSTRUCTIONS.md', replyPath: 'coach/reply.json' }] });
+  // the request: a fingerprint of exactly the payload, so a reply can be matched to it
+  const api = fresh();
+  await api('/api/demo', 'POST', {});
+  await api('/api/queue', 'POST', { feat_id: 'gordon-ramsay-marathon-2004' });
+  const S = await api('/api/state'), req = coachRequest(S, new Date(NOW * 1000));
+  assert.equal(req.protocol, 'celebritycrusher-coach');
+  assert.equal(req.kind, 'request');
+  assert.equal(req.requestHash, djb2(JSON.stringify(req.payload)));
+  assert.equal(coachRequest(S).requestHash, req.requestHash, 'same data, same fingerprint, whatever the clock');
+  const p = req.payload;
+  assert.equal(Object.values(p.counts).reduce((a, b) => a + b, 0), FEATS.length);
+  assert.ok(p.in_reach.length && p.in_reach.every(x => x.gap >= 1 && x.status !== 'crushed'));
+  assert.ok(p.nearest_misses.every(x => x.gap < 1));
+  assert.equal(p.queue[0].id, 'gordon-ramsay-marathon-2004');
+  assert.ok(p.fitness.ctl > 0 && p.fitness.marathon_projection_s > 0 && p.fitness.vo2max_estimated > 0);
+  assert.ok(!JSON.stringify(p).includes(S.athlete.name ?? '\u0000'), 'no name in the request');
+  // the instructions say what to write, and to echo the fingerprint
+  assert.ok(INSTRUCTIONS.includes('coach/reply.json') && INSTRUCTIONS.includes("copy the request's requestHash verbatim") && INSTRUCTIONS.includes('coach/error.json'));
+  assert.equal(replyText({ requestHash: 'x', reply: '## go' }), '## go');
+  // the brief: what is in reach, and the next attempt (the queue comes first)
+  const brief = coachBrief(S);
+  assert.match(brief.markdown, /## Next attempt\n\n- \*\*Gordon Ramsay\*\*/);
+  assert.match(brief.markdown, /## In reach, not yet done/);
+  // the app mounts the shared engine with a described channel, review left on, undo wired, erase covered
+  const app = readFileSync('./public/app.js', 'utf8');
+  assert.ok(app.includes("src: 'https://adervec.github.io/cowork.js'") && /cw\.mount\(coworkHost/.test(app));
+  for (const k of ["label: 'Feat coach'", 'preview: reply =>', 'apply: reply =>', 'undo: data =>', 'brief: () => coachBrief(S)', 'eraseCoworkFolder()']) assert.ok(app.includes(k), `app.js lacks ${k}`);
+  assert.ok(!/review:\s*false/.test(app), 'review stays on by default');
+  assert.ok(OWN_KEYS.includes('cowork-state:celebritycrusher') && OWN_KEYS.includes('crusher.coach') && !OWN_KEYS.includes('cowork-device'));
 });
 
 t('the repo carries the MIT licence', () => {

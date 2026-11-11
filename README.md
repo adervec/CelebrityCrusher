@@ -12,7 +12,7 @@ It runs two ways from the same source tree:
 
 ```bash
 node server.mjs          # http://localhost:8787 — SQLite, live Strava/Garmin OAuth
-node test.mjs            # 52 checks, no framework
+node test.mjs            # 54 checks, no framework
 ```
 
 ...or as an installable offline PWA on GitHub Pages, with no server at all. See
@@ -144,6 +144,23 @@ Google for Drive sync, Strava from the local server.
 
 A calendar day is your local day. Activities, plans, milestones and date fields all bucket
 by the local date the session started, so a 21:30 run belongs to that evening.
+
+## Cowork: the feat coach
+
+Connect tab → **Cowork** mounts the shared Cowork engine (`https://adervec.github.io/cowork.js`,
+loaded only when the tab opens). Point it at a folder your Cowork agent can read and it writes:
+
+- `cowork.json`: the manifest (one channel, `coach`).
+- `coach/request.json`: your verdict counts, what is in reach and nearly in reach, the queue,
+  goals and fitness numbers, fingerprinted with a `requestHash`. No name, no activities.
+- `coach/INSTRUCTIONS.md`: what to write back.
+- `BRIEF.md` and `brief.json`: the next attempt and what is in reach, for an agent that wants
+  context without being asked anything.
+
+The agent answers in `coach/reply.json` (`{ requestHash, reply }`). A reply for an older request
+is held back, a reply is never applied twice, and each one waits for your review before it shows
+on the Connect tab; the panel's history can undo it. Review can be switched off in the panel.
+Erase everything removes this app's Cowork state and folder link, not other apps'.
 
 ## How a verdict is decided
 
