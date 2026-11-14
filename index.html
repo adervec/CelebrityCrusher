@@ -14,6 +14,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Crusher">
 <meta name="app-whatsnew" content="whatsnew.json">
+<meta name="app-locales" content="locales/">
 <script src="https://adervec.github.io/font.js"></script>
 <link rel="stylesheet" href="https://adervec.github.io/fonts/fraunces.css">
 <link rel="stylesheet" href="https://adervec.github.io/fonts/newsreader.css">
@@ -24,14 +25,14 @@
 <header class="top">
   <div class="top-row">
     <div>
-      <p class="eyebrow" id="eyebrow">The Celebrity Endurance Ledger, made operational</p>
+      <p class="eyebrow" id="eyebrow" data-t>The Celebrity Endurance Ledger, made operational</p>
       <h1>Celebrity Crusher<span class="dot">.</span></h1>
     </div>
     <div class="spacer"></div>
     <div class="tiny mono dim" id="who-am-i"></div>
-    <button class="btn" id="install" hidden>Install</button>
-    <button class="btn" data-action="sync-all">Sync</button>
-    <app-account title="Google Drive sync"></app-account>
+    <button class="btn" id="install" hidden data-t>Install</button>
+    <button class="btn" data-action="sync-all" data-t>Sync</button>
+    <app-account title="Google Drive sync" data-t-attr="title"></app-account>
   </div>
   <nav id="nav"></nav>
 </header>
@@ -45,8 +46,8 @@
   <section id="view-connect" hidden></section>
 
   <footer>
-    <p><b>How verdicts are decided.</b> <span class="dim">Crushed = your own recorded data already clears the mark. In reach = your current fitness projects past it (Riegel extrapolation off your best efforts, exponent fitted to your own curve). Close = within 10%. Trainable = reachable inside three years at your measured rate of improvement. Logbook = no wearable can prove it; log the attempt with evidence.</span></p>
-    <p class="dim">Times and figures as reported in race results and contemporaneous press; a few circulate in multiple versions and are marked. Ages computed from event date and date of birth. Nothing here is medical advice, and several rows are logistics problems long before they are fitness problems.</p>
+    <p><b data-t>How verdicts are decided.</b> <span class="dim" data-t>Crushed = your own recorded data already clears the mark. In reach = your current fitness projects past it (Riegel extrapolation off your best efforts, exponent fitted to your own curve). Close = within 10%. Trainable = reachable inside three years at your measured rate of improvement. Logbook = no wearable can prove it; log the attempt with evidence.</span></p>
+    <p class="dim" data-t>Times and figures as reported in race results and contemporaneous press; a few circulate in multiple versions and are marked. Ages computed from event date and date of birth. Nothing here is medical advice, and several rows are logistics problems long before they are fitness problems.</p>
   </footer>
 </main>
 

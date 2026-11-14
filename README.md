@@ -12,7 +12,7 @@ It runs two ways from the same source tree:
 
 ```bash
 node server.mjs          # http://localhost:8787 — SQLite, live Strava/Garmin OAuth
-node test.mjs            # 56 checks, no framework
+node test.mjs            # 58 checks, no framework
 ```
 
 ...or as an installable offline PWA on GitHub Pages, with no server at all. See
@@ -144,6 +144,21 @@ Google for Drive sync, Strava from the local server.
 
 A calendar day is your local day. Activities, plans, milestones and date fields all bucket
 by the local date the session started, so a 21:30 run belongs to that evening.
+
+## Languages and units
+
+The interface is written in English and offered in 16 more languages (French, Spanish, Portuguese,
+Italian, Croatian, German, Mandarin, Ukrainian, Esperanto, Swahili, Hindi, Bengali, Indonesian, Urdu,
+Farsi, Arabic), picked under the font picker along with metric or imperial units and shared by every
+app on the site. The 16 are **machine translated and unchecked**, and the app says so. Feat names and
+notes are catalogue content and stay in English.
+
+The English lives in the code as the key: `t('Need {pace} for {dist}', { pace, dist })`, from
+`lib/i18n.js`, which both the engine and the app use. Distances, paces and dates go through the shared
+formatter, so an imperial reader sees miles and minutes per mile everywhere, plans and calendar
+exports included. Translations are in `locales/<lang>.json`. Under `node server.mjs` the verdict
+sentences are written on the server, which has no reader language, so they stay English there; the
+static app translates everything.
 
 ## Cowork: the feat coach
 

@@ -13,6 +13,7 @@ import { importCsv, importGpx, importJson } from '../lib/garmin.js';
 import { demoActivities } from '../lib/demo.js';
 import { logActivity } from './device.js';
 import { cleanBackup } from '../lib/backup.js';
+import { t } from '../lib/i18n.js';
 
 const KEY = 'crusher.v1';
 const now = () => Math.floor(Date.now() / 1000);
@@ -25,7 +26,7 @@ export const localStore = () => ({
   read() { try { return { ...blank(), ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch { return blank(); } },
   write(db) {
     try { localStorage.setItem(KEY, JSON.stringify(db)); }
-    catch { throw new Error('Browser storage is full — export a backup, then clear demo or imported data.'); }
+    catch { throw new Error(t('Browser storage is full — export a backup, then clear demo or imported data.')); }
   },
   clear() { try { localStorage.removeItem(KEY); } catch { /* private mode */ } },
 });
@@ -133,7 +134,7 @@ export function backend(ledger, store, report = () => {}) {
     }
 
     if (method === 'POST' && /^\/sync\//.test(path))
-      throw new Error('Live provider sync needs the local server (OAuth needs a client secret). Import a Strava or Garmin export file instead.');
+      throw new Error(t('Live provider sync needs the local server (OAuth needs a client secret). Import a Strava or Garmin export file instead.'));
 
     if (method === 'POST' && path === '/import/garmin') {
       // json = what tools/garmin-sync.py writes; csv/gpx = what Garmin Connect or Strava exports.
@@ -258,7 +259,7 @@ export function backend(ledger, store, report = () => {}) {
     // ---- attempts
     if (method === 'POST' && path === '/attempts') {
       feat(body.feat_id);
-      if (!/^\d{4}-\d\d-\d\d$/.test(body.date ?? '')) throw new Error('date required, as YYYY-MM-DD');
+      if (!/^\d{4}-\d\d-\d\d$/.test(body.date ?? '')) throw new Error(t('A date is required, as YYYY-MM-DD.'));
       db.attempts.push({
         id: ++db.seq, feat_id: body.feat_id, date: body.date, metric: body.metric || null,
         value: body.value ?? null, unit: body.unit || null, evidence: body.evidence || null,

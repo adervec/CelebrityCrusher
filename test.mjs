@@ -15,35 +15,35 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const NOW = 1789000000;                       // fixed clock: the demo generator is seeded
 let n = 0;
-const t = (name, fn) => { fn(); n++; console.log(`  ok  ${name}`); };
+const check = (name, fn) => { fn(); n++; console.log(`  ok  ${name}`); };
 const ta = async (name, fn) => { await fn(); n++; console.log(`  ok  ${name}`); };
 
 console.log('feats');
-t('dataset loads with unique ids and valid checks', () => {
+check('dataset loads with unique ids and valid checks', () => {
   assert.ok(FEATS.length > 360, `only ${FEATS.length} feats`);
   assert.equal(new Set(FEATS.map(f => f.id)).size, FEATS.length);
   const kinds = new Set(FEATS.map(f => f.check.kind));
   for (const k of kinds) assert.ok(/^(run_time|ride_time|swim_time|row_time|vo2max|swim_distance|ride_distance|distance_window|elev_single|elev_window|streak|duration_single|triathlon|eddington|summit|breath_hold|reps|manual)$/.test(k), `bad kind ${k}`);
 });
-t('every feat has who/title/note and a sane tier', () => {
+check('every feat has who/title/note and a sane tier', () => {
   for (const f of FEATS) {
     assert.ok(f.who && f.title && f.note, `incomplete: ${f.id}`);
     assert.ok(f.tier >= 1 && f.tier <= 5, `tier out of range: ${f.id}`);
   }
 });
-t('the ledger anchors survived the import', () => {
+check('the ledger anchors survived the import', () => {
   assert.equal(BY_ID.get('oprah-winfrey-marathon-1994').check.seconds, 4 * 3600 + 29 * 60 + 20);
   assert.equal(BY_ID.get('gordon-ramsay-marathon-2004').check.seconds, 3 * 3600 + 30 * 60 + 37);
   assert.ok(FEATS.find(f => f.sacred).who.includes('Terry Fox'));
 });
-t('stats add up', () => {
+check('stats add up', () => {
   const s = stats();
   assert.equal(s.computable + s.logbook, s.total);
   assert.ok(s.celebrities > 250, `only ${s.celebrities} names`);
 });
 
 console.log('engine');
-t('riegel scales the way the exponent says', () => {
+check('riegel scales the way the exponent says', () => {
   assert.ok(Math.abs(riegel(3600, 10000, 20000) - 3600 * Math.pow(2, 1.06)) < 1e-6);
   assert.ok(riegel(1200, 5000, 42195) > 1200 * 8);        // marathon is worse than 8× a 5k
 });
@@ -51,7 +51,7 @@ t('riegel scales the way the exponent says', () => {
 const { activities, efforts } = demoActivities(NOW);
 const P = buildProfile(activities, efforts.map(e => ({ ...e })), NOW);
 
-t('demo profile is a plausible amateur', () => {
+check('demo profile is a plausible amateur', () => {
   assert.ok(P.counts.runs > 250, `runs: ${P.counts.runs}`);
   const marathon = P.predictRun(42195);
   assert.ok(marathon > 3 * 3600 && marathon < 4 * 3600, `marathon projection ${fmtDur(marathon)}`);
@@ -60,13 +60,13 @@ t('demo profile is a plausible amateur', () => {
   assert.ok(P.k > 1.0 && P.k < 1.25);
 });
 
-t('measured best efforts beat even-pace reads', () => {
+check('measured best efforts beat even-pace reads', () => {
   const half = P.pbs.find(p => p.distance_m === 21097.5);
   assert.ok(half.measured, 'half PB should come from a measured best effort');
   assert.equal(half.seconds, 5850);
 });
 
-t('verdicts: slower celebrity marathons are crushed, faster ones are not', () => {
+check('verdicts: slower celebrity marathons are crushed, faster ones are not', () => {
   const oprah = judge(BY_ID.get('oprah-winfrey-marathon-1994'), P);
   const styles = judge(BY_ID.get('harry-styles-marathon-2025'), P);
   assert.equal(oprah.status, STATUS.IN_REACH, `oprah ${oprah.status}`);
@@ -74,27 +74,27 @@ t('verdicts: slower celebrity marathons are crushed, faster ones are not', () =>
   assert.ok(styles.eta_weeks > 0);
 });
 
-t('an actual finish outranks the projection', () => {
+check('an actual finish outranks the projection', () => {
   const acts = [...activities, { id: 'x', sport: 'run', start_ts: NOW - 86400, distance_m: 42195, moving_s: 3 * 3600 + 20 * 60, elev_m: 0 }];
   const p2 = buildProfile(acts, efforts, NOW);
   const v = judge(BY_ID.get('gordon-ramsay-marathon-2004'), p2);
   assert.equal(v.status, STATUS.CRUSHED, v.headline);
 });
 
-t('a verified logged attempt crushes anything, including logbook feats', () => {
+check('a verified logged attempt crushes anything, including logbook feats', () => {
   const v = judge(BY_ID.get('kate-winslet-static-breath-hold'), P, [{ verified: 1, date: '2026-01-02', notes: '7:30 in the pool' }]);
   assert.equal(v.status, STATUS.CRUSHED);
   assert.equal(judge(BY_ID.get('kate-winslet-static-breath-hold'), P).status, STATUS.LOGBOOK);
 });
 
-t('rolling-window feats compare against the best window, not the average', () => {
+check('rolling-window feats compare against the best window, not the average', () => {
   const izzard = judge(FEATS.find(f => f.id.startsWith('eddie-izzard-43')), P);
   assert.ok([STATUS.FAR, STATUS.TRAINABLE].includes(izzard.status), izzard.status);
   assert.ok(izzard.gap < 0.5, `43 marathons in 51 days should be far off, gap ${izzard.gap}`);
   assert.ok(izzard.per_day > 30000);
 });
 
-t('a pool swimmer is not one extrapolation away from the Channel', () => {
+check('a pool swimmer is not one extrapolation away from the Channel', () => {
   const v = judge(BY_ID.get('david-walliams-swam-the-english-channel'), P);
   assert.ok(['far', 'trainable'].includes(v.status), `channel came out ${v.status} — check the stretch penalty`);
   assert.ok(v.you > 15 * 3600, `projected ${fmtDur(v.you)} for 34 km on 2.7 km of pool sessions`);
@@ -103,7 +103,7 @@ t('a pool swimmer is not one extrapolation away from the Channel', () => {
   assert.ok(far / 24000 > near / 3000 * 1.3, 'stretch penalty is not biting');
 });
 
-t('a mountain ultra is mostly vertical, and the engine charges for it', () => {
+check('a mountain ultra is mostly vertical, and the engine charges for it', () => {
   const v = judge(BY_ID.get('reference-barkley'), P);
   assert.ok(v.you > 60 * 3600, `Barkley projected at ${fmtDur(v.you)} — the climbing is not being charged`);
   assert.ok(/18,300 m of climbing/.test(v.headline), v.headline);
@@ -113,7 +113,7 @@ t('a mountain ultra is mostly vertical, and the engine charges for it', () => {
   assert.ok(flat.you < v.you * 0.6, 'flat 100 miles should be far cheaper than the Barkley');
 });
 
-t('cross-sport windows compare effort, not raw kilometres', () => {
+check('cross-sport windows compare effort, not raw kilometres', () => {
   assert.equal(effortEquiv({ run_m: 1000 }), 1000);
   assert.equal(effortEquiv({ ride_m: 1000 }), 300);
   assert.equal(effortEquiv({ swim_m: 1000 }), 4000);
@@ -123,12 +123,12 @@ t('cross-sport windows compare effort, not raw kilometres', () => {
   assert.ok(v.target > 100000, `ÖTILLÖ target should be ~105 km run-equivalent, got ${v.target}`);
 });
 
-t('open water costs more than the same distance in a pool', () => {
+check('open water costs more than the same distance in a pool', () => {
   const byron = judge(BY_ID.get('lord-byron-swam-the-hellespont'), P);
   assert.ok(byron.target > 5000 * 1.3, `open-water margin missing: target ${byron.target}`);
 });
 
-t('age grading flips the ones it should', () => {
+check('age grading flips the ones it should', () => {
   assert.equal(ageFactor(30), 1);
   assert.ok(ageFactor(44) < ageFactor(35) && ageFactor(70) < ageFactor(44));
   // USATF MLDR 2025 tables: marathon factor 1.0000 at 29, 0.9455 at 44
@@ -142,7 +142,7 @@ t('age grading flips the ones it should', () => {
   assert.equal(compare(BY_ID.get('bryan-cranston-marathon-1985'), P, null).their_seconds_at_your_age, null);
 });
 
-t('streaks count consecutive days, not volume', () => {
+check('streaks count consecutive days, not volume', () => {
   const daily = [];
   for (let i = 0; i < 40; i++) daily.push({ id: 's' + i, sport: 'run', start_ts: NOW - (40 - i) * 86400, distance_m: 3000, moving_s: 900, elev_m: 0 });
   const p2 = buildProfile(daily, [], NOW);
@@ -152,7 +152,7 @@ t('streaks count consecutive days, not volume', () => {
   assert.equal(judge({ id: 'z', check: { kind: 'streak', sport: 'run', min_m: 1609, days: 30 }, tier: 2 }, p2).status, STATUS.CRUSHED);
 });
 
-t('capacity does not equal having gone and done it', () => {
+check('capacity does not equal having gone and done it', () => {
   // 96 km in 8 days is inside the demo athlete's training, but Kokoda is in Papua New Guinea
   const v = judge(BY_ID.get('reference-kokoda-track'), P);
   assert.equal(v.status, STATUS.IN_REACH);
@@ -165,14 +165,14 @@ t('capacity does not equal having gone and done it', () => {
   assert.equal(judge(BY_ID.get('reference-elev-8848-month'), P).status, STATUS.CRUSHED);
 });
 
-t('VO₂max is estimated from race pace, and grades against itself', () => {
+check('VO₂max is estimated from race pace, and grades against itself', () => {
   assert.ok(P.vo2max > 40 && P.vo2max < 60, `vo2max ${P.vo2max}`);
   assert.equal(judge(BY_ID.get('reference-vo2max-70'), P).status, STATUS.FAR);
   assert.equal(judge(BY_ID.get('reference-vo2max-50'), P).status, STATUS.CLOSE);
   assert.equal(judge(BY_ID.get('reference-vo2max-50'), buildProfile([], [], NOW)).status, STATUS.LOGBOOK);
 });
 
-t('predictions carry a confidence band that widens with worse evidence', () => {
+check('predictions carry a confidence band that widens with worse evidence', () => {
   const near = P.predictBand(21097.5), far = P.predictBand(160934);
   assert.ok(far.pct > near.pct, 'extrapolating further should widen the band');
   assert.ok(near.low < near.mid && near.mid < near.high);
@@ -180,7 +180,7 @@ t('predictions carry a confidence band that widens with worse evidence', () => {
   assert.ok(noRaces.predictBand(42195).pct > P.predictBand(42195).pct);
 });
 
-t('the week-by-week build ramps up, dips and tapers', () => {
+check('the week-by-week build ramps up, dips and tapers', () => {
   const plan = planFor(BY_ID.get('harry-styles-marathon-2025'), P, '2027-03-01', NOW);
   const w = plan.weeks;
   assert.ok(w.length > 20, `only ${w.length} weeks`);
@@ -194,19 +194,19 @@ t('the week-by-week build ramps up, dips and tapers', () => {
   assert.ok(w.some(x => x.phase === 'recovery'), 'no down weeks in the plan');
 });
 
-t('Terry Fox is never a target', () => {
+check('Terry Fox is never a target', () => {
   const v = judge(FEATS.find(f => f.sacred), P, [{ verified: 1, date: '2026-01-01' }]);
   assert.equal(v.status, STATUS.SACRED);
 });
 
-t('triathlon projection sums three sports plus transitions', () => {
+check('triathlon projection sums three sports plus transitions', () => {
   const v = judge(BY_ID.get('gordon-ramsay-ironman-world-championship'), P);
   assert.ok(v.splits, 'expected splits');
   assert.ok(v.you > v.splits.swim + v.splits.bike, 'total should exceed swim+bike');
   assert.ok(v.you > 8 * 3600 && v.you < 24 * 3600, `implausible ironman projection ${fmtDur(v.you)}`);
 });
 
-t('plans quantify what the target actually demands', () => {
+check('plans quantify what the target actually demands', () => {
   const plan = planFor(BY_ID.get('harry-styles-marathon-2025'), P, '2027-09-13', NOW);
   assert.ok(plan.weeks_remaining > 0);
   assert.ok(plan.targets.peak_weekly_km >= 60 && plan.targets.peak_weekly_km <= 120);
@@ -217,21 +217,21 @@ t('plans quantify what the target actually demands', () => {
   assert.ok(window.weeks_needed > 0);
 });
 
-t('no data means no false confidence', () => {
+check('no data means no false confidence', () => {
   const empty = buildProfile([], [], NOW);
   const v = judge(BY_ID.get('oprah-winfrey-marathon-1994'), empty);
   assert.equal(v.status, STATUS.LOGBOOK);
   assert.equal(empty.fitness.ctl, 0);
 });
 
-t('Daniels gives a second opinion and disagreement widens the band', () => {
+check('Daniels gives a second opinion and disagreement widens the band', () => {
   assert.ok(Math.abs(danielsTime(vdot(1200, 5000), 5000) - 1200) < 0.01, 'inverse round-trips');
   const b = P.predictBand(42195);
   assert.ok(b.alt > 2 * 3600 && b.alt < 5 * 3600, `daniels marathon ${b.alt}`);
   assert.equal(P.predictBand(160934).alt, null, 'no Daniels past the range it was fitted on');
 });
 
-t('Eddington number counts days, in either unit', () => {
+check('Eddington number counts days, in either unit', () => {
   const day = i => NOW - i * 86400;
   const rides = Array.from({ length: 30 }, (_, i) => ({ sport: 'ride', start_ts: day(i), distance_m: (i < 10 ? 50 : 5) * 1000, moving_s: 3600 }));
   const p = buildProfile(rides, [], NOW);
@@ -245,7 +245,7 @@ t('Eddington number counts days, in either unit', () => {
   assert.equal(judge(edd, big).status, STATUS.CRUSHED);
 });
 
-t('a logged race time calibrates the model, shrunk toward no change', () => {
+check('a logged race time calibrates the model, shrunk toward no change', () => {
   const base = P.predictRun(42195);
   const attempts = [{ feat_id: 'gordon-ramsay-marathon-2004', date: new Date(NOW * 1000).toISOString().slice(0, 10), value: base * 1.1, unit: 's' }];
   const races = racesFrom(attempts, BY_ID);
@@ -256,7 +256,7 @@ t('a logged race time calibrates the model, shrunk toward no change', () => {
   assert.equal(racesFrom([{ feat_id: 'gordon-ramsay-marathon-2004', date: '2026-01-01' }], BY_ID).length, 0, 'no time, no race');
 });
 
-t('milestones date each crushed feat to the day it fell', () => {
+check('milestones date each crushed feat to the day it fell', () => {
   const ms = milestones(FEATS, activities, efforts.map(e => ({ ...e })), {}, NOW);
   const crushedNow = FEATS.filter(f => judge(f, P).status === STATUS.CRUSHED).length;
   assert.equal(ms.length, crushedNow);
@@ -275,7 +275,7 @@ t('milestones date each crushed feat to the day it fell', () => {
 });
 
 console.log('providers');
-t('garmin CSV parses quoted fields, hh:mm:ss and thousands separators', () => {
+check('garmin CSV parses quoted fields, hh:mm:ss and thousands separators', () => {
   const csv = `Activity Type,Date,Favorite,Title,Distance,Calories,Time,Avg HR,Max HR,Total Ascent,Moving Time
 Running,2026-03-01 07:12:00,false,"Long, slow one",32.10,"2,410",3:01:44,142,168,412,3:00:12
 Cycling,2026-03-02 09:00:00,false,Commute,18.4,520,0:42:10,128,155,88,0:41:30`;
@@ -290,12 +290,12 @@ Cycling,2026-03-02 09:00:00,false,Commute,18.4,520,0:42:10,128,155,88,0:41:30`;
   assert.equal(acts[1].sport, 'ride');
 });
 
-t('imperial CSVs convert', () => {
+check('imperial CSVs convert', () => {
   const csv = `Activity Type,Date,Distance,Time\nRunning,2026-03-01 07:00:00,10.00,1:20:00`;
   assert.equal(Math.round(importCsv(csv, 'imperial')[0].distance_m), 16093);
 });
 
-t('gpx import measures distance, gain and elapsed', () => {
+check('gpx import measures distance, gain and elapsed', () => {
   const pt = (lat, lon, ele, t) => `<trkpt lat="${lat}" lon="${lon}"><ele>${ele}</ele><time>${t}</time></trkpt>`;
   const gpx = `<gpx><trk><name>Test</name><type>running</type><trkseg>
     ${pt(43.0, -79.0, 100, '2026-04-01T08:00:00Z')}
@@ -308,7 +308,7 @@ t('gpx import measures distance, gain and elapsed', () => {
   assert.equal(Math.round(a.elev_m), 20);
 });
 
-t('dedupe collapses the same session arriving from two providers', () => {
+check('dedupe collapses the same session arriving from two providers', () => {
   const s = { sport: 'run', start_ts: 1789000000, distance_m: 10000 };
   const g = { sport: 'run', start_ts: 1789000200, distance_m: 10040 };       // 3 min and 40 m apart
   assert.equal(dedupeKey(s), dedupeKey(g));
@@ -364,7 +364,7 @@ await ta('a logged attempt outranks the model in the browser too', async () => {
   assert.equal((await api('/api/state')).verdicts[manual.id].status, STATUS.LOGBOOK);
   await api('/api/attempts', 'POST', { feat_id: manual.id, date: '2026-04-01', verified: true, evidence: 'video' });
   assert.equal((await api('/api/state')).verdicts[manual.id].status, STATUS.CRUSHED);
-  await assert.rejects(() => api('/api/attempts', 'POST', { feat_id: manual.id }), /date required/);
+  await assert.rejects(() => api('/api/attempts', 'POST', { feat_id: manual.id }), /date is required/);
   await assert.rejects(() => api('/api/attempts', 'POST', { feat_id: 'no-such-feat', date: '2026-04-01' }), /unknown feat/);
 });
 
@@ -408,7 +408,7 @@ await ta('live sync says what a static build cannot do', async () => {
   await assert.rejects(() => fresh()('/api/sync/strava', 'POST', {}), /needs the local server/);
 });
 
-t('the PWA ships every file it promises, all by relative path', () => {
+check('the PWA ships every file it promises, all by relative path', () => {
   const read = f => readFileSync(new URL(f, import.meta.url), 'utf8');
   const manifest = JSON.parse(read('./manifest.webmanifest'));
   for (const size of ['192x192', '512x512'])
@@ -448,7 +448,7 @@ const GARMIN_JSON = JSON.stringify({
   bests: [{ activity_id: 111, distance_m: 5000, seconds: 1180, date: '2026-03-01' }],
 });
 
-t('the garmin-sync.py JSON maps onto the app shape', () => {
+check('the garmin-sync.py JSON maps onto the app shape', () => {
   const { activities, bests } = importJson(GARMIN_JSON);
   assert.equal(activities.length, 3, 'the undated row should have been dropped');
   assert.deepEqual(activities.map(a => a.sport), ['run', 'swim', 'ride']);
@@ -475,7 +475,7 @@ await ta('a watched-folder import lands activities and the measured bests', asyn
   assert.equal(pb5k.seconds, 1180);
 });
 
-t('the folder watcher only claims files that look like ours', () => {
+check('the folder watcher only claims files that look like ours', () => {
   for (const ok of ['crusher-garmin-activities.json', 'Activities.csv', 'garmin_2026.gpx', 'my-activities.JSON'])
     assert.ok(Sync.matchesGarminFile(ok), `should match: ${ok}`);
   for (const no of ['notes.txt', 'budget.json', 'photo.jpg', 'garmin.md'])
@@ -535,7 +535,7 @@ await ta('an empty cloud is not an error, it is just the first sync', async () =
   assert.equal(r.restored, 0);
 });
 
-t('the Google profile picture is drawn beside the account name, https only', () => {
+check('the Google profile picture is drawn beside the account name, https only', () => {
   assert.equal(Sync.avatarUrl({ picture: 'https://lh3.googleusercontent.com/a/x=s96-c' }), 'https://lh3.googleusercontent.com/a/x=s96-c');
   for (const bad of [null, {}, { picture: '' }, { picture: 'javascript:alert(1)' }, { picture: 'http://x/y.png' }]) assert.equal(Sync.avatarUrl(bad), '');
   assert.equal(Sync.googleDriveProvider.accountPicture(), '', 'nothing when signed out');
@@ -543,7 +543,7 @@ t('the Google profile picture is drawn beside the account name, https only', () 
   assert.ok(app.includes('accountPicture') && app.includes("referrerPolicy: 'no-referrer'"));
 });
 
-t('Drive is gated to the origins its client id is registered for', () => {
+check('Drive is gated to the origins its client id is registered for', () => {
   assert.ok(Sync.BUILTIN_DRIVE_CLIENT_ID.endsWith('.apps.googleusercontent.com'));
   assert.equal(Sync.driveClientId({ driveClientId: ' mine-123 ' }), 'mine-123');   // a fork's own id wins
   assert.equal(Sync.driveClientId({}), '');                                        // no `location` in node
@@ -560,7 +560,7 @@ const fakeStorage = init => {
     clear: () => { throw new Error('clearing the whole origin wipes every app on it'); }, m };
 };
 
-t('no third-party requests: fonts are self-hosted on adervec.github.io', () => {
+check('no third-party requests: fonts are self-hosted on adervec.github.io', () => {
   assert.ok(!/fonts.googleapis|fonts.gstatic/.test(readFileSync('./celebrity-marathon-ledger.html', 'utf8')), 'the original ledger page still calls Google Fonts');
   const shell = readFileSync('./index.html', 'utf8');
   assert.ok(!/fonts\.googleapis|fonts\.gstatic|preconnect/.test(shell), 'Google Fonts still referenced');
@@ -617,7 +617,7 @@ await ta('real activity is reported to the maker portal; demo data is not', asyn
   assert.deepEqual(seen[1], [dayStart('2025-04-27') + 12 * 3600, 12600]);
 });
 
-t("what's new is declared, newest first, with real dates", () => {
+check("what's new is declared, newest first, with real dates", () => {
   assert.ok(readFileSync('./index.html', 'utf8').includes('<meta name="app-whatsnew" content="whatsnew.json">'));
   const wn = JSON.parse(readFileSync('./whatsnew.json', 'utf8'));
   assert.ok(Array.isArray(wn) && wn.length, 'whatsnew.json is empty');
@@ -664,7 +664,7 @@ await ta('Cowork: the feat coach channel follows the house standard', async () =
   // the app mounts the shared engine with a described channel, review left on, undo wired, erase covered
   const app = readFileSync('./public/app.js', 'utf8');
   assert.ok(app.includes("src: 'https://adervec.github.io/cowork.js'") && /cw\.mount\(coworkHost/.test(app));
-  for (const k of ["label: 'Feat coach'", 'preview: reply =>', 'apply: reply =>', 'undo: data =>', 'brief: () => coachBrief(S)', 'eraseCoworkFolder()']) assert.ok(app.includes(k), `app.js lacks ${k}`);
+  for (const k of ["label: t('Feat coach')", 'preview: reply =>', 'apply: reply =>', 'undo: data =>', 'brief: () => coachBrief(S)', 'eraseCoworkFolder()']) assert.ok(app.includes(k), `app.js lacks ${k}`);
   assert.ok(!/review:\s*false/.test(app), 'review stays on by default');
   assert.ok(OWN_KEYS.includes('cowork-state:celebritycrusher') && OWN_KEYS.includes('crusher.coach') && !OWN_KEYS.includes('cowork-device'));
 });
@@ -701,7 +701,7 @@ await ta('security: a hostile backup is cut down to known, checked fields', asyn
   assert.ok(/const table = html`<table/.test(readFileSync('./public/app.js', 'utf8')));
 });
 
-t('security: CSP on every page, unguessable OAuth state, least-privilege CI', () => {
+check('security: CSP on every page, unguessable OAuth state, least-privilege CI', () => {
   for (const page of ['./index.html', './celebrity-marathon-ledger.html']) {
     const csp = readFileSync(page, 'utf8').match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1];
     assert.ok(csp, `${page} has no CSP`);
@@ -713,11 +713,53 @@ t('security: CSP on every page, unguessable OAuth state, least-privilege CI', ()
   assert.match(readFileSync('./.github/workflows/ci.yml', 'utf8'), /^permissions:\n  contents: read$/m);
 });
 
-t('the repo carries the MIT licence', () => {
+check('languages: every English string is translated into all 16, placeholders and plurals intact', () => {
+  const shell = readFileSync('./index.html', 'utf8');
+  assert.ok(shell.includes('<meta name="app-locales" content="locales/">') && /data-t>/.test(shell));
+  const en = JSON.parse(readFileSync('./locales/en.json', 'utf8'));
+  const ph = s => [...String(s).matchAll(/\{(\w+)\}/g)].map(m => m[1]).sort().join(',');
+  const LANGS = ['fr', 'es', 'pt', 'it', 'hr', 'de', 'zh', 'uk', 'eo', 'sw', 'hi', 'bn', 'id', 'ur', 'fa', 'ar'];
+  assert.ok(Object.keys(en).length > 400, 'en.json looks unextracted');
+  for (const l of LANGS) {
+    const d = JSON.parse(readFileSync(`./locales/${l}.json`, 'utf8'));
+    const cats = new Intl.PluralRules(l === 'zh' ? 'zh-CN' : l).resolvedOptions().pluralCategories;
+    for (const [k, v] of Object.entries(en)) {
+      if (typeof v === 'string') {
+        assert.ok(typeof d[k] === 'string' && d[k].trim(), `${l}: missing "${k.slice(0, 50)}"`);
+        assert.equal(ph(d[k]), ph(k), `${l}: placeholders differ in "${k.slice(0, 50)}"`);
+      } else {
+        for (const c of cats) assert.ok(d[k]?.[c]?.trim(), `${l}: plural "${k.slice(0, 40)}" lacks ${c}`);
+      }
+    }
+  }
+});
+
+await ta('languages: the engine speaks through t() and the reader\'s units, and stays English/metric in Node', async () => {
+  // Node fallback: identical to the old hand-written formats
+  const I = await import('./lib/i18n.js');
+  assert.equal(I.dist(42195), '42.2 km');
+  assert.equal(I.pace(300), '5:00/km');
+  assert.equal(I.t('Need {pace} for {dist}', { pace: 'a', dist: 'b' }), 'Need a for b');
+  assert.equal(I.t.n('{n} day', '{n} days', 3), '3 days');
+  // with font.js present, the engine's sentences and units come from it
+  globalThis.appFont = {
+    t: Object.assign((k, p) => '«' + k.replace(/\{(\w+)\}/g, (m, x) => p?.[x] ?? m) + '»', { n: (one, other, n, p) => '«' + (n === 1 ? one : other) + '»' }),
+    units: () => 'imperial',
+    fmt: { distance: m => `${(m / 1609.344).toFixed(1)} mi`, number: n => String(n), unit: (v, u) => `${Math.round(v)} ${u}`, percent: x => `${Math.round(x * 100)}%` },
+  };
+  try {
+    const v = judge(BY_ID.get('gordon-ramsay-marathon-2004'), P);
+    assert.match(v.headline, /^«Need .+\/mi» for 26\.2 mi; you project .+»$/, v.headline);
+    assert.ok(planFor(BY_ID.get('gordon-ramsay-marathon-2004'), P, '2027-06-01', NOW).weeks[0].phase_label.startsWith('«'));
+  } finally { delete globalThis.appFont; }
+  assert.ok(!judge(BY_ID.get('gordon-ramsay-marathon-2004'), P).headline.includes('«'), 'fallback restored');
+});
+
+check('the repo carries the MIT licence', () => {
   assert.ok(/^MIT License/.test(readFileSync('./LICENSE', 'utf8')));
 });
 
-t('a calendar day is the local day (TZ=America/Sao_Paulo)', () => {
+check('a calendar day is the local day (TZ=America/Sao_Paulo)', () => {
   // 22:30 local on 10 March is 01:30 UTC on the 11th. Every day the app shows must be the 10th.
   const out = execFileSync(process.execPath, ['--input-type=module', '-e', `
     import { buildProfile, buildWeeks, milestones, localYmd, localDay, dayStr, dayStart } from './lib/engine.js';

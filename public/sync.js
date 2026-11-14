@@ -18,6 +18,8 @@
 
 export const BACKUP_FILE_NAME = 'celebrity-crusher-backup.json';
 
+import { t } from '../lib/i18n.js';
+
 // ---------------------------------------------------------------- handle storage
 // File System Access handles are structured-cloneable but not JSON — they need IndexedDB.
 // ponytail: 20 lines of raw IndexedDB beats a wrapper dependency for one object store.
@@ -70,14 +72,14 @@ async function ensureDirPermission(handle, mode = 'readwrite') {
 // ---------------------------------------------------------------- local folder
 export const localFolderProvider = {
   id: 'localFolder',
-  label: 'Local folder (or a Drive / Dropbox sync folder)',
+  get label() { return t('Local folder (or a Drive / Dropbox sync folder)'); },
   supported: () => typeof window !== 'undefined' && typeof window.showDirectoryPicker === 'function',
   available: () => true,
   async connect() {
     let handle = await getHandle('syncDir');
     if (handle && (await ensureDirPermission(handle))) return handle;
     handle = await window.showDirectoryPicker({ id: 'crusher-sync', mode: 'readwrite' });
-    if (!(await ensureDirPermission(handle))) throw new Error('Folder permission was denied.');
+    if (!(await ensureDirPermission(handle))) throw new Error(t('Folder permission was denied.'));
     await setHandle('syncDir', handle);
     return handle;
   },
@@ -127,7 +129,7 @@ function loadGis() {
     s.src = 'https://accounts.google.com/gsi/client';
     s.async = true;
     s.onload = () => resolve();
-    s.onerror = () => reject(new Error('Could not load Google sign-in.'));
+    s.onerror = () => reject(new Error(t('Could not load Google sign-in.')));
     document.head.appendChild(s);
   });
   return gisLoaded;
@@ -146,7 +148,7 @@ export const avatarUrl = profile => (profile?.picture || '').startsWith('https:/
 async function fetchDriveProfile(token) {
   try {
     const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: `Bearer ${token}` } });
-    if (r.ok) { const j = await r.json(); _driveProfile = { name: j.name || j.email || 'Google account', email: j.email || '', picture: j.picture || '' }; window.appFont?.setAccount(_driveProfile); }
+    if (r.ok) { const j = await r.json(); _driveProfile = { name: j.name || j.email || t('Google account'), email: j.email || '', picture: j.picture || '' }; window.appFont?.setAccount(_driveProfile); }
   } catch { /* cosmetic only */ }
   return _driveProfile;
 }
@@ -159,10 +161,10 @@ function requestToken(clientId, prompt = '') {
         if (resp?.access_token) {
           _driveToken = { value: resp.access_token, exp: Date.now() + ((resp.expires_in || 3600) * 1000) };
           resolve(resp.access_token);
-        } else reject(new Error(resp?.error || 'Sign-in failed.'));
+        } else reject(new Error(resp?.error || t('Sign-in failed.')));
       },
       // Without this a dismissed or blocked popup leaves the promise hanging forever.
-      error_callback: err => reject(new Error(err?.message || err?.type || 'Sign-in was dismissed.')),
+      error_callback: err => reject(new Error(err?.message || err?.type || t('Sign-in was dismissed.'))),
     });
     client.requestAccessToken({ prompt });
   });
@@ -171,19 +173,19 @@ async function driveFind(token, name) {
   const q = encodeURIComponent(`name='${name}' and trashed=false`);
   const r = await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,name,modifiedTime)`,
     { headers: { Authorization: `Bearer ${token}` } });
-  if (!r.ok) throw new Error(`Drive list failed (${r.status}).`);
+  if (!r.ok) throw new Error(t('Drive list failed ({status}).', { status: r.status }));
   return (await r.json()).files?.[0] || null;
 }
 
 export const googleDriveProvider = {
   id: 'googleDrive',
-  label: 'Google Drive (private app folder)',
+  get label() { return t('Google Drive (private app folder)'); },
   supported: () => true,
   available: cfg => (driveClientId(cfg) ? true : { ok: false, reason: 'Google Drive sync is not enabled on this deployment — add your own OAuth client ID below.' }),
   // `silent` (boot, auto-sync) only reuses an existing grant; it never opens a popup.
   async connect(cfg, { silent = false } = {}) {
     const clientId = driveClientId(cfg);
-    if (!clientId) throw new Error('Google Drive sync is not available here.');
+    if (!clientId) throw new Error(t('Google Drive sync is not available here.'));
     if (driveTokenValid()) {
       if (!_driveProfile) await fetchDriveProfile(_driveToken.value);
       return { token: _driveToken.value };
@@ -214,11 +216,11 @@ export const googleDriveProvider = {
         headers: { Authorization: `Bearer ${conn.token}`, 'Content-Type': 'application/json; charset=UTF-8', 'X-Upload-Content-Type': 'application/json' },
         body: JSON.stringify(meta),
       });
-      if (!init.ok) throw new Error(`Drive upload init failed (${init.status}).`);
+      if (!init.ok) throw new Error(t('Drive upload could not start ({status}).', { status: init.status }));
       const session = init.headers.get('Location');
-      if (!session) throw new Error('Drive upload init returned no session URL.');
+      if (!session) throw new Error(t('Drive upload could not start (no session).'));
       const put = await fetch(session, { method: 'PUT', body: blob });
-      if (!put.ok) throw new Error(`Drive upload failed (${put.status}).`);
+      if (!put.ok) throw new Error(t('Drive upload failed ({status}).', { status: put.status }));
       return;
     }
     const form = new FormData();
@@ -228,7 +230,7 @@ export const googleDriveProvider = {
       ? `https://www.googleapis.com/upload/drive/v3/files/${existing}?uploadType=multipart`
       : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
       { method: existing ? 'PATCH' : 'POST', headers: { Authorization: `Bearer ${conn.token}` }, body: form });
-    if (!r.ok) throw new Error(`Drive upload failed (${r.status}).`);
+    if (!r.ok) throw new Error(t('Drive upload failed ({status}).', { status: r.status }));
   },
   async download(conn, name) {
     const id = (await driveFind(conn.token, name))?.id || null;
@@ -256,10 +258,10 @@ const resolve = p => (typeof p === 'string' ? getSyncProvider(p) : p);
 
 async function ready(providerOrId, cfg) {
   const p = resolve(providerOrId);
-  if (!p) throw new Error('Unknown sync target.');
-  if (!p.supported()) throw new Error('This browser cannot use that sync target.');
+  if (!p) throw new Error(t('Unknown sync target.'));
+  if (!p.supported()) throw new Error(t('This browser cannot use that sync target.'));
   const gate = p.available(cfg);
-  if (gate !== true) throw new Error(gate.reason || 'That sync target is not available.');
+  if (gate !== true) throw new Error(gate.reason || t('That sync target is not available.'));
   return p;
 }
 
@@ -279,7 +281,7 @@ export async function restoreFrom(providerOrId, cfg, api, opts = {}) {
   if (!blob) return { at: Date.now(), restored: 0, empty: true };
   let bundle;
   try { bundle = JSON.parse(await blob.text()); }
-  catch { throw new Error('The sync file is corrupt or incomplete — back up again from a device that has your data.'); }
+  catch { throw new Error(t('The sync file is corrupt or incomplete — back up again from a device that has your data.')); }
   const r = await api('/api/restore', { body: bundle });
   return { at: Date.now(), restored: r.restored || 0 };
 }
@@ -320,9 +322,9 @@ export const garminFolderSupported = () => typeof window !== 'undefined' && type
 export const garminFolderName = async () => (await getHandle('garminDir'))?.name || null;
 
 export async function pickGarminFolder() {
-  if (!garminFolderSupported()) throw new Error('This browser has no directory picker — use the file import instead.');
+  if (!garminFolderSupported()) throw new Error(t('This browser has no directory picker — use the file import instead.'));
   const dir = await window.showDirectoryPicker({ id: 'crusher-garmin', mode: 'read' });
-  if (!(await ensureDirPermission(dir, 'read'))) throw new Error('Folder permission was denied.');
+  if (!(await ensureDirPermission(dir, 'read'))) throw new Error(t('Folder permission was denied.'));
   await setHandle('garminDir', dir);
   return dir.name;
 }

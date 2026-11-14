@@ -179,7 +179,8 @@ const server = createServer(async (req, res) => {
       const p = path === '/' ? '/index.html' : path;
       const ok = /^\/(index\.html|celebrity-marathon-ledger\.html|manifest\.webmanifest|whatsnew\.json|sw\.js|icon\.svg|icon-\d+\.png)$/.test(p)
         || /^\/(public|lib)\/[\w-]+\.(m?js|css)$/.test(p)
-        || /^\/data\/[\w-]+\.json$/.test(p);        // .json only, never the local crusher.db
+        || /^\/data\/[\w-]+\.json$/.test(p)         // .json only, never the local crusher.db
+        || /^\/locales\/[a-z]{2}\.json$/.test(p);   // translations, for font.js
       if (ok) return send(res, join(ROOT, p.slice(1)), p === '/index.html');
     }
 
@@ -375,7 +376,7 @@ const server = createServer(async (req, res) => {
     if (m('POST', /^\/api\/attempts$/)) {
       const b = await body(req);
       if (!BY_ID.has(b.feat_id)) return json(res, { error: 'unknown feat' }, 400);
-      if (!/^\d{4}-\d\d-\d\d$/.test(b.date ?? '')) return json(res, { error: 'date required, as YYYY-MM-DD' }, 400);
+      if (!/^\d{4}-\d\d-\d\d$/.test(b.date ?? '')) return json(res, { error: 'A date is required, as YYYY-MM-DD.' }, 400);
       DB.run(db, `INSERT INTO attempts (feat_id, date, metric, value, unit, evidence, verified, notes, created_ts) VALUES (?,?,?,?,?,?,?,?,?)`,
         b.feat_id, b.date, b.metric || null, b.value ?? null, b.unit || null, b.evidence || null, b.verified ? 1 : 0, b.notes || null, now());
       return json(res, DB.all(db, 'SELECT * FROM attempts ORDER BY date DESC'));
