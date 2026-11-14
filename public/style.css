@@ -39,14 +39,16 @@ h2:first-child{margin-top:0}
 
 /* ---------- cards & stats ---------- */
 .grid{display:grid;gap:1rem}
+.grid>*{min-width:0}                      /* let a grid cell shrink below its content on a phone */
 .stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:1.4rem}
 .stat{background:var(--panel);border:1px solid var(--hairline);padding:.85rem .9rem;border-radius:2px}
 .stat .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint)}
 .stat .v{font-family:var(--display);font-size:1.9rem;line-height:1.15;margin-top:.25rem}
 .stat .sub{font-size:.8rem;color:var(--bone-dim)}
 .stat.accent .v{color:var(--ember)}
-.card{background:var(--panel);border:1px solid var(--hairline);padding:1rem;border-radius:2px}
-.cards{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--panel);border:1px solid var(--hairline);padding:1rem;border-radius:2px;overflow-x:auto}   /* a wide table scrolls inside its card, never the page */
+.scroll-x{overflow-x:auto;max-width:100%}
+.cards{grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr))}
 .split{grid-template-columns:1.3fr 1fr}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
 
@@ -82,7 +84,8 @@ tr.detail td{background:var(--panel);border-bottom:2px solid var(--hairline);pad
 .controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
 input[type=text],input[type=date],input[type=number],select,textarea{background:var(--panel-2);border:1px solid var(--hairline);
   color:var(--bone);padding:.4rem .55rem;border-radius:2px;font-size:.85rem;font-family:var(--mono)}
-input[type=text]{min-width:220px}
+input[type=text]{min-width:min(220px,100%)}
+input,select,textarea,label.field{max-width:100%}
 .btn{background:var(--panel-2);border:1px solid var(--hairline);color:var(--bone);padding:.4rem .7rem;border-radius:2px;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .btn:hover{border-color:var(--ember);color:var(--ember)}
@@ -131,3 +134,21 @@ svg .grid-line{stroke:var(--hairline);stroke-dasharray:2 3}
   padding:.6rem .9rem;font-family:var(--mono);font-size:.8rem;z-index:50;max-width:420px}
 .toast[hidden]{display:none}
 footer{border-top:1px solid var(--hairline);margin-top:3rem;padding:1.2rem 0;color:var(--bone-faint);font-size:.82rem}
+
+/* ---------- phone: the header gives the screen back, the nav swipes, tables drop optional columns ---------- */
+@media(max-width:600px){
+  header.top{position:static;padding:1rem 1rem .4rem;background:var(--soot)}
+  #eyebrow{display:none}
+  nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:.6rem}
+  nav::-webkit-scrollbar{display:none}
+  nav button{white-space:nowrap;padding:.45rem .6rem}
+  main{padding:1rem}
+  .opt{display:none}
+  td.val{white-space:normal}
+  /* the ledger: fixed columns that wrap, so an opened row reads inside the screen */
+  .ledger{table-layout:fixed}
+  .ledger th{white-space:normal}
+  .ledger td{overflow-wrap:break-word}
+  .ledger td.val{font-size:.72rem}
+  .ledger th:nth-child(1){width:29%} .ledger th:nth-child(2){width:27%} .ledger th:nth-child(3){width:20%} .ledger th:nth-child(5){width:24%}
+}

@@ -229,7 +229,7 @@ function forecast() {
 
 const featRow = (f, v) => `<tr class="row" data-action="goto-feat" data-feat="${f.id}">
   <td class="who">${esc(f.who)}<div class="tiny dim">${esc(f.title)}</div></td>
-  <td class="val tiny">${esc(f.display || '')}</td>
+  <td class="val tiny opt">${esc(f.display || '')}</td>
   <td style="width:130px">${gapBar(v.gap)}<div class="tiny faint mono">${pct(v.gap)}${v.eta_weeks ? ` · ${v.eta_weeks}w` : ''}</div></td>
   <td class="num">${chip(v.status)}</td></tr>`;
 
@@ -314,10 +314,10 @@ function ledger() {
       <button class="btn ghost" data-action="export-csv">Export CSV</button>
       <span class="tiny faint mono">${rows.length} shown</span>
     </div>
-    <table>
-      <thead><tr><th>Name</th><th>Feat</th><th>The numbers</th><th class="num">Age</th><th>Verdict</th><th>Gap</th><th></th></tr></thead>
+    <div class="scroll-x"><table class="ledger">
+      <thead><tr><th>Name</th><th>Feat</th><th>The numbers</th><th class="num opt">Age</th><th>Verdict</th><th class="opt">Gap</th><th class="opt"></th></tr></thead>
       <tbody>${rows.map(rowHtml).join('')}</tbody>
-    </table>`;
+    </table></div>`;
   for (const [id, key, ev] of [['q', 'q', 'input'], ['cat', 'cat', 'change'], ['disc', 'disc', 'change'], ['status', 'status', 'change'], ['sort', 'sort', 'change'], ['tier', 'tier', 'change']])
     $('#' + id).addEventListener(ev, e => { ui.filters[key] = e.target.value; ledger(); if (ev === 'input') $('#q').focus(); });
   for (const id of ['refs', 'computable'])
@@ -348,10 +348,10 @@ function rowHtml(f) {
     <td class="who">${esc(f.who)}${f.proAsterisk ? '<span class="sup">†</span>' : ''}${f.flag ? ` <span class="tiny faint">${f.flag}</span>` : ''}<div class="tiny faint">${esc(f.category)}</div></td>
     <td>${esc(f.title)}${f.approx ? '<span class="sup">*</span>' : ''}<div class="tiny faint">${esc(f.event || '')}</div></td>
     <td class="val">${esc(f.display || '')}</td>
-    <td class="num mono tiny">${f.age ?? esc(f.ageLabel || '—')}</td>
+    <td class="num mono tiny opt">${f.age ?? esc(f.ageLabel || '—')}</td>
     <td>${chip(v.status)}${f.gated || f.logistics ? ' <span class="chip s-far">Gated</span>' : ''}</td>
-    <td style="width:120px">${gapBar(v.gap)}<div class="tiny faint mono">${v.gap != null ? pct(v.gap) : ''}${v.eta_weeks ? ` · ${v.eta_weeks}w` : ''}</div></td>
-    <td class="num tiny faint mono">${open ? '▾' : '▸'}</td>
+    <td class="opt" style="width:120px">${gapBar(v.gap)}<div class="tiny faint mono">${v.gap != null ? pct(v.gap) : ''}${v.eta_weeks ? ` · ${v.eta_weeks}w` : ''}</div></td>
+    <td class="num tiny faint mono opt">${open ? '▾' : '▸'}</td>
   </tr>
   ${open ? `<tr class="detail" data-detail="${f.id}"><td colspan="7"><div id="d-${cssId(f.id)}">loading…</div></td></tr>` : ''}`;
 }
@@ -381,7 +381,7 @@ async function hydrateDetail(featId) {
     ${attempts.length ? `<p class="tiny dim" style="margin-top:.6rem">Logged: ${attempts.map(a => `${esc(a.date)}${a.verified ? ' ✓' : ''}`).join(', ')}</p>` : ''}
     <div class="controls" style="margin-top:.9rem">
       <button class="btn ${queued ? '' : 'primary'}" data-action="queue-add" data-feat="${featId}" ${queued ? 'disabled' : ''}>${queued ? 'In queue' : 'Add to queue'}</button>
-      <input type="date" id="gd-${cssId(featId)}" value="${goal?.target_date || ''}">
+      <input type="date" id="gd-${cssId(featId)}" value="${esc(goal?.target_date || '')}">
       <button class="btn" data-action="goal-add" data-feat="${featId}">${goal ? 'Update goal' : 'Set as goal'}</button>
       <button class="btn ghost" data-action="attempt-form" data-feat="${featId}">Log attempt</button>
       <button class="btn ghost" data-action="pin-rival" data-feat="${featId}">${S.athlete?.settings?.rival === featId ? 'Unpin rival' : 'Pin as rival'}</button>
@@ -413,7 +413,7 @@ function queueView() {
             <select data-action="q-status" data-id="${q.id}">
               ${['queued', 'training', 'scheduled', 'attempted', 'crushed', 'abandoned'].map(s => `<option ${q.status === s ? 'selected' : ''}>${s}</option>`).join('')}
             </select>
-            <input type="date" data-action="q-date" data-id="${q.id}" value="${q.target_date || ''}">
+            <input type="date" data-action="q-date" data-id="${q.id}" value="${esc(q.target_date || '')}">
             ${chip(v.status)}
             ${v.eta_weeks ? `<span class="tiny faint mono">${v.eta_weeks} weeks at current trend</span>` : ''}
           </div>
@@ -421,7 +421,7 @@ function queueView() {
         <div class="qactions">
           <button class="btn ghost" data-action="q-move" data-id="${q.id}" data-dir="up">↑</button>
           <button class="btn ghost" data-action="q-move" data-id="${q.id}" data-dir="down">↓</button>
-          <button class="btn" data-action="goal-from-queue" data-feat="${f.id}" data-date="${q.target_date || ''}">Make goal</button>
+          <button class="btn" data-action="goal-from-queue" data-feat="${f.id}" data-date="${esc(q.target_date || '')}">Make goal</button>
           <button class="btn ghost" data-action="q-remove" data-id="${q.id}">✕</button>
         </div>
       </div>`).join('')
@@ -454,11 +454,11 @@ async function goalsView() {
     return `<div class="goal">
       <div class="head">
         <h3>${esc(f.who)} — ${esc(f.title)} <span class="mono dim" style="font-size:.9rem">${esc(f.display || '')}</span></h3>
-        <div>${chip(v.status)} <span class="tiny mono faint">${g.status}</span></div>
+        <div>${chip(v.status)} <span class="tiny mono faint">${esc(g.status)}</span></div>
       </div>
       <p class="tiny dim">${esc(v.headline)}</p>
       <div class="kv">
-        <div><div class="k">Target date</div><div class="v"><input type="date" data-action="goal-date" data-id="${g.id}" value="${g.target_date || ''}"></div></div>
+        <div><div class="k">Target date</div><div class="v"><input type="date" data-action="goal-date" data-id="${g.id}" value="${esc(g.target_date || '')}"></div></div>
         ${weeks != null ? `<div><div class="k">Weeks remaining</div><div class="v">${weeks}</div></div>` : ''}
         ${need != null ? `<div><div class="k">Weeks needed</div><div class="v">${need}</div></div>` : ''}
         ${ready != null ? `<div><div class="k">Margin</div><div class="v" style="color:${ready >= 0 ? 'var(--crushed)' : 'var(--close)'}">${ready >= 0 ? '+' : ''}${ready} wk</div></div>` : ''}
@@ -576,13 +576,19 @@ async function drawMilestones() {
   const ms = await api('/api/milestones', { method: 'GET' }).catch(() => []);
   const box = $('#milestones');
   if (!box) return;                                   // tab changed while it was replaying
+  // appFont.html (font.js) escapes every ${…}; fragments it built itself nest as markup.
+  const html = appFont.html;
   let year = '';
-  box.innerHTML = ms.length ? `<table class="tiny"><tbody>${ms.map(m => {
-    const f = S.feats.find(x => x.id === m.feat_id), y = m.date.slice(0, 4), head = y !== year ? `<tr><td colspan="3" class="eyebrow" style="padding-top:.8rem">${year = y}</td></tr>` : '';
-    return f ? `${head}<tr class="row" data-action="goto-feat" data-feat="${f.id}"><td class="mono faint">${m.date}</td>
-      <td><b>${esc(f.who)}</b> <span class="dim">${esc(f.title)}</span> <span class="mono faint">${esc(f.display || '')}</span>${m.logged ? ' <span class="chip s-logbook">logged</span>' : ''}</td>
-      <td class="dim">${esc(m.headline)}</td></tr>` : '';
-  }).join('')}</tbody></table>` : '<p class="dim tiny">Nothing crushed yet.</p>';
+  const rows = ms.map(m => {
+    const f = S.feats.find(x => x.id === m.feat_id), y = String(m.date).slice(0, 4);
+    if (!f) return html``;
+    const head = y !== year ? html`<tr><td colspan="3" class="eyebrow" style="padding-top:.8rem">${year = y}</td></tr>` : html``;
+    return html`${head}<tr class="row" data-action="goto-feat" data-feat="${f.id}"><td class="mono faint">${m.date}</td>
+      <td><b>${f.who}</b> <span class="dim">${f.title}</span> <span class="mono faint">${f.display || ''}</span>${m.logged ? html` <span class="chip s-logbook">logged</span>` : ''}</td>
+      <td class="dim">${m.headline}</td></tr>`;
+  });
+  const table = html`<table class="tiny"><tbody>${rows}</tbody></table>`;
+  box.innerHTML = ms.length ? table : '<p class="dim tiny">Nothing crushed yet.</p>';
 }
 
 function drawForecast() {
@@ -710,7 +716,7 @@ function connect() {
     <h2>Cowork</h2>
     <p class="dek">Hand your numbers to an AI agent through a shared folder (Claude Cowork works from it) and get a feat coach's advice back: what to attempt next, a four-week focus, one risk to watch. You review each reply before it is shown here, and can undo it from the panel's history.</p>
     <div id="cowork-slot"></div>
-    <div class="card coach-reply" id="coach-reply" hidden><p class="eyebrow">Feat coach</p><div class="coach-text"></div></div>
+    <div class="card coach-reply" id="coach-reply" hidden><p class="eyebrow">Feat coach</p><div class="coach-text" data-clamp></div></div>
 
     <h2>Backup</h2>
     <p class="dek">Everything you typed — queue, goals, logged attempts, imported activities — as one JSON file. Provider data is not included; it re-syncs.</p>

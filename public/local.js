@@ -12,6 +12,7 @@ import { buildProfile, judge, planFor, compare, dedupeKey, racesFrom, milestones
 import { importCsv, importGpx, importJson } from '../lib/garmin.js';
 import { demoActivities } from '../lib/demo.js';
 import { logActivity } from './device.js';
+import { cleanBackup } from '../lib/backup.js';
 
 const KEY = 'crusher.v1';
 const now = () => Math.floor(Date.now() / 1000);
@@ -180,24 +181,19 @@ export function backend(ledger, store, report = () => {}) {
     };
 
     if (method === 'POST' && path === '/restore') {
-      if (body.version !== 1) throw new Error('unrecognised backup version');
+      body = cleanBackup(body, BY_ID);                       // outside data: known fields only, checked
       let n = 0;
-      if (body.athlete) {
-        const s = body.athlete.settings;
-        db.athlete = { ...db.athlete, ...body.athlete, settings: typeof s === 'string' ? JSON.parse(s || '{}') : (s || {}) };
-      }
-      for (const q of body.queue || []) if (BY_ID.has(q.feat_id) && !db.queue.some(x => x.feat_id === q.feat_id))
+      if (body.athlete) db.athlete = { ...db.athlete, ...body.athlete };
+      for (const q of body.queue) if (!db.queue.some(x => x.feat_id === q.feat_id))
         { db.queue.push({ ...q, id: ++db.seq, created_ts: q.created_ts || now() }); n++; }
       // Cloud sync restores on every pull, so the same row arriving twice must land once:
       // a goal is identified by feat + date, an attempt by feat + date + metric.
       const same = (x, y) => (x ?? '') === (y ?? '');
-      for (const g of body.goals || []) if (BY_ID.has(g.feat_id)
-        && !db.goals.some(x => x.feat_id === g.feat_id && same(x.target_date, g.target_date)))
+      for (const g of body.goals) if (!db.goals.some(x => x.feat_id === g.feat_id && same(x.target_date, g.target_date)))
         { db.goals.push({ ...g, id: ++db.seq, created_ts: g.created_ts || now() }); n++; }
-      for (const a of body.attempts || []) if (BY_ID.has(a.feat_id)
-        && !db.attempts.some(x => x.feat_id === a.feat_id && x.date === a.date && same(x.metric, a.metric)))
+      for (const a of body.attempts) if (!db.attempts.some(x => x.feat_id === a.feat_id && x.date === a.date && same(x.metric, a.metric)))
         { db.attempts.push({ ...a, id: ++db.seq, created_ts: a.created_ts || now() }); n++; }
-      if (body.manual_activities?.length) n += upsertActivities(db, body.manual_activities);
+      n += upsertActivities(db, body.manual_activities);
       save();
       return { restored: n };
     }
@@ -262,7 +258,7 @@ export function backend(ledger, store, report = () => {}) {
     // ---- attempts
     if (method === 'POST' && path === '/attempts') {
       feat(body.feat_id);
-      if (!body.date) throw new Error('date required');
+      if (!/^\d{4}-\d\d-\d\d$/.test(body.date ?? '')) throw new Error('date required, as YYYY-MM-DD');
       db.attempts.push({
         id: ++db.seq, feat_id: body.feat_id, date: body.date, metric: body.metric || null,
         value: body.value ?? null, unit: body.unit || null, evidence: body.evidence || null,

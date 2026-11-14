@@ -7,6 +7,10 @@ on:
 
 # House standard: nothing reaches the live site unless the checks passed.
 # (Repo Settings -> Pages -> Source is "GitHub Actions".)
+# Least privilege by default; the jobs that publish or tag ask for more themselves.
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true

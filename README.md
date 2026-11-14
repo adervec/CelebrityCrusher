@@ -12,7 +12,7 @@ It runs two ways from the same source tree:
 
 ```bash
 node server.mjs          # http://localhost:8787 — SQLite, live Strava/Garmin OAuth
-node test.mjs            # 54 checks, no framework
+node test.mjs            # 56 checks, no framework
 ```
 
 ...or as an installable offline PWA on GitHub Pages, with no server at all. See

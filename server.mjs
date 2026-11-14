@@ -12,6 +12,7 @@ import * as garmin from './lib/garmin.js';
 import { FEATS, BY_ID, stats as featStats } from './lib/feats.js';
 import { buildProfile, judge, planFor, compare, fmtDur, fmtKm, STATUS, racesFrom, milestones } from './lib/engine.js';
 import { demoActivities } from './lib/demo.js';
+import { cleanBackup } from './lib/backup.js';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const PORT = +(process.env.PORT || 8787);
@@ -176,7 +177,7 @@ const server = createServer(async (req, res) => {
     // ---- static: exactly the tree GitHub Pages serves, so one shell covers both.
     if (req.method === 'GET') {
       const p = path === '/' ? '/index.html' : path;
-      const ok = /^\/(index\.html|manifest\.webmanifest|sw\.js|icon\.svg|icon-\d+\.png)$/.test(p)
+      const ok = /^\/(index\.html|celebrity-marathon-ledger\.html|manifest\.webmanifest|whatsnew\.json|sw\.js|icon\.svg|icon-\d+\.png)$/.test(p)
         || /^\/(public|lib)\/[\w-]+\.(m?js|css)$/.test(p)
         || /^\/data\/[\w-]+\.json$/.test(p);        // .json only, never the local crusher.db
       if (ok) return send(res, join(ROOT, p.slice(1)), p === '/index.html');
@@ -185,7 +186,7 @@ const server = createServer(async (req, res) => {
     // ---- oauth: strava
     if (m('GET', /^\/connect\/strava$/)) {
       if (!strava.configured()) return json(res, { error: 'Set STRAVA_CLIENT_ID and STRAVA_CLIENT_SECRET in .env' }, 400);
-      const state = Math.random().toString(36).slice(2);
+      const state = crypto.randomUUID();     // unguessable: it is what stops a forged OAuth callback
       pending.set(state, { provider: 'strava' });
       return redirect(res, strava.authUrl(`${ORIGIN}/oauth/strava/callback`, state));
     }
@@ -205,7 +206,7 @@ const server = createServer(async (req, res) => {
     // ---- oauth: garmin
     if (m('GET', /^\/connect\/garmin$/)) {
       if (!garmin.configured()) return json(res, { error: 'Garmin API keys not set — use CSV/GPX import instead' }, 400);
-      const state = Math.random().toString(36).slice(2);
+      const state = crypto.randomUUID();     // unguessable: it is what stops a forged OAuth callback
       const { verifier, challenge } = await garmin.pkce();
       pending.set(state, { provider: 'garmin', verifier });
       return redirect(res, garmin.authUrl(`${ORIGIN}/oauth/garmin/callback`, state, challenge));
@@ -286,28 +287,27 @@ const server = createServer(async (req, res) => {
       });
     }
     if (m('POST', /^\/api\/restore$/)) {
-      const b = await body(req);
-      if (b.version !== 1) return json(res, { error: 'unrecognised backup version' }, 400);
+      let b;
+      try { b = cleanBackup(await body(req), BY_ID); }        // outside data: known fields only, checked
+      catch (e) { return json(res, { error: e.message }, 400); }
       let n = 0;
       if (b.athlete) DB.run(db, `UPDATE athlete SET name=?, sex=?, birth_year=?, weight_kg=?, settings=? WHERE id=1`,
-        b.athlete.name ?? null, b.athlete.sex ?? null, b.athlete.birth_year ?? null, b.athlete.weight_kg ?? null, b.athlete.settings || '{}');
-      for (const q of b.queue || []) if (BY_ID.has(q.feat_id)) {
+        b.athlete.name, b.athlete.sex, b.athlete.birth_year, b.athlete.weight_kg, JSON.stringify(b.athlete.settings));
+      for (const q of b.queue) {
         n += DB.run(db, `INSERT OR IGNORE INTO queue (feat_id, position, status, target_date, notes, created_ts) VALUES (?,?,?,?,?,?)`,
           q.feat_id, q.position, q.status, q.target_date, q.notes, q.created_ts || now()).changes;   // already queued = not restored
       }
       // Cloud sync restores on every pull, so the same row arriving twice must land once:
       // a goal is identified by feat + date, an attempt by feat + date + metric.
-      for (const g of b.goals || []) if (BY_ID.has(g.feat_id)
-        && !DB.one(db, `SELECT 1 x FROM goals WHERE feat_id=? AND IFNULL(target_date,'')=IFNULL(?,'')`, g.feat_id, g.target_date ?? null)) {
+      for (const g of b.goals) if (!DB.one(db, `SELECT 1 x FROM goals WHERE feat_id=? AND IFNULL(target_date,'')=IFNULL(?,'')`, g.feat_id, g.target_date ?? null)) {
         DB.run(db, `INSERT INTO goals (feat_id, target_date, status, notes, created_ts) VALUES (?,?,?,?,?)`,
           g.feat_id, g.target_date, g.status, g.notes, g.created_ts || now()); n++;
       }
-      for (const a of b.attempts || []) if (BY_ID.has(a.feat_id)
-        && !DB.one(db, `SELECT 1 x FROM attempts WHERE feat_id=? AND date=? AND IFNULL(metric,'')=IFNULL(?,'')`, a.feat_id, a.date, a.metric ?? null)) {
+      for (const a of b.attempts) if (!DB.one(db, `SELECT 1 x FROM attempts WHERE feat_id=? AND date=? AND IFNULL(metric,'')=IFNULL(?,'')`, a.feat_id, a.date, a.metric ?? null)) {
         DB.run(db, `INSERT INTO attempts (feat_id, date, metric, value, unit, evidence, verified, notes, created_ts) VALUES (?,?,?,?,?,?,?,?,?)`,
           a.feat_id, a.date, a.metric, a.value, a.unit, a.evidence, a.verified ? 1 : 0, a.notes, a.created_ts || now()); n++;
       }
-      if (b.manual_activities?.length) n += DB.upsertActivities(db, b.manual_activities);
+      n += DB.upsertActivities(db, b.manual_activities);
       return json(res, { restored: n });
     }
 
@@ -375,7 +375,7 @@ const server = createServer(async (req, res) => {
     if (m('POST', /^\/api\/attempts$/)) {
       const b = await body(req);
       if (!BY_ID.has(b.feat_id)) return json(res, { error: 'unknown feat' }, 400);
-      if (!b.date) return json(res, { error: 'date required' }, 400);
+      if (!/^\d{4}-\d\d-\d\d$/.test(b.date ?? '')) return json(res, { error: 'date required, as YYYY-MM-DD' }, 400);
       DB.run(db, `INSERT INTO attempts (feat_id, date, metric, value, unit, evidence, verified, notes, created_ts) VALUES (?,?,?,?,?,?,?,?,?)`,
         b.feat_id, b.date, b.metric || null, b.value ?? null, b.unit || null, b.evidence || null, b.verified ? 1 : 0, b.notes || null, now());
       return json(res, DB.all(db, 'SELECT * FROM attempts ORDER BY date DESC'));
