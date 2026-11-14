@@ -1,24 +1,30 @@
 [
-  {
-    "date": "2026-11-10",
-    "items": [
-      "Feat coach through Cowork, on the Connect tab: share your numbers with an AI agent through a folder and get back what to attempt next, a four-week focus and one risk to watch. You review each reply before it shows, and can undo it.",
-      "Dates follow your own clock: a late-evening run now counts for that day, not tomorrow.",
-      "Erase everything, on the Connect tab, removes your data from this device in one step. Your Google Drive or sync-folder copy is kept.",
-      "Your Google profile picture shows beside your account when Drive sync is connected.",
-      "Choose your reading font on the Connect tab. Atkinson Hyperlegible is the new default.",
-      "Fonts now load from this site only, so nothing else is contacted when you open the app."
-    ]
-  },
-  {
-    "date": "2026-11-09",
-    "items": [
-      "A second opinion on every race projection: Daniels VDOT sits beside the main estimate, and the range widens when they disagree.",
-      "Age comparisons use the official 2025 USATF masters road tables, for men or women, chosen on the Connect tab.",
-      "Log a finish time with an attempt and future projections calibrate to what you actually ran.",
-      "Milestones on Analytics: the day each feat fell, replayed from your history.",
-      "Eddington numbers for running and riding, and a new feat: Sir Arthur Eddington's E = 84 miles.",
-      "Share card: save your crushed count and headline numbers as an image."
-    ]
-  }
+ {
+  "date": "2026-11-13",
+  "items": [
+   "While Google Drive sync is on, your Google picture now sits at the top of the app on every screen, so you can always see which account is syncing. Tap it to open the sync settings."
+  ]
+ },
+ {
+  "date": "2026-11-10",
+  "items": [
+   "Feat coach through Cowork, on the Connect tab: share your numbers with an AI agent through a folder and get back what to attempt next, a four-week focus and one risk to watch. You review each reply before it shows, and can undo it.",
+   "Dates follow your own clock: a late-evening run now counts for that day, not tomorrow.",
+   "Erase everything, on the Connect tab, removes your data from this device in one step. Your Google Drive or sync-folder copy is kept.",
+   "Your Google profile picture shows beside your account when Drive sync is connected.",
+   "Choose your reading font on the Connect tab. Atkinson Hyperlegible is the new default.",
+   "Fonts now load from this site only, so nothing else is contacted when you open the app."
+  ]
+ },
+ {
+  "date": "2026-11-09",
+  "items": [
+   "A second opinion on every race projection: Daniels VDOT sits beside the main estimate, and the range widens when they disagree.",
+   "Age comparisons use the official 2025 USATF masters road tables, for men or women, chosen on the Connect tab.",
+   "Log a finish time with an attempt and future projections calibrate to what you actually ran.",
+   "Milestones on Analytics: the day each feat fell, replayed from your history.",
+   "Eddington numbers for running and riding, and a new feat: Sir Arthur Eddington's E = 84 miles.",
+   "Share card: save your crushed count and headline numbers as an image."
+  ]
+ }
 ]

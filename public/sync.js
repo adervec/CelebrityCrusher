@@ -146,7 +146,7 @@ export const avatarUrl = profile => (profile?.picture || '').startsWith('https:/
 async function fetchDriveProfile(token) {
   try {
     const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: `Bearer ${token}` } });
-    if (r.ok) { const j = await r.json(); _driveProfile = { name: j.name || j.email || 'Google account', email: j.email || '', picture: j.picture || '' }; }
+    if (r.ok) { const j = await r.json(); _driveProfile = { name: j.name || j.email || 'Google account', email: j.email || '', picture: j.picture || '' }; window.appFont?.setAccount(_driveProfile); }
   } catch { /* cosmetic only */ }
   return _driveProfile;
 }
@@ -201,7 +201,7 @@ export const googleDriveProvider = {
   async isConnected() { return driveTokenValid(); },
   async accountLabel() { return _driveProfile?.email || _driveProfile?.name || null; },
   accountPicture() { return avatarUrl(_driveProfile); },
-  async disconnect() { _driveToken = null; _driveProfile = null; },
+  async disconnect() { _driveToken = null; _driveProfile = null; window.appFont?.setAccount(null); },
   async upload(conn, name, blob) {
     const existing = (await driveFind(conn.token, name))?.id || null;
     const meta = existing ? {} : { name, parents: ['appDataFolder'] };
