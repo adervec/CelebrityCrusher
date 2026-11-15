@@ -360,6 +360,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "Faili ya usawazishaji imeharibika au haijakamilika — tengeneza nakala rudufu tena kutoka kifaa chenye data yako.",
  "The {n}-week build · {total} total": "Maandalizi ya wiki {n} · jumla {total}",
  "Their run, age-adjusted to you": "Mbio zao, zimerekebishwa kwa umri wako",
+ "Theme": "Mandhari",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Walikuwa na miaka {their_age} na wewe una {your_age}: urekebishaji wa umri unakwenda dhidi yako, hadi {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Walikuwa na miaka {their_age}; ukiwa na {your_age} matokeo hayo hayo yana thamani ya {time}.",
  "They win": "Wao wanashinda",

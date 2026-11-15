@@ -386,6 +386,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "Файл синхронізації пошкоджений або неповний — зробіть резервну копію знову з пристрою, де є ваші дані.",
  "The {n}-week build · {total} total": "Підготовка на {n} тиж. · усього {total}",
  "Their run, age-adjusted to you": "Їхній результат з віковою корекцією під вас",
+ "Theme": "Тема",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Їм було {their_age}, вам {your_age}: вікова корекція не на вашу користь — до {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Їм було {their_age}; у {your_age} той самий результат вартий {time}.",
  "They win": "Перемагають вони",

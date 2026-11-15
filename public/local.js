@@ -143,7 +143,7 @@ export function backend(ledger, store, report = () => {}) {
       const fresh = [];
       const added = upsertActivities(db, r.activities, fresh);
       // Recent sessions only: a five-year archive would push every other app out of the shared list.
-      report(fresh.filter(a => a.start_ts > now() - 28 * 86400).map(a => [a.start_ts, a.moving_s]));
+      report(fresh.filter(a => a.start_ts > now() - 28 * 86400).map(a => ({ id: a.id, at: a.start_ts + (a.moving_s || 0), seconds: a.moving_s })));
       for (const e of r.bests) upsertBestEfforts(db, e.activity_id, e.start_ts, [e]);
       logSync(db, 'file-import', added, `${body.format || 'csv'} import: ${r.activities.length} rows${r.bests.length ? `, ${r.bests.length} bests` : ''}`);
       save();
@@ -268,7 +268,7 @@ export function backend(ledger, store, report = () => {}) {
       save();
       // Logged today: now. Logged for an earlier day: midday of that local day.
       const when = body.date === localYmd() ? now() : dayStart(body.date) + 12 * 3600;
-      report([[when, body.unit === 's' && body.value > 0 ? body.value : 0]]);
+      report([{ id: `attempt:${db.seq}`, at: when, seconds: body.unit === 's' && body.value > 0 ? body.value : 0 }]);
       return byDate(db.attempts);
     }
     if (method === 'DELETE' && /^\/attempts\/\d+$/.test(path)) {
@@ -288,5 +288,5 @@ export async function boot() {
       if (!r.ok) throw new Error(`cannot load ${f} (${r.status})`);
       return r.json();
     })));
-  return backend(assemble(lists), localStore(), rows => logActivity(localStorage, rows));
+  return backend(assemble(lists), localStore(), rows => logActivity(rows));
 }

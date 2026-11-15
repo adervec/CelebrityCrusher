@@ -229,7 +229,7 @@ function shareCard() {
   const total = S.feats.filter(f => S.verdicts[f.id].status === 'crushed').length, mp = marathonPrediction();
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const cv = Object.assign(document.createElement('canvas'), { width: 1200, height: 630 }), g = cv.getContext('2d');
-  g.fillStyle = '#16130f'; g.fillRect(0, 0, 1200, 630);
+  g.fillStyle = css('--soot') || '#16130f'; g.fillRect(0, 0, 1200, 630);
   g.fillStyle = css('--ember') || '#e8622c'; g.fillRect(0, 0, 12, 630);
   g.font = '600 30px Fraunces, Georgia, serif'; g.fillStyle = css('--bone-dim') || '#b8ad9a'; g.fillText('Celebrity Crusher', 70, 90);
   g.font = '700 190px Fraunces, Georgia, serif'; g.fillStyle = css('--ember') || '#e8622c'; g.fillText(num(total, 0), 62, 290);
@@ -746,6 +746,7 @@ function connect() {
       <label class="field">${t('Weight (kg)')}<input type="number" id="a-weight" value="${a.weight_kg || ''}" step="0.5"></label>
       <label class="field">${t('Age-grade table')}<select id="a-sex">${[['', t('not set (men\'s)')], ['M', t('men\'s')], ['F', t('women\'s')]].map(([v, l]) => `<option value="${v}" ${(a.sex || '') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
       <button class="btn primary" data-action="save-athlete">${t('Save')}</button>
+      <app-theme-picker label="${esc(t('Theme'))}"></app-theme-picker>
       <app-font-picker label="${esc(t('Reading font'))}"></app-font-picker>
     </div>
     <p class="tiny faint">${t('Birth year lets the ledger tell you how old each celebrity was when they did it, next to how old you are now. Age adjustment uses the USATF Masters 2025 road tables.')}</p>
@@ -1087,6 +1088,7 @@ async function bootSync() {
   if (ui.tab === 'connect') paintSyncState();
 }
 
+document.addEventListener('app-theme-change', () => { if (S) render(); });
 window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && h !== ui.tab && tabs().some(([id]) => id === h)) { ui.tab = h; render(); } });
 // Translations first (font.js loads the reader's language), so the first paint is already in it.
 (window.appFont?.ready || Promise.resolve()).catch(() => {}).then(load).then(bootSync)

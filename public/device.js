@@ -38,15 +38,14 @@ export function eraseCoworkFolder(idb = globalThis.indexedDB, app = 'celebritycr
 }
 
 /**
- * Tell the maker portal's character sheet about real work: [unixSeconds, slug, kind, amount],
- * amount ≈ minutes ÷ 10, at least 1. Demo data never comes through here.
- * @param {[number, number][]} sessions [startSeconds, durationSeconds]
+ * Tell the hub's session ledger about real work, once per session (house standard 25), through
+ * font.js. Demo data never comes through here.
+ * @param {{id:string, at:number, seconds:number}[]} sessions  at = unix seconds the session ended
+ * @param {object} font  appFont (injectable for tests)
  */
-export function logActivity(storage, sessions) {
-  if (!sessions.length) return;
-  try {
-    const a = JSON.parse(storage.getItem(ACTIVITY) || '[]');
-    for (const [ts, secs] of sessions) a.push([Math.round(ts), APP, KIND, Math.max(1, Math.round((secs || 0) / 600))]);
-    storage.setItem(ACTIVITY, JSON.stringify(a.slice(-2000)));
-  } catch { /* quota or private mode — ignore */ }
+export function logActivity(sessions, font = globalThis.appFont) {
+  if (!font?.logSession) return 0;
+  let n = 0;
+  for (const s of sessions) if (font.logSession({ app: APP, kind: KIND, minutes: Math.max(1, (s.seconds || 0) / 60), id: s.id, at: s.at * 1000 })) n++;
+  return n;
 }

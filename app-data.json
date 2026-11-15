@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "localStorage": ["crusher.*"],
+  "indexedDB": ["crusher-fs"],
+  "drive": ["celebrity-crusher-backup.json"],
+  "caches": [],
+  "export": "Connect > Backup > Download backup"
+}

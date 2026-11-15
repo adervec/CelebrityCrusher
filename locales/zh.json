@@ -347,6 +347,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "同步文件已损坏或不完整——请从有你数据的设备重新备份。",
  "The {n}-week build · {total} total": "{n} 周备赛 · 共 {total}",
  "Their run, age-adjusted to you": "他们的成绩，按你的年龄调整",
+ "Theme": "主题",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "他们当时 {their_age} 岁，你 {your_age} 岁：年龄调整对你不利，为 {time}。",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "他们当时 {their_age} 岁；在 {your_age} 岁时，同样的表现相当于 {time}。",
  "They win": "他们胜",

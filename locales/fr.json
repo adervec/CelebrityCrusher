@@ -373,6 +373,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "Le fichier de synchro est corrompu ou incomplet — refaites une sauvegarde depuis un appareil qui a vos données.",
  "The {n}-week build · {total} total": "La préparation de {n} semaines · {total} au total",
  "Their run, age-adjusted to you": "Leur course, ajustée à votre âge",
+ "Theme": "Thème",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Ils avaient {their_age} ans et vous en avez {your_age} : l'ajustement d'âge joue contre vous, à {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Ils avaient {their_age} ans ; à {your_age} ans, la même performance vaut {time}.",
  "They win": "Ils gagnent",

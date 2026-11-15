@@ -347,6 +347,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "File sinkronisasi rusak atau tidak lengkap — cadangkan lagi dari perangkat yang memiliki data Anda.",
  "The {n}-week build · {total} total": "Persiapan {n} minggu · total {total}",
  "Their run, age-adjusted to you": "Lari mereka, disesuaikan dengan usia Anda",
+ "Theme": "Tema",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Mereka berusia {their_age} dan Anda {your_age}: penyesuaian usia merugikan Anda, menjadi {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Mereka berusia {their_age}; pada usia {your_age} performa yang sama setara {time}.",
  "They win": "Mereka menang",

@@ -1,9 +1,13 @@
-/* Palette and type inherited from the original ledger artifact. */
+/* Palette: the reader's house theme (font.js sets --t-*), with the original ledger palette as the
+   fallback. Names are the app's own; only the source of each colour changed. */
 :root{
-  --soot:#16130f; --panel:#1d1915; --panel-2:#211c17; --hairline:#2e2820;
-  --bone:#e9e1d2; --bone-dim:#a89f8c; --bone-faint:#7d7566;
-  --ember:#dd6b2f; --ember-soft:#e8926033; --gold:#c9a05a;
-  --crushed:#7fa650; --reach:#c9a05a; --close:#dd6b2f; --trainable:#8a7fb8; --far:#6b6357; --logbook:#5f7d8c;
+  color-scheme:var(--t-scheme,dark);
+  --soot:var(--t-bg,#16130f); --panel:var(--t-surface,#1d1915); --panel-2:var(--t-surface2,#211c17); --hairline:var(--t-line,#2e2820);
+  --bone:var(--t-text,#e9e1d2); --bone-dim:var(--t-dim,#a89f8c); --bone-faint:color-mix(in srgb,var(--bone-dim) 70%,var(--soot));
+  --ember:var(--t-accent,#dd6b2f); --ember-soft:color-mix(in srgb,var(--ember) 20%,transparent); --gold:var(--t-warn,#c9a05a);
+  --on-accent:var(--t-on-accent,#16130f);
+  --crushed:var(--t-good,#7fa650); --reach:var(--t-warn,#c9a05a); --close:var(--ember); --trainable:#8a7fb8;
+  --far:color-mix(in srgb,var(--bone-dim) 60%,var(--soot)); --logbook:#5f7d8c;
   --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
   --serif:'Newsreader',Georgia,serif;
   --display:'Fraunces',Georgia,serif;
@@ -89,8 +93,8 @@ input,select,textarea,label.field{max-width:100%}
 .btn{background:var(--panel-2);border:1px solid var(--hairline);color:var(--bone);padding:.4rem .7rem;border-radius:2px;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .btn:hover{border-color:var(--ember);color:var(--ember)}
-.btn.primary{background:var(--ember);border-color:var(--ember);color:#16130f;font-weight:700}
-.btn.primary:hover{filter:brightness(1.1);color:#16130f}
+.btn.primary{background:var(--ember);border-color:var(--ember);color:var(--on-accent);font-weight:700}
+.btn.primary:hover{filter:brightness(1.1);color:var(--on-accent)}
 .btn.ghost{border-color:transparent;color:var(--bone-faint)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 /* the shared Cowork panel, in this app's palette (its only supported theming) */

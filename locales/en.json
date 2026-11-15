@@ -308,6 +308,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "The sync file is corrupt or incomplete — back up again from a device that has your data.",
  "The {n}-week build · {total} total": "The {n}-week build · {total} total",
  "Their run, age-adjusted to you": "Their run, age-adjusted to you",
+ "Theme": "Theme",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "They were {their_age}; at {your_age} the same performance is worth {time}.",
  "They win": "They win",

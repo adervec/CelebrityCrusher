@@ -412,6 +412,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "ملف المزامنة تالف أو ناقص — خذ نسخة احتياطية مجددًا من جهاز فيه بياناتك.",
  "The {n}-week build · {total} total": "إعداد {n} أسابيع · المجموع {total}",
  "Their run, age-adjusted to you": "جريهم، معدّلًا حسب عمرك",
+ "Theme": "السمة",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "كان عمرهم {their_age} وعمرك {your_age}: تعديل العمر في غير صالحك، إلى {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "كان عمرهم {their_age}؛ وفي عمر {your_age} يعادل الأداء نفسه {time}.",
  "They win": "هم يفوزون",

@@ -360,6 +360,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "La sinkroniga dosiero estas difektita aŭ nekompleta — refaru sekurkopion el aparato, kiu havas viajn datumojn.",
  "The {n}-week build · {total} total": "La {n}-semajna preparo · {total} entute",
  "Their run, age-adjusted to you": "Ilia kuro, aĝ-korektita al vi",
+ "Theme": "Etoso",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Ili estis {their_age}-jaraj kaj vi estas {your_age}-jara: la aĝa korekto iras kontraŭ vi, al {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Ili estis {their_age}-jaraj; je {your_age} la sama rezulto valoras {time}.",
  "They win": "Ili venkas",

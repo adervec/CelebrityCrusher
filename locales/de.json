@@ -360,6 +360,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "Die Sync-Datei ist beschädigt oder unvollständig — sichere erneut von einem Gerät, das deine Daten hat.",
  "The {n}-week build · {total} total": "Der {n}-Wochen-Aufbau · insgesamt {total}",
  "Their run, age-adjusted to you": "Ihr Lauf, an dein Alter angepasst",
+ "Theme": "Design",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "Sie waren {their_age}, du bist {your_age}: Die Altersanpassung geht gegen dich, auf {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "Sie waren {their_age}; mit {your_age} ist dieselbe Leistung {time} wert.",
  "They win": "Sie gewinnen",

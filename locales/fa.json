@@ -360,6 +360,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "فایل همگام‌سازی خراب یا ناقص است — از دستگاهی که داده‌های شما را دارد دوباره پشتیبان بگیرید.",
  "The {n}-week build · {total} total": "آماده‌سازی {n} هفته‌ای · مجموع {total}",
  "Their run, age-adjusted to you": "دویدن آن‌ها، با تعدیل سنی برای شما",
+ "Theme": "پوسته",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "آن‌ها {their_age} ساله بودند و شما {your_age} ساله‌اید: تعدیل سنی به ضرر شماست، تا {time}.",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "آن‌ها {their_age} ساله بودند؛ در {your_age} سالگی همان عملکرد معادل {time} است.",
  "They win": "آن‌ها می‌برند",

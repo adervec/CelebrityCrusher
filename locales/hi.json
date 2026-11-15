@@ -360,6 +360,7 @@
  "The sync file is corrupt or incomplete — back up again from a device that has your data.": "सिंक फ़ाइल खराब या अधूरी है — जिस डिवाइस पर आपका डेटा है, वहाँ से फिर बैकअप लें।",
  "The {n}-week build · {total} total": "{n}-हफ़्ते की तैयारी · कुल {total}",
  "Their run, age-adjusted to you": "उनकी दौड़, आपकी आयु के अनुसार समायोजित",
+ "Theme": "थीम",
  "They were {their_age} and you are {your_age}: the age adjustment goes against you, to {time}.": "वे {their_age} के थे और आप {your_age} के हैं: आयु समायोजन आपके ख़िलाफ़ जाता है, {time} तक।",
  "They were {their_age}; at {your_age} the same performance is worth {time}.": "वे {their_age} के थे; {your_age} पर वही प्रदर्शन {time} के बराबर है।",
  "They win": "वे जीते",

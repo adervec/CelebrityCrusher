@@ -7,7 +7,13 @@ const el = (tag, attrs = {}, text) => {
   if (text != null) n.textContent = text;
   return n;
 };
-export const COLORS = { ember: '#dd6b2f', gold: '#c9a05a', green: '#7fa650', violet: '#8a7fb8', steel: '#5f7d8c', bone: '#a89f8c' };
+// Chart colours come from the page's palette (the reader's house theme), read at draw time.
+const css = (name, fallback) => (typeof document !== 'undefined' && getComputedStyle(document.documentElement).getPropertyValue(name).trim()) || fallback;
+export const COLORS = {
+  get ember() { return css('--ember', '#dd6b2f'); }, get gold() { return css('--gold', '#c9a05a'); },
+  get green() { return css('--crushed', '#7fa650'); }, get violet() { return css('--trainable', '#8a7fb8'); },
+  get steel() { return css('--logbook', '#5f7d8c'); }, get bone() { return css('--bone-dim', '#a89f8c'); },
+};
 
 function frame(width, height, pad) {
   const svg = el('svg', { viewBox: `0 0 ${width} ${height}`, width: '100%', height, preserveAspectRatio: 'none', role: 'img' });
