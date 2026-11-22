@@ -38,14 +38,15 @@ export function eraseCoworkFolder(idb = globalThis.indexedDB, app = 'celebritycr
 }
 
 /**
- * Tell the hub's session ledger about real work, once per session (house standard 25), through
- * font.js. Demo data never comes through here.
+ * Tell the hub's session ledger about work that happened only in this app (house standard 25),
+ * through font.js: logged attempts at logbook feats. Imported activities never come through here
+ * (the shared feed holds them), nor does demo data.
  * @param {{id:string, at:number, seconds:number}[]} sessions  at = unix seconds the session ended
  * @param {object} font  appFont (injectable for tests)
  */
 export function logActivity(sessions, font = globalThis.appFont) {
   if (!font?.logSession) return 0;
   let n = 0;
-  for (const s of sessions) if (font.logSession({ app: APP, kind: KIND, minutes: Math.max(1, (s.seconds || 0) / 60), id: s.id, at: s.at * 1000 })) n++;
+  for (const s of sessions) if (font.logSession({ app: APP, kind: s.kind || KIND, minutes: Math.max(1, (s.seconds || 0) / 60), id: s.id, at: s.at * 1000 })) n++;
   return n;
 }

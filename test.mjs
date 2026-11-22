@@ -598,7 +598,7 @@ await ta('erase removes this app\'s data on this device and nothing else', async
   assert.ok(!/localStorage\.clear\(\)/.test(app.replace(/\/\/.*$/gm, '')));
 });
 
-await ta('real sessions go to the hub ledger through appFont.logSession; demo data does not', async () => {
+await ta('only sessions that happened here go to the hub ledger (logSession); imports and demo data do not', async () => {
   const calls = [], font = { logSession: s => { calls.push(s); return true; } };
   assert.equal(logActivity([{ id: 'garmin:7', at: 1000, seconds: 3000 }, { id: 'attempt:3', at: 2000, seconds: 30 }], font), 2);
   assert.deepEqual(calls, [{ app: 'CelebrityCrusher', kind: 'cardio', minutes: 50, id: 'garmin:7', at: 1000000 }, { app: 'CelebrityCrusher', kind: 'cardio', minutes: 1, id: 'attempt:3', at: 2000000 }]);
@@ -614,11 +614,14 @@ await ta('real sessions go to the hub ledger through appFont.logSession; demo da
     { id: 8, type: 'running', start: new Date(old * 1000).toISOString(), distance_m: 10000, moving_s: 3000 },
   ] }) });
   assert.equal(r.added, 2);
-  assert.deepEqual(seen, [{ id: 'garmin:7', at: ts + 3000, seconds: 3000 }], 'recent sessions only, so an archive cannot flood the shared list');
+  assert.deepEqual(seen, [], 'imported runs are in the shared feed already: this app only judges them, it does not log them');
   await api('/api/attempts', 'POST', { feat_id: 'gordon-ramsay-marathon-2004', date: '2025-04-27', value: 12600, unit: 's', verified: 1 });
-  assert.equal(seen[1].at, dayStart('2025-04-27') + 12 * 3600);
-  assert.equal(seen[1].seconds, 12600);
-  assert.match(seen[1].id, /^attempt:/);
+  assert.deepEqual(seen, [], 'a timed marathon is in the activity feed too: not logged again');
+  await api('/api/attempts', 'POST', { feat_id: 'mark-zuckerberg-murph', date: '2025-04-27', verified: 1 });
+  assert.equal(seen.length, 1, 'a logbook feat happened only here: logged once');
+  assert.equal(seen[0].at, dayStart('2025-04-27') + 12 * 3600);
+  assert.equal(seen[0].kind, 'lift');
+  assert.match(seen[0].id, /^attempt:/);
 });
 
 check("what's new is declared, newest first, with real dates", () => {

@@ -134,9 +134,10 @@ cloud sync and drops this app's rows from the portal's shared lists — other ap
 theirs, and the copy in your Drive or sync folder is not touched. Under `node server.mjs`
 the same button empties the SQLite file.
 
-Real activity — an imported session from the last four weeks, or a logged attempt — is
-appended to the maker portal's shared `portal-activity` list as
-`[unixSeconds, "CelebrityCrusher", "cardio", minutes ÷ 10]`. The demo athlete reports nothing.
+The hub's session ledger hears only about work that happened here and nowhere else: a logged
+attempt at a logbook feat (a summit, a lift, a breath-hold, a fight), through `appFont.logSession`.
+Imported runs and rides, and attempts at timed feats, are already in the shared activity feed, so
+this app judges them without logging them again. The demo athlete reports nothing.
 
 No third-party requests: the fonts (Atkinson Hyperlegible, Fraunces, Newsreader, JetBrains
 Mono) are self-hosted on `adervec.github.io`. The only other hosts are the ones you connect:

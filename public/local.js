@@ -77,6 +77,9 @@ const byDate = a => [...a].sort((x, y) => String(y.date).localeCompare(String(x.
  * @param {(rows:Array) => void} report  real activity for the maker portal's shared list
  * @returns {(path:string, method?:string, body?:object) => Promise<any>} same contract as fetch(/api/…).json()
  */
+/** Feats no wearable records: an attempt at one exists only here. */
+const LOGBOOK_KINDS = new Set(['manual', 'summit', 'breath_hold', 'reps']);
+
 export function backend(ledger, store, report = () => {}) {
   const { FEATS, BY_ID, stats } = ledger;
   const profile = db => buildProfile(db.activities, db.best_efforts, now(), db.athlete, racesFrom(db.attempts, BY_ID));
@@ -142,8 +145,8 @@ export function backend(ledger, store, report = () => {}) {
         : { activities: body.format === 'gpx' ? importGpx(body.text, body.name) : importCsv(body.text, body.units || 'metric'), bests: [] };
       const fresh = [];
       const added = upsertActivities(db, r.activities, fresh);
-      // Recent sessions only: a five-year archive would push every other app out of the shared list.
-      report(fresh.filter(a => a.start_ts > now() - 28 * 86400).map(a => ({ id: a.id, at: a.start_ts + (a.moving_s || 0), seconds: a.moving_s })));
+      // Imported runs and rides are NOT logged for the hub: they come from Strava or Garmin, which the
+      // shared activity feed (and Run315) already hold; this app only judges them (house standard 25).
       for (const e of r.bests) upsertBestEfforts(db, e.activity_id, e.start_ts, [e]);
       logSync(db, 'file-import', added, `${body.format || 'csv'} import: ${r.activities.length} rows${r.bests.length ? `, ${r.bests.length} bests` : ''}`);
       save();
@@ -266,9 +269,14 @@ export function backend(ledger, store, report = () => {}) {
         verified: body.verified ? 1 : 0, notes: body.notes || null, created_ts: now(),
       });
       save();
-      // Logged today: now. Logged for an earlier day: midday of that local day.
-      const when = body.date === localYmd() ? now() : dayStart(body.date) + 12 * 3600;
-      report([{ id: `attempt:${db.seq}`, at: when, seconds: body.unit === 's' && body.value > 0 ? body.value : 0 }]);
+      // Only a logbook feat (a summit, a lift, a breath-hold, a fight) happened in this app and nowhere
+      // else; a timed run, ride or swim is already in the activity feed, so it is not logged again.
+      const f = BY_ID.get(body.feat_id);
+      if (LOGBOOK_KINDS.has(f.check?.kind)) {
+        const when = body.date === localYmd() ? now() : dayStart(body.date) + 12 * 3600;   // today: now; earlier: that midday
+        report([{ id: `attempt:${db.seq}`, at: when, seconds: body.unit === 's' && body.value > 0 ? body.value : 0,
+          kind: ['strength', 'combat'].includes(f.discipline) ? 'lift' : 'cardio' }]);
+      }
       return byDate(db.attempts);
     }
     if (method === 'DELETE' && /^\/attempts\/\d+$/.test(path)) {
