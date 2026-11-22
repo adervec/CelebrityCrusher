@@ -13,6 +13,7 @@ import { FEATS, BY_ID, stats as featStats } from './lib/feats.js';
 import { buildProfile, judge, planFor, compare, fmtDur, fmtKm, STATUS, racesFrom, milestones } from './lib/engine.js';
 import { demoActivities } from './lib/demo.js';
 import { cleanBackup } from './lib/backup.js';
+import { upsertsAsBackup, parseDeleteId } from './lib/cloudsync.js';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const PORT = +(process.env.PORT || 8787);
@@ -253,6 +254,58 @@ const server = createServer(async (req, res) => {
       for (const e of efforts) DB.upsertBestEfforts(db, e.activity_id, e.start_ts, [e]);
       DB.run(db, `INSERT INTO sync_log (provider, started_ts, finished_ts, status, added, message) VALUES ('demo',?,?,'ok',?,'seeded demo athlete')`, now(), now(), added);
       return json(res, { added });
+    }
+
+    // Cloud sync (lib/cloudsync.js): make the store match the merged document, keyed the same way as
+    // public/local.js. Outside data, so cleaned like a restore.
+    if (m('POST', /^\/api\/sync-apply$/)) {
+      const b = await body(req);
+      const ups = Array.isArray(b.upserts) ? b.upserts.slice(0, 50000) : [];
+      const dels = Array.isArray(b.deletes) ? b.deletes.slice(0, 50000) : [];
+      const c = cleanBackup(upsertsAsBackup(ups), BY_ID);
+      let n = 0;
+      for (const q of c.queue) {
+        const r = DB.run(db, `UPDATE queue SET position=COALESCE(?,position), status=?, target_date=?, notes=? WHERE feat_id=?`, q.position, q.status, q.target_date, q.notes, q.feat_id);
+        if (!r.changes) DB.run(db, `INSERT INTO queue (feat_id, position, status, target_date, notes, created_ts) VALUES (?,?,?,?,?,?)`,
+          q.feat_id, q.position ?? (DB.one(db, 'SELECT COALESCE(MAX(position),0)+1 p FROM queue').p), q.status, q.target_date, q.notes, q.created_ts || now());
+        n++;
+      }
+      for (const g of c.goals) {
+        const r = DB.run(db, `UPDATE goals SET status=?, notes=? WHERE feat_id=? AND IFNULL(target_date,'')=IFNULL(?,'')`, g.status, g.notes, g.feat_id, g.target_date);
+        if (!r.changes) DB.run(db, `INSERT INTO goals (feat_id, target_date, status, notes, created_ts) VALUES (?,?,?,?,?)`, g.feat_id, g.target_date, g.status, g.notes, g.created_ts || now());
+        n++;
+      }
+      for (const a of c.attempts) {
+        const r = DB.run(db, `UPDATE attempts SET value=?, unit=?, evidence=?, verified=?, notes=? WHERE feat_id=? AND date=? AND IFNULL(metric,'')=IFNULL(?,'')`,
+          a.value, a.unit, a.evidence, a.verified, a.notes, a.feat_id, a.date, a.metric);
+        if (!r.changes) DB.run(db, `INSERT INTO attempts (feat_id, date, metric, value, unit, evidence, verified, notes, created_ts) VALUES (?,?,?,?,?,?,?,?,?)`,
+          a.feat_id, a.date, a.metric, a.value, a.unit, a.evidence, a.verified, a.notes, a.created_ts || now());
+        n++;
+      }
+      n += DB.upsertActivities(db, c.manual_activities);
+      const settingsNow = () => JSON.parse(DB.one(db, 'SELECT settings FROM athlete WHERE id=1')?.settings || '{}');
+      for (const u of ups) {
+        if (u?.kind !== 'setting') continue;
+        const k = u.data?.key, A = c.athlete || {};
+        if (k === 'rival') DB.run(db, `UPDATE athlete SET settings=? WHERE id=1`, JSON.stringify({ ...settingsNow(), rival: A.settings?.rival ?? null }));
+        else if (['name', 'sex', 'birth_year', 'weight_kg'].includes(k)) DB.run(db, `UPDATE athlete SET ${k}=? WHERE id=1`, A[k] ?? null);   // k is from the fixed list
+        else continue;
+        n++;
+      }
+      for (const id of dels) {
+        const d = parseDeleteId(id);
+        if (!d) continue;
+        if (d.kind === 'queue') n += DB.run(db, 'DELETE FROM queue WHERE feat_id=?', d.feat_id).changes;
+        else if (d.kind === 'goal') n += DB.run(db, `DELETE FROM goals WHERE feat_id=? AND IFNULL(target_date,'')=IFNULL(?,'')`, d.feat_id, d.target_date).changes;
+        else if (d.kind === 'attempt') n += DB.run(db, `DELETE FROM attempts WHERE feat_id=? AND date=? AND IFNULL(metric,'')=IFNULL(?,'')`, d.feat_id, d.date, d.metric).changes;
+        else if (d.kind === 'activity') n += DB.run(db, `DELETE FROM activities WHERE id=? AND provider NOT IN ('strava','demo')`, d.id).changes;
+        else if (d.kind === 'setting') {
+          if (d.key === 'rival') DB.run(db, `UPDATE athlete SET settings=? WHERE id=1`, JSON.stringify({ ...settingsNow(), rival: null }));
+          else DB.run(db, `UPDATE athlete SET ${d.key}=? WHERE id=1`, d.key === 'name' ? 'Athlete' : null);   // d.key from the fixed list
+          n++;
+        }
+      }
+      return json(res, { applied: n });
     }
 
     if (m('POST', /^\/api\/erase$/)) {

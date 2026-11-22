@@ -12,7 +12,7 @@ It runs two ways from the same source tree:
 
 ```bash
 node server.mjs          # http://localhost:8787 — SQLite, live Strava/Garmin OAuth
-node test.mjs            # 58 checks, no framework
+node test.mjs            # 57 checks, no framework
 ```
 
 ...or as an installable offline PWA on GitHub Pages, with no server at all. See
@@ -107,23 +107,23 @@ you actually need per-second streams.
 
 ## Cloud sync
 
-Connect tab → **Cloud sync**. Two targets, same interface, ported from Tachyread:
+Connect tab → **Cloud sync** → *Sign in*. The reader's cloud is font.js's `appFont.cloud`: chosen once
+for every app on the site in the hub (Google Drive today), signed in once for all of them, and the
+account's picture shows in the header. The app has no Google code of its own and no folder sync.
 
-- **Local folder** — a File System Access directory handle. Point it at your Google Drive,
-  Dropbox or OneDrive *desktop sync folder* and you have cloud sync with no accounts and no
-  API keys.
-- **Google Drive** — straight into the private `appDataFolder` over Google Identity
-  Services. Zero setup on `adervec.github.io`, which is registered against the built-in
-  OAuth client ID (an identifier, not a secret — and the app refuses it on any other
-  origin). A fork supplies its own client ID in the same card.
+What travels is one document, `celebrity-crusher-sync.json`, of **records**: each queue item, goal,
+logged attempt, imported activity and setting, with a stable id built from what it is, a change
+time, and a tombstone when it is deleted. `lib/cloudsync.js` builds it and `appFont.cloud.syncDoc`
+keeps it in step: the cloud copy is read and merged first, record by record, the latest change
+winning, and written back only when something differs. So a phone that was offline for a week
+cannot overwrite the desktop's newer work, and a deletion stays deleted. Strava and demo
+activities are left out; they re-sync from the provider.
 
-What travels is the backup payload: queue, goals, logged attempts, imported activities, and
-your athlete row. Not tokens, not Strava or demo activities — those re-sync from the
-provider. The bytes go from your browser to your storage; no server of ours sees them.
-
-Sync is read-merge-write, so two devices converge instead of the last one winning, and
-restoring the same file twice is a no-op. Tick **keep synced automatically** and it pulls
-once on load and pushes a few seconds after each change.
+The stores keep no change times, so each device remembers what it held at its last sync and
+stamps what changed since. It syncs on start, on focus, when the network returns, and a few
+seconds after a change. The first sync on a device also folds in the old whole-file snapshot
+(`celebrity-crusher-backup.json`), counting its records as old, so moving over loses nothing.
+Erase everything pauses sync on that device until you sign in again.
 
 ## On this device
 
@@ -339,9 +339,8 @@ weight, pinned rival) · `GET /api/backup` · `POST /api/restore`
   download; where the file lands, and whether you are asked first, is a Chrome setting.
 - Tokens are stored in plain SQLite. It is a single-user app on your own machine; do not
   expose the port.
-- Sync merges add-only. A goal or attempt deleted on one device comes back from the other;
-  delete it on both, or restore from a backup file. Tombstones would fix it and are not
-  written.
+- Cloud sync is not available under `node server.mjs` at localhost: the Google sign-in only
+  works from the published site's origin.
 - `tools/garmin-sync.py` talks to Garmin's private endpoints through the community
   `garminconnect` library, because no public per-user read API exists. Unofficial by
   definition, breakable at Garmin's discretion, and possibly against their terms. The

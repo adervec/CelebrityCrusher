@@ -1,5 +1,11 @@
 [
   {
+    "date": "2026-11-22",
+    "items": [
+      "Safer sync between your phone and computer: changes now merge item by item, so one device can no longer overwrite another's newer work, and something you delete stays deleted. Sign in once on the Connect tab; the old sync-to-a-folder option is gone."
+    ]
+  },
+  {
     "date": "2026-11-14",
     "items": [
       "Pick a colour theme on the Connect tab: the same fifteen as every other app here, from Light and Paper to Midnight and High contrast. It starts by following your device.",

@@ -5,7 +5,9 @@ export const APP = 'CelebrityCrusher';
 export const KIND = 'cardio';
 // crusher.coach = the last coaching reply; cowork-state:<app> = the shared Cowork engine's state for us.
 // ("cowork-device" is the device id every app's Cowork panel shares, so it stays.)
-export const OWN_KEYS = ['crusher.v1', 'crusher.sync', 'crusher.coach', 'cowork-state:celebritycrusher'];
+// crusher.cloudsync = what this device held at its last cloud sync (lib/cloudsync.js); crusher.sync = the retired
+// folder/Drive sync settings, still removed on devices that had them; cowork-transport:<app> = where cowork.js v5 talks.
+export const OWN_KEYS = ['crusher.v1', 'crusher.sync', 'crusher.cloudsync', 'crusher.cloudsync-paused', 'crusher.coach', 'cowork-state:celebritycrusher', 'cowork-transport:celebritycrusher'];
 const ACTIVITY = 'portal-activity';
 
 /** Erase this app's data on this device; other apps' keys and rows are left alone. */
@@ -21,9 +23,9 @@ export function eraseLocalData(storage) {
   } catch { /* not ours to repair */ }
 }
 
-/** The Cowork engine keeps every app's folder handle in one shared IndexedDB ("cowork-ui",
- *  store "dirs", keyed by app). Drop only ours, and never create the database just to empty it. */
-export function eraseCoworkFolder(idb = globalThis.indexedDB, app = 'celebritycrusher') {
+/** The retired Cowork folder method kept every app's folder handle in one shared IndexedDB ("cowork-ui",
+ *  store "dirs", keyed by app). Erase drops only ours, and never creates the database just to empty it. */
+export function dropLegacyCoworkHandle(idb = globalThis.indexedDB, app = 'celebritycrusher') {
   if (!idb) return Promise.resolve();
   return new Promise(res => {
     const open = idb.open('cowork-ui', 1);

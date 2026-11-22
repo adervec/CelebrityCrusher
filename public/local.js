@@ -13,6 +13,7 @@ import { importCsv, importGpx, importJson } from '../lib/garmin.js';
 import { demoActivities } from '../lib/demo.js';
 import { logActivity } from './device.js';
 import { cleanBackup } from '../lib/backup.js';
+import { upsertsAsBackup, parseDeleteId } from '../lib/cloudsync.js';
 import { t } from '../lib/i18n.js';
 
 const KEY = 'crusher.v1';
@@ -169,6 +170,52 @@ export function backend(ledger, store, report = () => {}) {
     }
 
     if (method === 'POST' && path === '/erase') { store.clear(); return { erased: true }; }
+
+    // Cloud sync (lib/cloudsync.js): make the store match the merged document. Upserts and deletions
+    // come from the cloud, so they are outside data: cleaned exactly like a restore, applied by key.
+    if (method === 'POST' && path === '/sync-apply') {
+      const ups = Array.isArray(body.upserts) ? body.upserts.slice(0, 50000) : [];
+      const dels = Array.isArray(body.deletes) ? body.deletes.slice(0, 50000) : [];
+      const c = cleanBackup(upsertsAsBackup(ups), BY_ID), same = (x, y) => (x ?? '') === (y ?? '');
+      let n = 0;
+      for (const q of c.queue) {
+        const x = db.queue.find(r => r.feat_id === q.feat_id);
+        if (x) Object.assign(x, { position: q.position ?? x.position, status: q.status, target_date: q.target_date, notes: q.notes });
+        else db.queue.push({ ...q, id: ++db.seq, position: q.position ?? db.queue.length + 1, created_ts: q.created_ts || now() });
+        n++;
+      }
+      for (const g of c.goals) {
+        const x = db.goals.find(r => r.feat_id === g.feat_id && same(r.target_date, g.target_date));
+        if (x) Object.assign(x, { status: g.status, notes: g.notes }); else db.goals.push({ ...g, id: ++db.seq, created_ts: g.created_ts || now() });
+        n++;
+      }
+      for (const a of c.attempts) {
+        const x = db.attempts.find(r => r.feat_id === a.feat_id && r.date === a.date && same(r.metric, a.metric));
+        if (x) Object.assign(x, { value: a.value, unit: a.unit, evidence: a.evidence, verified: a.verified, notes: a.notes });
+        else db.attempts.push({ ...a, id: ++db.seq, created_ts: a.created_ts || now() });
+        n++;
+      }
+      n += upsertActivities(db, c.manual_activities);
+      for (const u of ups) {
+        if (u?.kind !== 'setting') continue;
+        const k = u.data?.key, A = c.athlete || {};
+        if (k === 'rival') db.athlete.settings = { ...(db.athlete.settings || {}), rival: A.settings?.rival ?? null };
+        else if (['name', 'sex', 'birth_year', 'weight_kg'].includes(k)) db.athlete[k] = A[k] ?? null;
+        else continue;
+        n++;
+      }
+      for (const id of dels) {
+        const d = parseDeleteId(id);
+        if (!d) continue;
+        if (d.kind === 'queue') { const k = db.queue.length; db.queue = db.queue.filter(r => r.feat_id !== d.feat_id); n += k - db.queue.length; }
+        else if (d.kind === 'goal') { const k = db.goals.length; db.goals = db.goals.filter(r => !(r.feat_id === d.feat_id && same(r.target_date, d.target_date))); n += k - db.goals.length; }
+        else if (d.kind === 'attempt') { const k = db.attempts.length; db.attempts = db.attempts.filter(r => !(r.feat_id === d.feat_id && r.date === d.date && same(r.metric, d.metric))); n += k - db.attempts.length; }
+        else if (d.kind === 'activity') { const k = db.activities.length; db.activities = db.activities.filter(r => r.id !== d.id || ['strava', 'demo'].includes(r.provider)); n += k - db.activities.length; }
+        else if (d.kind === 'setting') { if (d.key === 'rival') db.athlete.settings = { ...(db.athlete.settings || {}), rival: null }; else db.athlete[d.key] = d.key === 'name' ? 'Athlete' : null; n++; }
+      }
+      save();
+      return { applied: n };
+    }
 
     if (method === 'POST' && path === '/athlete') {
       for (const k of ['name', 'sex', 'birth_year', 'weight_kg']) if (body[k] != null) db.athlete[k] = body[k];

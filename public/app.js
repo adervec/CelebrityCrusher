@@ -1,7 +1,8 @@
 import { lineChart, barChart, paceCurve, COLORS } from './charts.js';
 import * as Sync from './sync.js';
 import { localYmd, dayStr } from '../lib/engine.js';
-import { eraseLocalData, eraseCoworkFolder } from './device.js';
+import { eraseLocalData, dropLegacyCoworkHandle } from './device.js';
+import * as CloudSync from '../lib/cloudsync.js';
 import { APP_ID, MANIFEST, REPLY_KEY, INSTRUCTIONS, coachRequest, coachBrief, replyText } from './coach.js';
 import { t, num, percent, dist, height, pace, date, monthYear, distUnit, inUnit } from '../lib/i18n.js';
 
@@ -32,36 +33,31 @@ const api = async (path, opts) => {
   return data;
 };
 
-// Anything that changed your data schedules a quiet push. Debounced so a burst of edits
-// sends once, and never on the sync endpoints themselves (that would recurse).
-let pushTimer = null, lastPush = 0;
-function schedulePush(path, method) {
-  if (method === 'GET' || /\/api\/(backup|restore|state|plan|erase)/.test(path)) return;
-  const cfg = syncCfg();
-  if (!cfg.auto) return;
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(async () => {
-    if (Date.now() - lastPush < 20000) return;                  // min gap: don't hammer Drive
-    try {
-      const p = Sync.getSyncProvider(cfg.provider);
-      if (!p || !(await p.isConnected())) return;               // only with a live grant
-      const r = await Sync.backupTo(cfg.provider, cfg, api, { silent: true });
-      lastPush = r.at;
-      setSyncCfg({ lastSync: r.at, lastNote: 'auto' });
-      if (ui.tab === 'connect') connect();
-    } catch { /* offline, or the grant lapsed — the next manual sync says so */ }
-  }, 5000);
+// ---------------------------------------------------------------- cloud sync (house standards 1 and 30)
+// Only through font.js's appFont.cloud, merged record by record (lib/cloudsync.js), so no device ever
+// overwrites newer data. While signed in it syncs on start, on focus, when the network returns, and a
+// few seconds after any change. Erase everything pauses it on this device until the reader signs in again.
+const cloudApi = () => window.appFont?.cloud || null;
+const PAUSED_KEY = 'crusher.cloudsync-paused';
+const cloudLabel = () => { try { return cloudApi()?.label?.() || 'Google Drive'; } catch { return 'Google Drive'; } };
+const cloudOn = () => { try { return !!cloudApi()?.signedIn?.() && localStorage.getItem(PAUSED_KEY) !== '1'; } catch { return false; } };
+let syncTimer = null, syncing = null, lastSync = { at: 0, note: '' };
+async function cloudSync(note = 'auto', { quiet = true } = {}) {
+  if (!cloudOn()) return null;
+  if (syncing) return syncing;
+  syncing = CloudSync.syncOnce({ cloud: cloudApi(), api, storage: localStorage })
+    .then(async r => { lastSync = { at: Date.now(), note }; if (r.applied) await load(); else if (ui.tab === 'connect') paintSyncState(); return r; })
+    .catch(e => { if (!quiet) throw e; return null; })            // offline, or the pass lapsed: the next sync tries again
+    .finally(() => { syncing = null; });
+  return syncing;
 }
-// Sync setup is per-device (which folder, which Google account, auto on or off), so it
-// lives in localStorage on both backends rather than in the athlete row.
-const SYNC_KEY = 'crusher.sync';
-const DEFAULT_SYNC = { provider: 'localFolder', driveClientId: '', auto: false, lastSync: 0, lastNote: '' };
-const syncCfg = () => { try { return { ...DEFAULT_SYNC, ...JSON.parse(localStorage.getItem(SYNC_KEY) || '{}') }; } catch { return { ...DEFAULT_SYNC }; } };
-const setSyncCfg = patch => {
-  const c = { ...syncCfg(), ...patch };
-  try { localStorage.setItem(SYNC_KEY, JSON.stringify(c)); } catch { /* private mode */ }
-  return c;
-};
+// Anything that changed your data schedules a sync; never the sync's own calls (that would recurse).
+function schedulePush(path, method) {
+  if (method === 'GET' || /\/api\/(backup|restore|state|plan|erase|sync-apply|milestones)/.test(path)) return;
+  if (!cloudOn()) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => cloudSync('auto'), 4000);
+}
 
 const toast = (msg, ms = 3200) => { const el = $('#toast'); el.textContent = msg; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, ms); };
 
@@ -681,7 +677,7 @@ function drawSports() {
 
 // ---------------------------------------------------------------- connect
 function connect() {
-  const p = S.providers, a = S.athlete || {}, sc = syncCfg();
+  const p = S.providers, a = S.athlete || {};
   setTimeout(() => { paintSyncState(); mountCowork(); }, 0);
   $('#view-connect').innerHTML = `
     <h2>${t('Connect')}</h2>
@@ -752,19 +748,15 @@ function connect() {
     <p class="tiny faint">${t('Birth year lets the ledger tell you how old each celebrity was when they did it, next to how old you are now. Age adjustment uses the USATF Masters 2025 road tables.')}</p>
 
     <h2>${t('Cloud sync')}</h2>
-    <p class="dek">${t('Your queue, goals, logged attempts and imported activities, carried between devices. The file goes straight from this browser to your storage — nothing passes through a server of ours. Provider data is left out; it re-syncs.')}</p>
+    <p class="dek">${t('Your queue, goals, logged attempts, imported activities and settings, kept in step between your devices through {cloud}. Changes merge item by item, so nothing one device did is overwritten by another, and a deletion stays deleted. Strava and demo data are left out; they re-sync.', { cloud: esc(cloudLabel()) })}</p>
     <div class="controls">
-      <label class="field">${t('Target')}<select data-action="sync-provider">${Sync.SYNC_PROVIDERS.map(p =>
-        `<option value="${p.id}" ${sc.provider === p.id ? 'selected' : ''} ${p.supported() ? '' : 'disabled'}>${p.supported() ? esc(p.label) : t('{label} — not in this browser', { label: esc(p.label) })}</option>`).join('')}</select></label>
-      <button class="btn primary" data-action="sync-now">${t('Sync now')}</button>
-      <button class="btn" data-action="sync-restore">${t('Pull only')}</button>
-      <button class="btn ghost" data-action="sync-disconnect">${t('Disconnect')}</button>
-      <label class="tiny dim"><input type="checkbox" data-action="sync-auto" ${sc.auto ? 'checked' : ''}> ${t('keep synced automatically')}</label>
+      ${cloudOn()
+        ? `<button class="btn primary" data-action="sync-now">${esc(t('Sync now'))}</button>
+           <button class="btn ghost" data-action="cloud-signout">${esc(t('Sign out'))}</button>`
+        : `<button class="btn primary" data-action="cloud-signin">${esc(t('Sign in to {cloud}', { cloud: cloudLabel() }))}</button>`}
     </div>
     <p class="tiny mono" id="sync-state">…</p>
-    ${sc.provider === 'googleDrive' && !Sync.driveOriginAllowed() && !sc.driveClientId ? `<p class="tiny" style="color:var(--gold)">${t('This deployment is not one of the origins registered with the built-in Google client, so Drive needs your own OAuth client ID (Google Cloud console → Credentials → OAuth client → Web application, with this page\'s origin as an authorised JavaScript origin).')}</p>` : ''}
-    ${sc.provider === 'googleDrive' ? `<div class="controls"><label class="field">${t('Your own OAuth client ID (optional)')}<input type="text" data-action="sync-clientid" value="${esc(sc.driveClientId)}" placeholder="…apps.googleusercontent.com"></label></div>` : ''}
-    <p class="tiny faint">${t('Merging is add-only: a goal or attempt deleted on one device comes back from the other. Delete it on both, or restore from a backup file.')}</p>
+    <p class="tiny faint">${t('Which cloud you use is chosen once, for every app on this site, in the hub. Signing in here signs you in to all of them.')}</p>
 
     <h2>Cowork</h2>
     <p class="dek">${t('Hand your numbers to an AI agent through a shared folder (Claude Cowork works from it) and get a feat coach\'s advice back: what to attempt next, a four-week focus, one risk to watch. You review each reply before it is shown here, and can undo it from the panel\'s history.')}</p>
@@ -850,21 +842,18 @@ function mountCowork() {
 
 /** The two lines that need an await: which folder is watched, and who is signed in. */
 async function paintSyncState() {
-  const cfg = syncCfg(), f = $('#garmin-folder'), st = $('#sync-state');
+  const f = $('#garmin-folder'), st = $('#sync-state');
   if (f) f.textContent = Sync.garminFolderSupported()
     ? ((await Sync.garminFolderName()) ? t('Watching: {name}', { name: await Sync.garminFolderName() }) : t('No folder picked yet.'))
     : t('This browser has no directory picker — use the file import above.');
   if (!st) return;
-  const p = Sync.getSyncProvider(cfg.provider);
-  const how = { auto: t('auto'), manual: t('manual'), 'on load': t('on load') }[cfg.lastNote] || cfg.lastNote;
-  const when = cfg.lastSync
-    ? (how ? t('last synced {when} ({how})', { when: dateTime(new Date(cfg.lastSync)), how }) : t('last synced {when}', { when: dateTime(new Date(cfg.lastSync)) }))
+  const how = { auto: t('auto'), manual: t('manual'), 'on load': t('on load') }[lastSync.note] || lastSync.note;
+  const when = lastSync.at
+    ? (how ? t('last synced {when} ({how})', { when: dateTime(new Date(lastSync.at)), how }) : t('last synced {when}', { when: dateTime(new Date(lastSync.at)) }))
     : t('never synced');
-  const who = p && (await p.accountLabel?.());
-  // Signed in to Google: their profile picture sits beside the account name. No picture, no element.
-  const pic = who && p.accountPicture?.();
-  const img = pic ? Object.assign(document.createElement('img'), { src: pic, alt: '', referrerPolicy: 'no-referrer', className: 'avatar' }) : '';
-  st.replaceChildren(`${p ? p.label : t('No target')} · `, img, `${who || t('not connected')} · ${when}`);
+  // The account's picture is font.js's own, in the header (<app-account>); this line names the account.
+  const who = cloudOn() ? (window.appFont?.getAccount?.()?.email || window.appFont?.getAccount?.()?.name || '') : '';
+  st.textContent = `${cloudLabel()} · ${who || (cloudOn() ? t('signed in') : t('not signed in'))} · ${when}`;
 }
 
 // ---------------------------------------------------------------- actions
@@ -936,14 +925,14 @@ document.addEventListener('click', async e => {
       }
       case 'share-card': shareCard(); break;
       case 'erase-all': {
-        if (!window.confirm(t('Erase all Celebrity Crusher data on this device?') + '\n\n' + t('Activities, queue, goals, logged attempts, settings, coaching advice and the sync and Cowork connections are removed. Your Google Drive or sync-folder copy is not touched.'))) break;
-        clearTimeout(pushTimer);
+        if (!window.confirm(t('Erase all Celebrity Crusher data on this device?') + '\n\n' + t('Activities, queue, goals, logged attempts, settings, coaching advice and this device\'s sync and Cowork state are removed, and cloud sync pauses here until you sign in again. Your copy in {cloud} is not touched.', { cloud: cloudLabel() }))) break;
+        clearTimeout(syncTimer);
         await api('/api/erase', { body: {} });                 // the store: SQLite on the server, the browser blob here
-        for (const p of Sync.SYNC_PROVIDERS) await p.disconnect?.().catch?.(() => {});
-        await Sync.eraseHandles();                             // remembered sync and Garmin folders
-        await eraseCoworkFolder();                             // our Cowork folder, not other apps'
+        await Sync.eraseHandles();                             // the remembered Garmin folder
+        await dropLegacyCoworkHandle();                        // a folder link the retired Cowork method left, ours only
         eraseLocalData(localStorage);                          // our keys only — never localStorage.clear()
-        toast(t('Erased from this device. Your Drive or sync-folder copy is untouched.'), 6000);
+        try { localStorage.setItem(PAUSED_KEY, '1'); } catch { /* private mode */ }   // or the next load pulls it all back
+        toast(t('Erased from this device. Your copy in {cloud} is untouched.', { cloud: cloudLabel() }), 6000);
         setTimeout(() => location.reload(), 1500); break;
       }
       case 'pin-rival': {
@@ -969,24 +958,22 @@ document.addEventListener('click', async e => {
         toast(t.n('Restored {n} record', 'Restored {n} records', r.restored)); await load(); break;
       }
       case 'sync-now': {
-        const cfg = syncCfg();
         toast(t('Syncing…'), 8000);
-        const r = await Sync.syncNow(cfg.provider, cfg, api);
-        setSyncCfg({ lastSync: r.at, lastNote: 'manual' });
-        toast(t.n('Synced · pulled {n} record, pushed {kb} KB', 'Synced · pulled {n} records, pushed {kb} KB', r.restored, { kb: num(Math.max(1, Math.round(r.bytes / 1024)), 0) }));
+        const r = await cloudSync('manual', { quiet: false });
+        toast(!r ? t('Sign in first.') : r.applied ? t.n('Synced · {n} change from your other devices', 'Synced · {n} changes from your other devices', r.applied)
+          : r.pushed ? t('Synced · your changes are in the cloud') : t('Synced · already up to date'));
         await load(); break;
       }
-      case 'sync-restore': {
-        const cfg = syncCfg();
-        const r = await Sync.restoreFrom(cfg.provider, cfg, api);
-        toast(r.empty ? t('Nothing stored there yet — sync once to put it there') : t.n('Pulled {n} record', 'Pulled {n} records', r.restored));
-        await load(); break;
+      case 'cloud-signin': {
+        await cloudApi().signIn();                             // the reader's chosen cloud, through font.js
+        try { localStorage.removeItem(PAUSED_KEY); } catch { /* private mode */ }
+        toast(t('Signed in · syncing…'), 6000);
+        await cloudSync('manual', { quiet: false });
+        toast(t('Signed in · in step with your other devices')); await load(); break;
       }
-      case 'sync-disconnect': {
-        const cfg = syncCfg();
-        await Sync.getSyncProvider(cfg.provider)?.disconnect();
-        setSyncCfg({ lastSync: 0, lastNote: '' });
-        toast(t('Disconnected')); connect(); break;
+      case 'cloud-signout': {
+        await cloudApi().signOut();
+        toast(t('Signed out')); connect(); break;
       }
       case 'garmin-pick': {
         const name = await Sync.pickGarminFolder();
@@ -1019,13 +1006,6 @@ document.addEventListener('change', async e => {
     if (action === 'q-status') { await api(`/api/queue/${id}`, { method: 'PATCH', body: { status: el.value } }); await load(); }
     if (action === 'q-date') { await api(`/api/queue/${id}`, { method: 'PATCH', body: { target_date: el.value } }); await load(); }
     if (action === 'goal-date') { await api(`/api/goals/${id}`, { method: 'PATCH', body: { target_date: el.value } }); await load(); }
-    if (action === 'sync-provider') { setSyncCfg({ provider: el.value }); connect(); }
-    if (action === 'sync-clientid') { setSyncCfg({ driveClientId: el.value.trim() }); toast(t('Client ID saved')); }
-    if (action === 'sync-auto') {
-      setSyncCfg({ auto: el.checked });
-      toast(el.checked ? t('Auto-sync on — it pushes a few seconds after each change') : t('Auto-sync off'));
-      if (el.checked) await bootSync();
-    }
   } catch (err) { toast(t('Error: {message}', { message: err.message }), 6000); }
 });
 
@@ -1076,19 +1056,16 @@ function attemptForm(featId) {
 async function bootSync() {
   let changed = false;
   try { const r = await Sync.garminAutoLoad(api); if (r.added) changed = true; } catch { /* folder gone */ }
-  const cfg = syncCfg();
-  if (cfg.auto) {
-    try {
-      const r = await Sync.syncNow(cfg.provider, cfg, api, { silent: true });
-      setSyncCfg({ lastSync: r.at, lastNote: 'on load' });
-      if (r.restored) changed = true;
-    } catch { /* no grant yet, or offline — Sync now in the Connect tab fixes it */ }
-  }
-  if (changed) await load();
+  // A reader signed in before (here or on the hub) is signed in again without a window, then synced.
+  try { if (localStorage.getItem(PAUSED_KEY) !== '1') await cloudApi()?.signIn?.({ silent: true }); } catch { /* not signed in: the Connect tab offers it */ }
+  const r = await cloudSync('on load');
+  if (changed && !r?.applied) await load();
   if (ui.tab === 'connect') paintSyncState();
 }
 
 document.addEventListener('app-theme-change', () => { if (S) render(); });
+window.addEventListener('focus', () => cloudSync('auto'));
+window.addEventListener('online', () => cloudSync('auto'));
 window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && h !== ui.tab && tabs().some(([id]) => id === h)) { ui.tab = h; render(); } });
 // Translations first (font.js loads the reader's language), so the first paint is already in it.
 (window.appFont?.ready || Promise.resolve()).catch(() => {}).then(load).then(bootSync)

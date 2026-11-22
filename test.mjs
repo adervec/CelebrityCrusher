@@ -11,6 +11,7 @@ import { importCsv, importGpx, importJson, parseCsv } from './lib/garmin.js';
 import { dedupeKey } from './lib/db.js';
 import { backend, memStore } from './public/local.js';
 import * as Sync from './public/sync.js';
+import * as CloudSync from './lib/cloudsync.js';
 import { readFileSync, existsSync } from 'node:fs';
 
 const NOW = 1789000000;                       // fixed clock: the demo generator is seeded
@@ -482,83 +483,131 @@ check('the folder watcher only claims files that look like ours', () => {
     assert.ok(!Sync.matchesGarminFile(no), `should not match: ${no}`);
 });
 
-// A provider is only upload/download/stat over a name, so a Map stands in for Drive.
-const fakeCloud = () => {
-  const files = new Map();
-  return {
-    files,
-    id: 'fake', label: 'Fake cloud',
-    supported: () => true, available: () => true,
-    connect: async () => ({}), isConnected: async () => true, disconnect: async () => {},
-    upload: async (_c, name, blob) => { files.set(name, { text: await blob.text(), at: Date.now() }); },
-    download: async (_c, name) => (files.has(name) ? new Blob([files.get(name).text]) : null),
-    stat: async (_c, name) => files.get(name)?.at ?? null,
-  };
-};
-const apiFor = h => (path, opts) => h(path, opts?.method || (opts ? 'POST' : 'GET'), opts?.body || {});
-
-await ta('sync carries your work to a second device and converges there', async () => {
-  const cloud = fakeCloud();
-  const phone = fresh(), laptop = fresh();
-  const feat = FEATS.find(f => f.check.kind === 'manual' && !f.sacred);
-  await phone('/api/athlete', 'POST', { name: 'Two Devices', birth_year: 1990 });
-  await phone('/api/queue', 'POST', { feat_id: feat.id });
-  await phone('/api/goals', 'POST', { feat_id: feat.id, target_date: '2027-06-01' });
-  await phone('/api/attempts', 'POST', { feat_id: feat.id, date: '2026-05-05', verified: true });
-
-  const up = await Sync.syncNow(cloud, {}, apiFor(phone));
-  assert.ok(up.bytes > 0 && cloud.files.has(Sync.BACKUP_FILE_NAME), 'nothing reached the cloud');
-
-  await Sync.syncNow(cloud, {}, apiFor(laptop));
-  const st = await laptop('/api/state');
-  assert.equal(st.athlete.name, 'Two Devices');
-  assert.equal(st.queue.length, 1);
-  assert.equal(st.goals.length, 1);
-  assert.equal(st.verdicts[feat.id].status, STATUS.CRUSHED, 'the logged attempt did not travel');
-
-  // The auto-sync timer fires repeatedly; a second pass must change nothing.
-  await Sync.syncNow(cloud, {}, apiFor(laptop));
-  await Sync.syncNow(cloud, {}, apiFor(laptop));
-  const again = await laptop('/api/state');
-  assert.deepEqual([again.queue.length, again.goals.length, again.attempts.length], [1, 1, 1], 'syncing twice duplicated rows');
-
-  // And a change made on the laptop comes back to the phone.
-  await laptop('/api/goals', 'POST', { feat_id: feat.id, target_date: '2028-01-01' });
-  await Sync.syncNow(cloud, {}, apiFor(laptop));
-  await Sync.syncNow(cloud, {}, apiFor(phone));
-  assert.equal((await phone('/api/state')).goals.length, 2);
-});
-
-await ta('an empty cloud is not an error, it is just the first sync', async () => {
-  const r = await Sync.restoreFrom(fakeCloud(), {}, apiFor(fresh()));
-  assert.equal(r.empty, true);
-  assert.equal(r.restored, 0);
-});
-
-check('the Google profile picture is drawn beside the account name, https only', () => {
-  assert.equal(Sync.avatarUrl({ picture: 'https://lh3.googleusercontent.com/a/x=s96-c' }), 'https://lh3.googleusercontent.com/a/x=s96-c');
-  for (const bad of [null, {}, { picture: '' }, { picture: 'javascript:alert(1)' }, { picture: 'http://x/y.png' }]) assert.equal(Sync.avatarUrl(bad), '');
-  assert.equal(Sync.googleDriveProvider.accountPicture(), '', 'nothing when signed out');
-  const app = readFileSync('./public/app.js', 'utf8');
-  assert.ok(app.includes('accountPicture') && app.includes("referrerPolicy: 'no-referrer'"));
-});
-
-check('Drive is gated to the origins its client id is registered for', () => {
-  assert.ok(Sync.BUILTIN_DRIVE_CLIENT_ID.endsWith('.apps.googleusercontent.com'));
-  assert.equal(Sync.driveClientId({ driveClientId: ' mine-123 ' }), 'mine-123');   // a fork's own id wins
-  assert.equal(Sync.driveClientId({}), '');                                        // no `location` in node
-  assert.equal(Sync.googleDriveProvider.available({}).ok, false);
-  assert.equal(Sync.googleDriveProvider.available({ driveClientId: 'x' }), true);
-});
-
-console.log('house standards');
-
 /** A Storage stand-in that fails the test if anyone wipes the shared origin. */
 const fakeStorage = init => {
   const m = new Map(Object.entries(init));
   return { getItem: k => m.has(k) ? m.get(k) : null, setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k),
     clear: () => { throw new Error('clearing the whole origin wipes every app on it'); }, m };
 };
+
+// A pretend cloud with font.js's syncDoc and mergeRecords semantics (read first when the cloud changed,
+// merge record by record with the latest change winning, save only on change, write only on difference).
+const fakeCloud = () => {
+  const files = new Map();   // name -> { text, version }
+  let v = 0;
+  const stable = x => JSON.stringify(x, (k, y) => y && typeof y === 'object' && !Array.isArray(y) ? Object.keys(y).sort().reduce((o, k2) => { o[k2] = y[k2]; return o; }, {}) : y);
+  const cloud = {
+    files,
+    read: async name => files.get(name)?.text ?? null,
+    stat: async name => (files.has(name) ? { version: files.get(name).version } : null),
+    write: async (name, text) => { files.set(name, { text, version: ++v }); },
+    mergeRecords(a, b) {
+      const out = new Map();
+      for (const r of [...(b || []), ...(a || [])]) {
+        const o = out.get(r.id);
+        if (!o || r.updatedAt > o.updatedAt || (r.updatedAt === o.updatedAt && stable(r) > stable(o))) out.set(r.id, r);
+      }
+      return [...out.values()];
+    },
+    // per device: what version of each file it last saw
+    async syncDoc(name, h, seen) {
+      const was = seen[name] || {}, local = await h.load(), st = await cloud.stat(name);
+      let doc = local, pulled = false, remote = null;
+      if (st && st.version !== was.version) {
+        remote = JSON.parse(await cloud.read(name));
+        doc = local == null ? remote : h.merge(local, remote);
+        if (stable(doc) !== stable(local)) { pulled = true; await h.save(doc); }
+      }
+      const theirs = remote != null ? stable(remote) : was.text;
+      if (st && stable(doc) === theirs) { seen[name] = { version: st.version, text: theirs }; return { pulled, pushed: false }; }
+      await cloud.write(name, JSON.stringify(doc));
+      seen[name] = { version: (await cloud.stat(name)).version, text: stable(doc) };
+      return { pulled, pushed: true };
+    },
+  };
+  return cloud;
+};
+// One device: its own backend, its own storage, its own view of the cloud's versions.
+const device = cloud => {
+  const h = fresh(), storage = fakeStorage({}), seen = {};
+  let clock = 1_800_000_000_000;
+  const api = (path, opts) => h(path, opts?.method || (opts ? 'POST' : 'GET'), opts?.body || {});
+  const view = { syncDoc: (n, x) => cloud.syncDoc(n, x, seen), read: cloud.read, mergeRecords: cloud.mergeRecords };
+  return { h, storage, api, sync: () => CloudSync.syncOnce({ cloud: view, api, storage, now: () => (clock += 1000) }), tick: ms => { clock += ms; } };
+};
+
+await ta('sync: two devices, both edits survive and a deletion stays deleted (standard 30)', async () => {
+  const cloud = fakeCloud(), A = device(cloud), B = device(cloud);
+  const [f1, f2, f3] = FEATS.filter(f => f.check.kind === 'manual' && !f.sacred);
+  await A.h('/api/queue', 'POST', { feat_id: f1.id });
+  await A.h('/api/goals', 'POST', { feat_id: f1.id, target_date: '2027-06-01' });
+  await A.sync();
+  await B.sync();
+  let b = await B.h('/api/state');
+  assert.deepEqual([b.queue.length, b.goals.length], [1, 1], 'the second device did not receive the first device\'s work');
+
+  // A edits one thing; stale B edits something else; both survive
+  await A.h('/api/attempts', 'POST', { feat_id: f2.id, date: '2026-05-05', verified: true });
+  await A.sync();
+  await B.h('/api/queue', 'POST', { feat_id: f3.id });   // B never saw A's attempt
+  await B.sync();
+  await A.sync();
+  const a = await A.h('/api/state'); b = await B.h('/api/state');
+  for (const s of [a, b]) {
+    assert.deepEqual(s.queue.map(q => q.feat_id).sort(), [f1.id, f3.id].sort());
+    assert.equal(s.attempts.length, 1);
+  }
+
+  // a deletion on A stays deleted after B syncs (B still holds the item)
+  await A.h(`/api/queue/${a.queue.find(q => q.feat_id === f1.id).id}`, 'DELETE');
+  await A.sync();
+  await B.sync();
+  await A.sync();
+  for (const s of [await A.h('/api/state'), await B.h('/api/state')])
+    assert.deepEqual(s.queue.map(q => q.feat_id), [f3.id], 'a deleted item came back');
+
+  // the same setting changed on both: the later change wins everywhere
+  await A.h('/api/athlete', 'POST', { birth_year: 1980 }); await A.sync();
+  B.tick(60000);
+  await B.h('/api/athlete', 'POST', { birth_year: 1985 }); await B.sync();
+  await A.sync();
+  assert.deepEqual([(await A.h('/api/state')).athlete.birth_year, (await B.h('/api/state')).athlete.birth_year], [1985, 1985]);
+
+  // syncing again changes nothing and writes nothing
+  const before = cloud.files.get(CloudSync.DOC_NAME).version;
+  const r = await A.sync();
+  assert.equal(r.pushed, false);
+  assert.equal(cloud.files.get(CloudSync.DOC_NAME).version, before);
+});
+
+await ta('sync: moving over keeps everything the old whole-file sync held, and cloud data is cleaned', async () => {
+  const cloud = fakeCloud(), feat = FEATS.find(f => f.check.kind === 'manual' && !f.sacred);
+  await cloud.write(CloudSync.LEGACY_NAME, JSON.stringify({ version: 1, goals: [{ feat_id: feat.id, target_date: '2027-01-01' }] }));
+  const C = device(cloud);
+  await C.sync();
+  assert.equal((await C.h('/api/state')).goals.length, 1, 'the old snapshot was not folded in');
+  assert.ok(cloud.files.has(CloudSync.DOC_NAME) && cloud.files.has(CloudSync.LEGACY_NAME), 'the old file is left alone');
+  // a hostile record in the cloud is cut down like any restore
+  const doc = JSON.parse(cloud.files.get(CloudSync.DOC_NAME).text);
+  doc.records.push({ id: 'queue:x', kind: 'queue', updatedAt: 9e15, data: { feat_id: feat.id, status: '<script>', target_date: '"><img src=x onerror=alert(1)>' } });
+  await cloud.write(CloudSync.DOC_NAME, JSON.stringify(doc));
+  await C.sync();
+  const q = (await C.h('/api/state')).queue[0];
+  assert.deepEqual([q.status, q.target_date], ['queued', null]);
+  assert.equal(CloudSync.parseDeleteId('setting:password'), null);
+  assert.equal(CloudSync.parseDeleteId('nonsense'), null);
+});
+
+check('cloud sync goes only through appFont.cloud: no own Drive code, no folder sync, the picture from font.js', () => {
+  const app = readFileSync('./public/app.js', 'utf8'), sync = readFileSync('./public/sync.js', 'utf8');
+  assert.ok(app.includes('appFont?.cloud') && app.includes('CloudSync.syncOnce'));
+  assert.ok(!/googleapis\.com|accounts\.google\.com|gsi\/client/.test(sync + app), 'the app talks to Google itself');
+  assert.ok(!/localFolderProvider|crusher-sync/.test(sync + app), 'the retired folder sync is still there');
+  assert.ok(readFileSync('./index.html', 'utf8').includes('<app-account'), 'no account picture in the header');
+});
+
+console.log('house standards');
+
 
 check('no third-party requests: fonts are self-hosted on adervec.github.io', () => {
   assert.ok(!/fonts.googleapis|fonts.gstatic/.test(readFileSync('./celebrity-marathon-ledger.html', 'utf8')), 'the original ledger page still calls Google Fonts');
@@ -594,7 +643,7 @@ await ta('erase removes this app\'s data on this device and nothing else', async
   const app = readFileSync('./public/app.js', 'utf8'), at = app.indexOf("case 'erase-all'");
   const body = app.slice(at, app.indexOf('break; }', at));
   assert.ok(body.indexOf('window.confirm') >= 0 && body.indexOf('window.confirm') < body.indexOf("api('/api/erase'"), 'confirm comes first');
-  assert.ok(body.includes('disconnect') && body.includes('eraseHandles') && /Drive[^']*not touched/.test(body));
+  assert.ok(body.includes('eraseHandles') && body.includes('dropLegacyCoworkHandle') && /PAUSED_KEY/.test(body) && /not touched/.test(body));
   assert.ok(!/localStorage\.clear\(\)/.test(app.replace(/\/\/.*$/gm, '')));
 });
 
@@ -671,7 +720,7 @@ await ta('Cowork: the feat coach channel follows the house standard', async () =
   // the app mounts the shared engine with a described channel, review left on, undo wired, erase covered
   const app = readFileSync('./public/app.js', 'utf8');
   assert.ok(app.includes("src: 'https://adervec.github.io/cowork.js'") && /cw\.mount\(coworkHost/.test(app));
-  for (const k of ["label: t('Feat coach')", 'preview: reply =>', 'apply: reply =>', 'undo: data =>', 'brief: () => coachBrief(S)', 'eraseCoworkFolder()']) assert.ok(app.includes(k), `app.js lacks ${k}`);
+  for (const k of ["label: t('Feat coach')", 'preview: reply =>', 'apply: reply =>', 'undo: data =>', 'brief: () => coachBrief(S)', 'dropLegacyCoworkHandle()']) assert.ok(app.includes(k), `app.js lacks ${k}`);
   assert.ok(!/review:\s*false/.test(app), 'review stays on by default');
   assert.ok(OWN_KEYS.includes('cowork-state:celebritycrusher') && OWN_KEYS.includes('crusher.coach') && !OWN_KEYS.includes('cowork-device'));
 });
